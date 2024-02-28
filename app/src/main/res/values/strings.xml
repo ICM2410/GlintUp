@@ -59,7 +59,9 @@
     <string name="bf">Continuar con Facebook</string>
     <string name="terminos">"Al hacer click en &quot;Continuar&quot;usted esta de acuerdo con nuestros &quot;Terminos&quot;.Aprende como procesamos tus datos en nuestra &quot;Politica de Privacidad&quot;y en nuestra &quot;Politica de Cookies&quot;"</string>
     <string name="problemas">Problemas inciando sesion?</string>
-
+    <string name="preguntaCumple">¿Tu cumpleaños?</string>
+    <string name="advertenciaNacimiento">Tu perfil muestra tu edad, no tu fecha de nacimiento</string>
+    <string name="agregarFotosAlerta">Agrega una foto más. No busques la foto perfecta, siempre puedes cambiar tus fotos después.</string>
 
 
 </resources>

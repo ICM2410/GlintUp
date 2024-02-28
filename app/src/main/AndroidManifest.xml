@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInActivity">
         <activity
-            android:name=".OrientacionSexualActivity"
+            android:name=".FotosRecientesActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LogInActivity"
             android:exported="false" />
         <activity
             android:name=".PersonalChatActivity"
@@ -29,16 +29,17 @@
         <activity
             android:name=".InteresesActivity"
             android:exported="false" />
-      <activity
+        <activity
             android:name=".EstiloDeVidaActivity"
             android:exported="false" />
-      
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
-      
         <activity
-            android:name=".LogInActivity"
+            android:name=".OrientacionSexualActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CumpleanosActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

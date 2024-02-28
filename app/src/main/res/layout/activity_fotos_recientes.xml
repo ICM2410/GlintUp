@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".DistanciaActivity">
 
 
     <ImageButton
@@ -19,11 +20,12 @@
         app:tint="@color/black"
         android:contentDescription="@string/boton_volver" />
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/preguntaGenero"
+        android:text="@string/preguntaCumple"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,45 +35,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.098" />
 
-    <Button
-        android:id="@+id/generoHombre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hombre"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
-
-    <Button
-        android:id="@+id/generoMujer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mujer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.30"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
 
 
-    <Button
-        android:id="@+id/generoOtro"
-        android:layout_width="match_parent"
+
+        
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/otro"
+        android:text="@string/agregarFotosAlerta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.40"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"/>
+        app:layout_constraintVertical_bias="0.78"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/siguiente"
@@ -87,25 +69,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.884" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginBottom="200dp"
-        android:background="@color/grisClaro"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
-    <CheckBox
-        android:id="@+id/mostrarGenero"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mostrarGenero"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8"
-        android:textColor="@color/gris"/>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
