@@ -13,7 +13,6 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         binding.navegacion.setOnItemSelectedListener {
 
         when (it.itemId) {
