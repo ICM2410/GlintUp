@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/rectangle_mask"
+        android:backgroundTint="@color/main_color"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="Glint Up Plus!"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,6 +47,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Get unlimited likes, Passport, Priority and more!"
                 android:gravity="center"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -55,6 +59,7 @@
                 android:layout_marginStart="64dp"
                 android:layout_marginEnd="64dp"
                 android:text="Upgrade To Plus"
+                android:backgroundTint="@color/secondary_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -211,11 +216,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="24dp"
+            android:src="@drawable/noun_gear_5208773"
+            android:backgroundTint="#FFFFFF"
+            android:background="@drawable/escribir_texto_redondeado_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -240,15 +248,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <Button
+        <ImageButton
             android:id="@+id/button3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
-            app:iconPadding="0dp"
+            android:background="@drawable/escribir_texto_redondeado_bg"
+            android:paddingTop="7dp"
+            android:src="@drawable/noun_edit_5509703"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
