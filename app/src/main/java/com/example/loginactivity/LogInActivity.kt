@@ -13,8 +13,12 @@ class LogInActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        configurarBotonSiguiente()
+    }
+    private fun configurarBotonSiguiente() {
         binding.google.setOnClickListener {
-            startActivity(Intent(this,ChatActivity::class.java))
+            val intent = Intent(this, MatchActivity::class.java)
+            startActivity(intent)
         }
     }
 }

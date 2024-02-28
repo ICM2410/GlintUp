@@ -68,7 +68,7 @@
     <string name="fraseNumero">¡Vamos a conectarnos! ¿Cuál es tu número de teléfono?</string>
     <string name="fraseNombre">Nos gustaría saber cómo es tu nombre para llamarte con propiedad</string>
     <string name="problemas">Problemas inciando sesion?</string>
-    <string name="find">Buscar, 0 emparejamientos</string>
+    <string name="find">Buscar, 3 emparejamientos</string>
     <string name="gustos">Ver a quien le gustas</string>
     <string name="cantlikes">0 likes</string>
     <string name="opiniones">Mejores opiniones</string>
@@ -76,5 +76,32 @@
     <string name="ingresarNombre">¿Cual es tu nombre?</string>
     <string name="descripcion_dislike">descripcion dislike</string>
     <string name="piropo">Tú tienes la máxima prioridad en mi lista de procesos.</string>
+    <string name="slogan">¿Buscando Pareja?</string>
+    <string name="slogan1">Conoce ya a personas increibles</string>
+    <string name="slogan2">¿Que estas esperando?</string>
+    <string name="slogan3">Conoce  gente nueva</string>
+    <string name="explorar">Bienvenido a explorar!</string>
+    <string name="empezar">Empieza ahora</string>
+    <string name="nombreEdad">Juan, 21</string>
+    <string name="app">Glint Up</string>
+    <string name="superLikes">0 Super Likes</string>
+    <string name="boosts">My Boosts</string>
+    <string name="getMore">Obtener mas</string>
+    <string name="plus">Actualizar a plus</string>
+    <string name="beneficio">Obtén likes ilimitados, Pasaporte, Prioridad ¡y más!</string>
+    <string name="subs">Suscripciones</string>
+    <string name="brad">Brad pitt</string>
+
+
+
+    <string name="profile_photo">Foto del perfil</string>
+    <string name="profile_name">Nombre del Usuario</string>
+    <string name="last_message">Último mensaje recibido...</string>
+    <string name="message_time">10:45 PM</string>
+
+
+
+
+
 
 </resources>

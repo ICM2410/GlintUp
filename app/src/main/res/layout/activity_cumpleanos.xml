@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DistanciaActivity">
+    tools:context=".DistanciaActivity"
+    android:background="@color/main_color">
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,6 +54,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:text="@string/siguiente"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:background="@drawable/boton_opciones_redondeado_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -12,9 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInActivity"
         tools:targetApi="31">
+
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ChatActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".CumpleanosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".DistanciaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".EditActivity"
+            android:exported="false" />
+
         <activity
             android:name=".NombreUsuarioActivity"
             android:exported="false" />
@@ -33,9 +47,7 @@
         <activity
             android:name=".PersonalChatActivity"
             android:exported="false" />
-        <activity
-            android:name=".DistanciaActivity"
-            android:exported="false" />
+
         <activity
             android:name=".SeleccionGeneroActivity"
             android:exported="false" />
@@ -45,20 +57,23 @@
         <activity
             android:name=".EstiloDeVidaActivity"
             android:exported="false" />
-        <activity
-            android:name=".ChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CumpleanosActivity"
-            android:exported="false" />
+
         <activity
             android:name=".UserActivity"
             android:exported="false" />
+
         <activity
             android:name=".FotosRecientesActivity"
             android:exported="false" />
         <activity
+            android:name=".ExploreActivity"
+            android:exported="false" />
+        <activity
             android:name=".MatchActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".SignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

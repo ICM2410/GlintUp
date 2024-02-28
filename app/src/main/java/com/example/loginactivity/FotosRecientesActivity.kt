@@ -18,7 +18,7 @@ class FotosRecientesActivity : AppCompatActivity() {
 
     private fun configurarBotonSiguiente() {
         binding.siguiente.setOnClickListener {
-            val intent = Intent(this, LikesActivity::class.java)
+            val intent = Intent(this, MatchActivity::class.java)
             startActivity(intent)
         }
     }
