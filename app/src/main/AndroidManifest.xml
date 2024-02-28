@@ -10,10 +10,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LogInActivity"
-        tools:targetApi="31">
+        android:theme="@style/Theme.LogInActivity">
         <activity
-            android:name=".MainActivity"
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LogInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
