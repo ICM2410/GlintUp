@@ -5,26 +5,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/lamp"
+        android:id="@+id/lamp"
         android:title="lamp"/>
 
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/explore"
+        android:id="@+id/explore"
         android:title="explore" />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/likes"
+        android:id="@+id/likes"
         android:title="likes" />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/chat"
+        android:id="@+id/chat"
         android:title="chats" />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/human"
+        android:id="@+id/profile"
         android:title="profile" />
 </menu>
