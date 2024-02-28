@@ -1,3 +1,56 @@
 <resources>
     <string name="app_name">LogInActivity</string>
+    <string name="escribe">Escribe un mensaje...</string>
+    <string name="nombreChat">Jhon Abraham</string>
+    <string name="conectado">Conectado</string>
+    <string name="boton_volver">Volver atras</string>
+    <string name="enviar_mensaje">enviar mensaje</string>
+    <string name="ajustes">ajustes</string>
+    <string name="hombre">Hombre</string>
+    <string name="hombres">Hombres</string>
+    <string name="mujer">Mujer</string>
+    <string name="mujeres">Mujeres</string>
+    <string name="otro">Otro</string>
+    <string name="preguntaGenero">¿Cuál es tu género?</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="mostrarGenero">Mostrar mi género en mi perfil</string>
+    <string name="intereses">¿A quién te interesa ver?</string>
+    <string name="distancia">¿Qué distancia buscas?</string>
+    <string name="instrucciones">Desliza el control para ajustar la distancia máxima a la que quieres que se encuentren tus Matches potenciales.</string>
+    <string name="kilometros">Preferencia de distancia</string>
+    <string name="valkilometros">50 km</string>
+    <string name="preguntaFrencuenciaEjercicio">¿Cada cuánto haces ejercicio?</string>
+    <string name="frecuencia1">Todos los días</string>
+    <string name="frecuencia2">Varias veces a la semana</string>
+    <string name="frecuencia3">Ocasionalmente</string>
+    <string name="frecuencia4">Nunca</string>
+    <string name="pregunta_fumar">¿Cada cuánto fumas?</string>
+    <string name="fumador_social">Fumador social</string>
+    <string name="fumador_al_beber">Fumador al beber</string>
+    <string name="no_fumador">No fumador</string>
+    <string name="fumador">Fumador</string>
+    <string name="intento_dejarlo">Intento dejarlo</string>
+    <string name="pregunta_ejercicio">¿Haces ejercicio?</string>
+    <string name="ejercicio_todos_los_dias">Todos los días</string>
+    <string name="ejercicio_a_menudo">A menudo</string>
+    <string name="ejercicio_algunas_veces">Algunas veces</string>
+    <string name="ejercicio_nunca">Nunca</string>
+    <string name="orientacion">¿Tu orientación sexual?</string>
+    <string name="orientacionMostrar">Mostrar mi orientación en mi perfil</string>
+    <string name="cantidadSeleccion">Selecciona hasta 3</string>
+
+    <string-array name="orientacionSexualOpciones">
+        <item>Heterosexual</item>
+        <item>Gay</item>
+        <item>Lesbiana</item>
+        <item>Bisexual</item>
+        <item>Asexual</item>
+        <item>Demisexual</item>
+        <item>Pansexual</item>
+        <item>Queer</item>
+        <item>Questioning</item>
+        <item>Arromántico</item>
+        <item>Omnisexual</item>
+    </string-array>
+
 </resources>
