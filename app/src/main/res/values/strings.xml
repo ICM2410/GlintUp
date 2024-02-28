@@ -74,5 +74,7 @@
     <string name="opiniones">Mejores opiniones</string>
     <string name="midlike">Ver las personas, que te dieron me gusta</string>
     <string name="ingresarNombre">¿Cual es tu nombre?</string>
+    <string name="descripcion_dislike">descripcion dislike</string>
+    <string name="piropo">Tú tienes la máxima prioridad en mi lista de procesos.</string>
 
 </resources>

@@ -10,9 +10,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LogInActivity">
+        android:theme="@style/Theme.LogInActivity"
+        tools:targetApi="31">
         <activity
-            android:name=".MatchActivity"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".NombreUsuarioActivity"
@@ -57,7 +58,7 @@
             android:name=".FotosRecientesActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".MatchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
