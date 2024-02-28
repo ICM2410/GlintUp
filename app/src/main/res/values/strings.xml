@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">LogInActivity</string>
+
     <string name="escribe">Escribe un mensaje...</string>
     <string name="nombreChat">Jhon Abraham</string>
     <string name="conectado">Conectado</string>
@@ -52,5 +53,13 @@
         <item>Arromántico</item>
         <item>Omnisexual</item>
     </string-array>
+
+    <string name="bg">Continuar con Google</string>
+    <string name="bw">Continuar con Whatsapp</string>
+    <string name="bf">Continuar con Facebook</string>
+    <string name="terminos">"Al hacer click en &quot;Continuar&quot;usted esta de acuerdo con nuestros &quot;Terminos&quot;.Aprende como procesamos tus datos en nuestra &quot;Politica de Privacidad&quot;y en nuestra &quot;Politica de Cookies&quot;"</string>
+    <string name="problemas">Problemas inciando sesion?</string>
+
+
 
 </resources>
