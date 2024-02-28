@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_color"
     tools:context=".UserActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/rectangle_mask"
+        android:backgroundTint="@color/main_color"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="Glint Up Plus!"
+                android:textStyle="bold"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +46,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Get unlimited likes, Passport, Priority and more!"
                 android:gravity="center"
+                android:text="Get unlimited likes, Passport, Priority and more!"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -55,10 +60,21 @@
                 android:layout_marginStart="64dp"
                 android:layout_marginEnd="64dp"
                 android:text="Upgrade To Plus"
+                android:backgroundTint="@color/secondary_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toTopOf="@+id/textView11"
+                app:layout_constraintEnd_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,6 +127,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="GET MORE"
+                    android:textStyle="bold"
+                    android:textColor="#28ace4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +175,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="GET MORE"
+                    android:textColor="#a84cdc"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -192,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:gravity="center"
-                    android:text="GET MORE"
+                    android:text="Subscriptions"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -208,14 +228,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/main_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/button"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="24dp"
+            android:src="@drawable/noun_gear_5208773"
+            android:backgroundTint="@color/main_color"
+            android:background="@drawable/escribir_texto_redondeado_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -224,11 +248,21 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="TITLE"
+            android:text="Glint Up"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -238,17 +272,19 @@
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/main_color"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <Button
+        <ImageButton
             android:id="@+id/button3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
-            app:iconPadding="0dp"
+            android:background="@drawable/escribir_texto_redondeado_bg"
+            android:paddingTop="7dp"
+            android:src="@drawable/noun_edit_5509703"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -287,6 +323,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getPlus"
+        android:background="@color/main_color"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_nav" />
 </androidx.constraintlayout.widget.ConstraintLayout>
