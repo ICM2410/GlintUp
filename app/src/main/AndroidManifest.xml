@@ -12,8 +12,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInActivity">
         <activity
+            android:name=".OrientacionSexualActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DistanciaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SeleccionGeneroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InteresesActivity"
+            android:exported="false" />
+      <activity
+            android:name=".EstiloDeVidaActivity"
+            android:exported="false" />
+      
+        <activity
             android:name=".ChatActivity"
             android:exported="false" />
+      
         <activity
             android:name=".LogInActivity"
             android:exported="true">
