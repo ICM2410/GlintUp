@@ -1,8 +1,10 @@
 package com.example.loginactivity
-import android.widget.SeekBar
-import android.widget.TextView
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.content.Intent
+import android.widget.SeekBar
+import android.widget.TextView
 import com.example.loginactivity.databinding.ActivityDistanciaBinding
 
 class DistanciaActivity : AppCompatActivity() {
@@ -12,13 +14,16 @@ class DistanciaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDistanciaBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
+        configurarSeekBar()
+        configurarBotonSiguiente()
+    }
+
+    private fun configurarSeekBar() {
         binding.kilometros.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                // Actualiza el valor del TextView con el valor seleccionado del SeekBar
-                "$progress km".also { binding.kilometrosValor.text = it }
+                actualizarValorSeekBar(progress)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -29,5 +34,16 @@ class DistanciaActivity : AppCompatActivity() {
                 // No es necesario implementarla, sin embargo es obligatoria
             }
         })
+    }
+
+    private fun actualizarValorSeekBar(progress: Int) {
+        binding.kilometrosValor.text = "$progress km"
+    }
+
+    private fun configurarBotonSiguiente() {
+        binding.siguiente.setOnClickListener {
+            val intent = Intent(this, EstiloDeVidaActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
