@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInActivity">
         <activity
+            android:name=".ExploreActivity"
+            android:exported="false" />
+        <activity
             android:name=".MatchActivity"
             android:exported="false" />
         <activity
