@@ -1,3 +1,107 @@
 <resources>
     <string name="app_name">LogInActivity</string>
+    <string name="escribe">Escribe un mensaje...</string>
+    <string name="nombreChat">Jhon Abraham</string>
+    <string name="conectado">Conectado</string>
+    <string name="volverAtras">Volver atras</string>
+    <string name="enviar_mensaje">enviar mensaje</string>
+    <string name="ajustes">ajustes</string>
+    <string name="hombre">Hombre</string>
+    <string name="hombres">Hombres</string>
+    <string name="mujer">Mujer</string>
+    <string name="mujeres">Mujeres</string>
+    <string name="otro">Otro</string>
+    <string name="preguntaGenero">¿Cuál es tu género?</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="mostrarGenero">Mostrar mi género en mi perfil</string>
+    <string name="intereses">¿A quién te interesa ver?</string>
+    <string name="distancia">¿Qué distancia buscas?</string>
+    <string name="instrucciones">Desliza el control para ajustar la distancia máxima a la que quieres que se encuentren tus Matches potenciales.</string>
+    <string name="kilometros">Preferencia de distancia</string>
+    <string name="valkilometros">50 km</string>
+    <string name="preguntaFrencuenciaEjercicio">¿Cada cuánto haces ejercicio?</string>
+    <string name="frecuencia1">Todos los días</string>
+    <string name="frecuencia2">Varias veces a la semana</string>
+    <string name="frecuencia3">Ocasionalmente</string>
+    <string name="frecuencia4">Nunca</string>
+    <string name="pregunta_fumar">¿Cada cuánto fumas?</string>
+    <string name="fumador_social">Fumador social</string>
+    <string name="fumador_al_beber">Fumador al beber</string>
+    <string name="no_fumador">No fumador</string>
+    <string name="fumador">Fumador</string>
+    <string name="intento_dejarlo">Intento dejarlo</string>
+    <string name="pregunta_ejercicio">¿Haces ejercicio?</string>
+    <string name="ejercicio_todos_los_dias">Todos los días</string>
+    <string name="ejercicio_a_menudo">A menudo</string>
+    <string name="ejercicio_algunas_veces">Algunas veces</string>
+    <string name="ejercicio_nunca">Nunca</string>
+    <string name="orientacion">¿Tu orientación sexual?</string>
+    <string name="orientacionMostrar">Mostrar mi orientación en mi perfil</string>
+    <string name="cantidadSeleccion">Selecciona hasta 3</string>
+
+    <string-array name="orientacionSexualOpciones">
+        <item>Heterosexual</item>
+        <item>Gay</item>
+        <item>Lesbiana</item>
+        <item>Bisexual</item>
+        <item>Asexual</item>
+        <item>Demisexual</item>
+        <item>Pansexual</item>
+        <item>Queer</item>
+        <item>Questioning</item>
+        <item>Arromántico</item>
+        <item>Omnisexual</item>
+
+    </string-array>
+    <string name="bg">Continuar con Google</string>
+    <string name="bw">Continuar con Whatsapp</string>
+    <string name="bf">Continuar con Facebook</string>
+    <string name="terminos">"Al hacer click en &quot;Continuar&quot;usted esta de acuerdo con nuestros &quot;Terminos&quot;.Aprende como procesamos tus datos en nuestra &quot;Politica de Privacidad&quot;y en nuestra &quot;Politica de Cookies&quot;"</string>
+    <string name="preguntaCumple">¿Tu cumpleaños?</string>
+    <string name="advertenciaNacimiento">Tu perfil muestra tu edad, no tu fecha de nacimiento</string>
+    <string name="agregarFotosAlerta">Agrega una foto más. No busques la foto perfecta, siempre puedes cambiar tus fotos después.</string>
+    <string name="agregarFoto">Agregar foto</string>
+    <string name="agregarFotosRecientes">Agrega tus fotos recientes</string>
+    <string name="crearCuenta">Crear cuenta</string>
+    <string name="iniciarSesion">Iniciar sesión</string>
+    <string name="obtenerNumero">¿Podemos Obtener tu número?</string>
+    <string name="fraseNumero">¡Vamos a conectarnos! ¿Cuál es tu número de teléfono?</string>
+    <string name="fraseNombre">Nos gustaría saber cómo es tu nombre para llamarte con propiedad</string>
+    <string name="problemas">Problemas inciando sesion?</string>
+    <string name="find">Buscar, 3 emparejamientos</string>
+    <string name="gustos">Ver a quien le gustas</string>
+    <string name="cantlikes">0 likes</string>
+    <string name="opiniones">Mejores opiniones</string>
+    <string name="midlike">Ver las personas, que te dieron me gusta</string>
+    <string name="ingresarNombre">¿Cual es tu nombre?</string>
+    <string name="descripcion_dislike">descripcion dislike</string>
+    <string name="piropo">Tú tienes la máxima prioridad en mi lista de procesos.</string>
+    <string name="slogan">¿Buscando Pareja?</string>
+    <string name="slogan1">Conoce ya a personas increibles</string>
+    <string name="slogan2">¿Que estas esperando?</string>
+    <string name="slogan3">Conoce  gente nueva</string>
+    <string name="explorar">Bienvenido a explorar!</string>
+    <string name="empezar">Empieza ahora</string>
+    <string name="nombreEdad">Juan, 21</string>
+    <string name="app">Glint Up</string>
+    <string name="superLikes">0 Super Likes</string>
+    <string name="boosts">My Boosts</string>
+    <string name="getMore">Obtener mas</string>
+    <string name="plus">Actualizar a plus</string>
+    <string name="beneficio">Obtén likes ilimitados, Pasaporte, Prioridad ¡y más!</string>
+    <string name="subs">Suscripciones</string>
+    <string name="brad">Brad pitt</string>
+
+
+
+    <string name="profile_photo">Foto del perfil</string>
+    <string name="profile_name">Nombre del Usuario</string>
+    <string name="last_message">Último mensaje recibido...</string>
+    <string name="message_time">10:45 PM</string>
+
+
+
+
+
+
 </resources>

@@ -1,0 +1,304 @@
+<!-- Layout principal usando ConstraintLayout -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_color">
+
+    <!-- Sección superior estática -->
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="7.5dp"
+        android:background="@color/trasparente"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/homeAsUpIndicator"
+        app:tint="@color/black"
+        android:contentDescription="@string/volverAtras" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distancia"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <!-- Sección desplazable -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintBottom_toTopOf="@id/siguiente"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fillViewport="true"
+        android:background="@drawable/margen_tablas_bg"
+        android:layout_marginBottom="8dp">
+
+        <!-- Contenedor único para todos los elementos dentro del ScrollView -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Pregunta 1 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:layout_marginStart="15dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/preguntaFrencuenciaEjercicio"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+                <RadioGroup
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <RadioButton
+                        android:id="@+id/frecuencia1Buton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:text="@string/frecuencia1"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/frecuencia2Buton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/frecuencia2"/>
+
+                    <RadioButton
+                        android:id="@+id/frecuencia3Buton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/frecuencia3"/>
+
+                    <RadioButton
+                        android:id="@+id/frecuencia4Buton4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/frecuencia4"/>
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grisClaro"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pregunta_fumar"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+                <RadioGroup
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/grupoFumar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/fumadorSocial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/fumador_social"/>
+
+                    <RadioButton
+                        android:id="@+id/fumadorAlBeber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/fumador_al_beber"/>
+
+                    <RadioButton
+                        android:id="@+id/noFumador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/no_fumador"/>
+
+                    <RadioButton
+                        android:id="@+id/fumador"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/fumador"/>
+
+                    <RadioButton
+                        android:id="@+id/intentoDejarlo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/intento_dejarlo"/>
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grisClaro"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_marginStart="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pregunta_ejercicio"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+                <RadioGroup
+                    android:layout_marginStart="15dp"
+                    android:id="@+id/grupoEjercicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/ejercicioTodosLosDias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/ejercicio_todos_los_dias"/>
+
+                    <RadioButton
+                        android:id="@+id/ejercicioAMenudo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/ejercicio_a_menudo"/>
+
+                    <RadioButton
+                        android:id="@+id/ejercicioAlgunasVeces"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/ejercicio_algunas_veces"/>
+
+                    <RadioButton
+                        android:id="@+id/ejercicioNunca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/boton_opciones_selector_bg"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/ejercicio_nunca"/>
+                </RadioGroup>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grisClaro"
+                    android:layout_margin="10dp"/>
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+    <!-- Sección inferior estática -->
+    <Button
+        android:id="@+id/siguiente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/siguiente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:background="@drawable/boton_opciones_redondeado_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.884"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
