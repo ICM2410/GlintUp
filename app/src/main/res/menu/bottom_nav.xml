@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/lamp"
         android:id="@+id/lamp"
-        android:title="lamp"/>
+        android:title=""/>
 
     <item
         android:layout_width="wrap_content"

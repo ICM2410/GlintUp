@@ -13,5 +13,6 @@ class ChatActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+
     }
 }
