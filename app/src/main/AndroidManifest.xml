@@ -36,6 +36,9 @@
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
+        <activity android:name=".UserActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".LogInActivity"
             android:exported="true">
