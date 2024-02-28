@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="TextView"
+                android:text="Glint Up Plus!"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -125,6 +125,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/margin_slot_pf"
                 android:adjustViewBounds="false">
 
                 <ImageView
@@ -170,6 +171,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/margin_slot_pf"
                 android:adjustViewBounds="false">
 
                 <ImageView
