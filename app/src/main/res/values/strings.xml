@@ -66,11 +66,13 @@
     <string name="iniciarSesion">Iniciar sesión</string>
     <string name="obtenerNumero">¿Podemos Obtener tu número?</string>
     <string name="fraseNumero">¡Vamos a conectarnos! ¿Cuál es tu número de teléfono?</string>
+    <string name="fraseNombre">Nos gustaría saber cómo es tu nombre para llamarte con propiedad</string>
     <string name="problemas">Problemas inciando sesion?</string>
     <string name="find">Buscar, 0 emparejamientos</string>
     <string name="gustos">Ver a quien le gustas</string>
     <string name="cantlikes">0 likes</string>
     <string name="opiniones">Mejores opiniones</string>
     <string name="midlike">Ver las personas, que te dieron me gusta</string>
+    <string name="ingresarNombre">¿Cual es tu nombre?</string>
 
 </resources>

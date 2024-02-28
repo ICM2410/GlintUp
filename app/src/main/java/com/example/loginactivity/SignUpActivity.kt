@@ -13,14 +13,26 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        configurarBotones()
+    }
+
+    private fun configurarBotones() {
         binding.iniciarSesion.setOnClickListener {
-            val intent = Intent(this, LogInActivity::class.java)
-            startActivity(intent)
+            iniciarSesion()
         }
 
         binding.crearCuenta.setOnClickListener {
-            val intent = Intent(this, IngresarNumeroActivity::class.java)
-            startActivity(intent)
+            irAIngresarNumero()
         }
+    }
+
+    private fun iniciarSesion() {
+        val intent = Intent(this, LogInActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun irAIngresarNumero() {
+        val intent = Intent(this, IngresarNumeroActivity::class.java)
+        startActivity(intent)
     }
 }

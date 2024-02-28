@@ -25,13 +25,13 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/obtenerNumero"
+        android:layout_marginStart="30dp"
+        android:text="@string/ingresarNombre"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.352"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.098" />
@@ -65,22 +65,12 @@
         android:layout_marginEnd="10dp">
 
 
-        <!-- prefijo de numero -->
-        <EditText
-            android:id="@+id/prefijo"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLength="2"
-            android:hint="CO +57"
-            android:gravity="center"
-            android:enabled="false"/>
 
 
-        <!-- numero -->
+
+        <!-- nombre -->
         <EditText
-            android:id="@+id/numero"
+            android:id="@+id/nombre"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="wrap_content"
@@ -93,12 +83,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/fraseNumero"
+        android:text="@string/fraseNombre"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32"  />
+        app:layout_constraintVertical_bias="0.32"
+        android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
