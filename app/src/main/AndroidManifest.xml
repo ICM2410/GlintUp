@@ -16,7 +16,7 @@
             android:name=".IngresarNumeroActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".LogInActivity"
             android:exported="false" />
         <activity
             android:name=".LikesActivity"
@@ -57,7 +57,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".LogInActivity"
+            android:name=".SignUpActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

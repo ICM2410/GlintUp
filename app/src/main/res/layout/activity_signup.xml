@@ -8,10 +8,8 @@
     tools:context=".LogInActivity">
 
 
-
-
     <Button
-        android:id="@+id/facebook"
+        android:id="@+id/iniciarSesion"
         android:layout_width="272dp"
         android:layout_height="55dp"
         android:layout_gravity="center"
@@ -29,7 +27,7 @@
         app:layout_constraintVertical_bias="0.823" />
 
     <Button
-        android:id="@+id/whatsapp"
+        android:id="@+id/crearCuenta"
         android:layout_width="272dp"
         android:layout_height="55dp"
         android:layout_gravity="center"

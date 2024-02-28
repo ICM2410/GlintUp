@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">LogInActivity</string>
-
     <string name="escribe">Escribe un mensaje...</string>
     <string name="nombreChat">Jhon Abraham</string>
     <string name="conectado">Conectado</string>
@@ -52,8 +51,8 @@
         <item>Questioning</item>
         <item>Arromántico</item>
         <item>Omnisexual</item>
-    </string-array>
 
+    </string-array>
     <string name="bg">Continuar con Google</string>
     <string name="bw">Continuar con Whatsapp</string>
     <string name="bf">Continuar con Facebook</string>
@@ -73,7 +72,5 @@
     <string name="cantlikes">0 likes</string>
     <string name="opiniones">Mejores opiniones</string>
     <string name="midlike">Ver las personas, que te dieron me gusta</string>
-
-
 
 </resources>
