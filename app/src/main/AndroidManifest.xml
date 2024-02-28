@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInActivity">
         <activity
-            android:name=".EditActivity"
+            android:name=".LikesActivity"
             android:exported="false" />
         <activity
             android:name=".OrientacionSexualActivity"
@@ -35,11 +35,11 @@
         <activity
             android:name=".ChatActivity"
             android:exported="false" />
+        <activity android:name=".UserActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".LogInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".UserActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

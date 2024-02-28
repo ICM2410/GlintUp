@@ -59,6 +59,11 @@
     <string name="bf">Continuar con Facebook</string>
     <string name="terminos">"Al hacer click en &quot;Continuar&quot;usted esta de acuerdo con nuestros &quot;Terminos&quot;.Aprende como procesamos tus datos en nuestra &quot;Politica de Privacidad&quot;y en nuestra &quot;Politica de Cookies&quot;"</string>
     <string name="problemas">Problemas inciando sesion?</string>
+    <string name="find">Buscar, 0 emparejamientos</string>
+    <string name="gustos">Ver a quien le gustas</string>
+    <string name="cantlikes">0 likes</string>
+    <string name="opiniones">Mejores opiniones</string>
+    <string name="midlike">Ver las personas, que te dieron me gusta</string>
 
 
 </resources>
