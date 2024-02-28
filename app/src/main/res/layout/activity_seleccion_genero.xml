@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/homeAsUpIndicator"
         app:tint="@color/black"
-        android:contentDescription="@string/boton_volver" />
+        android:contentDescription="@string/volverAtras" />
 
     <TextView
         android:id="@+id/textView"

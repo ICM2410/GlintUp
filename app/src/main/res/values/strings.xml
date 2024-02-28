@@ -4,7 +4,7 @@
     <string name="escribe">Escribe un mensaje...</string>
     <string name="nombreChat">Jhon Abraham</string>
     <string name="conectado">Conectado</string>
-    <string name="boton_volver">Volver atras</string>
+    <string name="volverAtras">Volver atras</string>
     <string name="enviar_mensaje">enviar mensaje</string>
     <string name="ajustes">ajustes</string>
     <string name="hombre">Hombre</string>
@@ -58,10 +58,16 @@
     <string name="bw">Continuar con Whatsapp</string>
     <string name="bf">Continuar con Facebook</string>
     <string name="terminos">"Al hacer click en &quot;Continuar&quot;usted esta de acuerdo con nuestros &quot;Terminos&quot;.Aprende como procesamos tus datos en nuestra &quot;Politica de Privacidad&quot;y en nuestra &quot;Politica de Cookies&quot;"</string>
-    <string name="problemas">Problemas inciando sesion?</string>
+    <string name="problemas">Problemas iniciando sesion?</string>
     <string name="preguntaCumple">¿Tu cumpleaños?</string>
     <string name="advertenciaNacimiento">Tu perfil muestra tu edad, no tu fecha de nacimiento</string>
     <string name="agregarFotosAlerta">Agrega una foto más. No busques la foto perfecta, siempre puedes cambiar tus fotos después.</string>
+    <string name="agregarFoto">Agregar foto</string>
+    <string name="agregarFotosRecientes">Agrega tus fotos recientes</string>
+    <string name="crearCuenta">Crear cuenta</string>
+    <string name="iniciarSesion">Iniciar sesión</string>
+    <string name="obtenerNumero">¿Podemos Obtener tu número?</string>
+    <string name="fraseNumero">¡Vamos a conectarnos! ¿Cuál es tu número de teléfono?</string>
 
 
 </resources>

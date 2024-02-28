@@ -27,11 +27,11 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="7.5dp"
         android:background="@color/trasparente"
+        android:contentDescription="@string/volverAtras"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/homeAsUpIndicator"
-        app:tint="@color/black"
-        android:contentDescription="@string/boton_volver" />
+        app:tint="@color/black" />
 
     <TextView
         android:id="@+id/textView"
@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@id/mostrarGenero"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/margen_tablas"
+        android:background="@drawable/margen_tablas_bg"
         android:layout_marginBottom="17dp"
         android:paddingStart="15dp"
         android:paddingTop="10dp"/>

@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?attr/homeAsUpIndicator"
             app:tint="@color/white"
-            android:contentDescription="@string/boton_volver" />
+            android:contentDescription="@string/volverAtras" />
 
         <ImageView
             android:id="@+id/imageView6"
@@ -88,7 +88,7 @@
             android:id="@+id/msg"
             android:layout_width="390dp"
             android:layout_height="50dp"
-            android:background="@drawable/escribir_texto_redondeado_bg"
+            android:background="@drawable/blanco_redondeado_bg"
             android:ems="15"
             android:hint="@string/escribe"
             android:paddingStart="10dp"

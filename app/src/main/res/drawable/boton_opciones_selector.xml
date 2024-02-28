@@ -1,6 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_checked="true" android:drawable="@drawable/boton_opciones_redondeado_seleccionado" />
-    <!-- Fondo cuando el RadioBoton no está seleccionado -->
-    <item android:drawable="@drawable/boton_opciones_redondeado" />
-</selector>

@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LogInActivity">
         <activity
-            android:name=".FotosRecientesActivity"
+            android:name=".IngresarNumeroActivity"
             android:exported="false" />
         <activity
-            android:name=".LogInActivity"
+            android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".PersonalChatActivity"
@@ -40,6 +40,12 @@
             android:exported="false" />
         <activity
             android:name=".CumpleanosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FotosRecientesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
