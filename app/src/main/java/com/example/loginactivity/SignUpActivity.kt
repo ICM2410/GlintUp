@@ -25,9 +25,9 @@ class SignUpActivity : AppCompatActivity() {
             irAIngresarNumero()
         }
     }
-
+    // LogInActivity estoooo
     private fun iniciarSesion() {
-        val intent = Intent(this, LogInActivity::class.java)
+        val intent = Intent(this, UserActivity::class.java)
         startActivity(intent)
     }
 

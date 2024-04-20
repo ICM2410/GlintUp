@@ -255,7 +255,9 @@
             android:text="Modificar información Personal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+            android:background="@drawable/blanco_redondeado_bg"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            android:padding="5dp"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
