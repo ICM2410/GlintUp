@@ -10,8 +10,10 @@
 
     <Button
         android:id="@+id/iniciarSesion"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_gravity="center"
         android:background="@drawable/boton_opciones_redondeado_bg"
         android:backgroundTint="@color/white"
@@ -27,8 +29,10 @@
 
     <Button
         android:id="@+id/crearCuenta"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_gravity="center"
         android:background="@drawable/boton_opciones_redondeado_bg"
         android:backgroundTint="@color/white"

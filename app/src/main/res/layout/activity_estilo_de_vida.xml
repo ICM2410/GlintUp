@@ -65,7 +65,7 @@
 
                 <TextView
                     android:layout_marginStart="15dp"
-
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/preguntaFrencuenciaEjercicio"
@@ -265,14 +265,11 @@
                         android:padding="10dp"
                         android:gravity="center"
                         android:layout_marginTop="5dp"
-                        android:text="@string/ejercicio_nunca"/>
+                        android:text="@string/ejercicio_nunca"
+                        android:layout_marginBottom="15dp"/>
                 </RadioGroup>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/grisClaro"
-                    android:layout_margin="10dp"/>
+
 
             </LinearLayout>
 

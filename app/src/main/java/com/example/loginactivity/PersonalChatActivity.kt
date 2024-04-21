@@ -17,7 +17,7 @@ class PersonalChatActivity : AppCompatActivity() {
     }
 
     private fun configurarBotonSiguiente() {
-        binding.ajustes.setOnClickListener {
+        binding.mapa.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
