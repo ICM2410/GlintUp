@@ -3,9 +3,9 @@ package com.example.loginactivity
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.VolumeShaper.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
@@ -43,6 +43,8 @@ class UserActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         configurarBotonSiguiente()
+        Configuration()
+
 
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
@@ -82,24 +84,47 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
-    private fun configurarBotonSiguiente() {
-        binding.edit.setOnClickListener {
-            showPopupMenu(it)
+    private fun Configuration() {
+        binding.ajustes.setOnClickListener {
+            showPopupMenuConfi(it)
         }
     }
 
-    private fun showPopupMenu(view: View) {
+    private fun showPopupMenuConfi(view: View) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(R.menu.editar_perfil, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.editarPerfil -> {
+
+                    val intent = Intent(this, EditActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false
+            }
+        }
+        popupMenu.show()
+    }
+
+    private fun configurarBotonSiguiente() {
+        binding.edit.setOnClickListener {
+            showPopupMenuPhotos(it)
+        }
+    }
+
+    private fun showPopupMenuPhotos(view: View) {
         val popupMenu = PopupMenu(this, view)
         popupMenu.menuInflater.inflate(R.menu.menu_fotos, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.action_take_photo -> {
-                    // Agregar lógica para tomar una foto
+
                     abrirCamara()
                     true
                 }
                 R.id.action_select_gallery -> {
-                    // Agregar lógica para seleccionar de la galería
+
                     abrirGaleria()
                     true
                 }
@@ -161,7 +186,7 @@ class UserActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val PERMISSION_REQUEST_CAMERA = 1001
+        const val PERMISSION_REQUEST_CAMERA = 1001
     }
 
 
