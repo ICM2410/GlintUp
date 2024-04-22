@@ -17,8 +17,11 @@ class LogInActivity : AppCompatActivity() {
     }
     private fun configurarBotonSiguiente() {
         binding.google.setOnClickListener {
-            val intent = Intent(this, MatchActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MatchActivity::class.java))
+        }
+
+        binding.standard.setOnClickListener {
+            startActivity(Intent(this,StandartLoginActivity::class.java))
         }
     }
 }
