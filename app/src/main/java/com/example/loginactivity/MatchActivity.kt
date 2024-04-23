@@ -25,6 +25,11 @@ class MatchActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.navegacion.menu.getItem(0).isChecked = true
+    }
+
     private fun navigateToItem(itemId: Int): Boolean {
         when (itemId) {
             R.id.likes -> {
@@ -37,10 +42,6 @@ class MatchActivity : AppCompatActivity() {
             }
             R.id.profile -> {
                 startActivity(Intent(this, UserActivity::class.java))
-                return true
-            }
-            R.id.lamp -> {
-                startActivity(Intent(this, MatchActivity::class.java))
                 return true
             }
             R.id.explore -> {

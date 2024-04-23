@@ -14,6 +14,8 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.navegacion.menu.getItem(3).isChecked = true
+
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
         }
@@ -22,14 +24,16 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.navegacion.menu.getItem(3).isChecked = true
+
+    }
+
     private fun navigateToItem(itemId: Int): Boolean {
         when (itemId) {
             R.id.likes -> {
                 startActivity(Intent(this, LikesActivity::class.java))
-                return true
-            }
-            R.id.chat -> {
-                startActivity(Intent(this, ChatActivity::class.java))
                 return true
             }
             R.id.profile -> {

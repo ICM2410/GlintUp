@@ -14,9 +14,16 @@ class ExploreActivity : AppCompatActivity() {
         binding = ActivityExploreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.navegacion.menu.getItem(1).isChecked = true
+
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.navegacion.menu.getItem(1).isChecked = true
     }
 
     private fun navigateToItem(itemId: Int): Boolean {
@@ -35,10 +42,6 @@ class ExploreActivity : AppCompatActivity() {
             }
             R.id.lamp -> {
                 startActivity(Intent(this, MatchActivity::class.java))
-                return true
-            }
-            R.id.explore -> {
-                startActivity(Intent(this, ExploreActivity::class.java))
                 return true
             }
             else -> {
