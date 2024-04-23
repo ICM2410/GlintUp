@@ -42,6 +42,8 @@ class UserActivity : AppCompatActivity() {
         binding = ActivityUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.navegacion.menu.getItem(4).isChecked = true
+
         configurarBotonSiguiente()
         Configuration()
 
@@ -51,33 +53,31 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.navegacion.menu.getItem(4).isChecked = true
+
+    }
+
+
     private fun navigateToItem(itemId: Int): Boolean {
         when (itemId) {
             R.id.likes -> {
                 startActivity(Intent(this, LikesActivity::class.java))
                 return true
             }
-
             R.id.chat -> {
                 startActivity(Intent(this, ChatActivity::class.java))
                 return true
             }
-
-            R.id.profile -> {
-                startActivity(Intent(this, UserActivity::class.java))
-                return true
-            }
-
             R.id.lamp -> {
                 startActivity(Intent(this, MatchActivity::class.java))
                 return true
             }
-
             R.id.explore -> {
                 startActivity(Intent(this, ExploreActivity::class.java))
                 return true
             }
-
             else -> {
                 return false
             }
