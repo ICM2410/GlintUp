@@ -136,24 +136,31 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
 
     // Sensor luz
-    override fun onSensorChanged(event: SensorEvent) {
-        if (::map.isInitialized && event.sensor.type == Sensor.TYPE_LIGHT) {
-            val lightValue = event.values[0]
-            if (lightValue < umbralBajo) {
-                map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_night))
-            } else {
-                map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_day))
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event == null) return  // Maneja el caso de que el evento sea null
+
+        when (event.sensor.type) {
+            Sensor.TYPE_LIGHT -> {
+                if (::map.isInitialized) {
+                    val lightValue = event.values[0]
+                    if (lightValue < umbralBajo) {
+                        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_night))
+                    } else {
+                        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_day))
+                    }
+                }
             }
-        }
-        else if (event.sensor.type == Sensor.TYPE_ACCELEROMETER){
-            System.arraycopy(event.values, 0, accelerometerReading, 0, accelerometerReading.size)
-        }
-        else if(event.sensor.type == Sensor.TYPE_MAGNETIC_FIELD){
-            System.arraycopy(event.values, 0, magnetometerReading, 0, magnetometerReading.size)
+            Sensor.TYPE_ACCELEROMETER -> {
+                System.arraycopy(event.values, 0, accelerometerReading, 0, accelerometerReading.size)
+            }
+            Sensor.TYPE_MAGNETIC_FIELD -> {
+                System.arraycopy(event.values, 0, magnetometerReading, 0, magnetometerReading.size)
+            }
         }
 
         updateOrientationAngles()
     }
+
 
     // Esto no toca implementarlo, pero tiene que estar si o si
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
@@ -395,56 +402,36 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     //-----------------------------------Brujula---------------------------------------------------//
 
+
+
+    private fun updateOrientationAngles() {
+        SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading)
+        SensorManager.getOrientation(rotationMatrix, orientationAngles)
+
+        // Convertir los ángulos de radianes a grados y corregir la inclinación
+        val azimuthDegrees = Math.toDegrees(orientationAngles[0].toDouble()).toFloat()
+        val azimuth = (azimuthDegrees + 360) % 360
+
+        if (Math.abs(azimuth - cambio) > 15) { // Filtrar pequeños cambios para suavizar la rotación
+            binding.flecha.rotation = azimuth
+            cambio = azimuth
+            Log.i("CAMBIO", "Ángulo actualizado a $azimuth grados")
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { accelerometer ->
-            sensorManager.registerListener(
-                this,
-                accelerometer,
-                SensorManager.SENSOR_DELAY_NORMAL
-            )
+            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI)
         }
         sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also { magnetometer ->
-            sensorManager.registerListener(
-                this,
-                magnetometer,
-                SensorManager.SENSOR_DELAY_NORMAL
-            )
+            sensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI)
         }
     }
 
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(this)
-    }
-
-
-    private fun updateOrientationAngles() {
-
-        SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading)
-        SensorManager.getOrientation(rotationMatrix, orientationAngles)
-
-        // Convertir los ángulos de radianes a grados
-        val azimuthDegrees = Math.toDegrees(orientationAngles[0].toDouble()).toFloat()
-
-        // Asegurarse de que el ángulo esté en el rango de 0 a 360 grados
-        val azimuth = if (azimuthDegrees < 0) azimuthDegrees + 360 else azimuthDegrees
-
-        // Aquí puedes usar el valor de azimuth para determinar la dirección hacia donde estás mirando
-        // Por ejemplo, puedes mostrar el valor en un TextView
-        // textView.text = "Dirección: $azimuth grados"
-
-        Log.i("LOCATION", azimuth.toString()+" "+azimuthDegrees)
-
-
-
-
-        if(Math.abs(azimuth-cambio) > 15){
-            binding.flecha.rotation = azimuth
-            cambio = azimuth
-            Log.i("CAMBIO", cambio.toString())
-        }
-
     }
 
 }

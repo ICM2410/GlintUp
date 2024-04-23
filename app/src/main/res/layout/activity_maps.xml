@@ -17,13 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MapsActivity"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="-284dp" />
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="16dp" />
 
     <SearchView
         android:id="@+id/buscador"
-        android:layout_width="311dp"
-        android:layout_height="53dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_gravity="top"
         android:layout_margin="15dp"
         android:background="@drawable/texto"
@@ -34,11 +34,11 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/hintDireccion"
         app:layout_constraintBottom_toTopOf="@+id/navegacion"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toStartOf="@+id/flecha"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navegacion"
@@ -58,10 +58,10 @@
         android:layout_height="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
+        app:layout_constraintVertical_bias="0.072"
         app:srcCompat="@drawable/flecha_correcta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
