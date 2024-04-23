@@ -1,6 +1,7 @@
 package com.example.loginactivity
 
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -13,8 +14,11 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        configurarBotones()
+        if(obtenerToken()!=null){
+            startActivity(Intent(this, MatchActivity::class.java))
+        }else{
+            configurarBotones()
+        }
     }
 
     private fun configurarBotones() {
@@ -35,5 +39,10 @@ class SignUpActivity : AppCompatActivity() {
     private fun irAIngresarNumero() {
         val intent = Intent(this, IngresarNumeroActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun obtenerToken(): String? {
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("token_jwt", null)
     }
 }

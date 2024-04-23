@@ -1,5 +1,6 @@
 package com.example.loginactivity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,7 +53,10 @@ class StandartLoginActivity : AppCompatActivity() {
                     val token = response.body()?.token
 
                     Log.i("AUTH TOKEN", token.toString())
-                    // Por ejemplo, iniciar otra actividad o actualizar la UID
+                    if (token != null) {
+                        guardarToken(token)
+                        startActivity(Intent(baseContext, MatchActivity::class.java))
+                    }
                 } else {
                     // Manejar el caso en que la respuesta no sea exitosa (p. ej., credenciales incorrectas)
                     Toast.makeText(this@StandartLoginActivity, "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
@@ -64,6 +68,14 @@ class StandartLoginActivity : AppCompatActivity() {
                 Toast.makeText(this@StandartLoginActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun guardarToken(token: String) {
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putString("token_jwt", token)
+            apply()
+        }
     }
 
 }

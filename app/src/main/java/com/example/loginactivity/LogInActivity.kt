@@ -1,5 +1,6 @@
 package com.example.loginactivity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,4 +25,5 @@ class LogInActivity : AppCompatActivity() {
             startActivity(Intent(this,StandartLoginActivity::class.java))
         }
     }
+
 }
