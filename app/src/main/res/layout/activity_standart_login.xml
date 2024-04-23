@@ -8,7 +8,7 @@
     tools:context=".StandartLoginActivity">
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/logo"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.101" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/iniciarSesion"
         android:layout_width="157dp"
         android:layout_height="47dp"
         android:background="@drawable/boton_opciones_redondeado_bg"
