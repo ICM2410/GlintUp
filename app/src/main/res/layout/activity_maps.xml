@@ -6,21 +6,24 @@
     android:layout_height="match_parent">
 
     <!-- Map Fragment -->
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MapsActivity" />
 
     <!-- SearchView -->
 
     <!-- BottomNavigationView para la navegación -->
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MapsActivity"
+        tools:layout_editor_absoluteX="180dp"
+        tools:layout_editor_absoluteY="-284dp" />
+
     <SearchView
         android:id="@+id/buscador"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="311dp"
+        android:layout_height="53dp"
         android:layout_gravity="top"
         android:layout_margin="15dp"
         android:background="@drawable/texto"
@@ -32,10 +35,10 @@
         android:queryHint="@string/hintDireccion"
         app:layout_constraintBottom_toTopOf="@+id/navegacion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.025" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navegacion"
@@ -48,5 +51,17 @@
         app:menu="@menu/bottom_nav"
         app:itemIconTint="@color/nav_item_color_state"
         app:itemTextColor="@color/nav_item_color_state"/>
+
+    <ImageView
+        android:id="@+id/flecha"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/map"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053"
+        app:srcCompat="@drawable/flecha_correcta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

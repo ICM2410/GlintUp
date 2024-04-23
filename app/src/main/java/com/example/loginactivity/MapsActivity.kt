@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import android.graphics.Color
+import android.util.Log
 
 import org.json.JSONObject
 
@@ -49,6 +50,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var lastWrittenLocation: Location? = null
     private val locations = mutableListOf<LatLng>()
     private var primerZoom = false
+
     private val permissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
         ActivityResultCallback { isGranted ->
@@ -66,11 +68,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     private lateinit var mGeocoder: Geocoder
 
+    private lateinit var sensorManagerBrujula: SensorManager
+    private var accelerometerReading = FloatArray(3)
+    private var magnetometerReading = FloatArray(3)
+    private var rotationMatrix = FloatArray(9)
+    private var orientationAngles = FloatArray(3)
+    private var cambio : Float = 0.0f
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sensorManagerBrujula = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         setupLocation()
         setupMap()
@@ -135,6 +145,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_day))
             }
         }
+        else if (event.sensor.type == Sensor.TYPE_ACCELEROMETER){
+            System.arraycopy(event.values, 0, accelerometerReading, 0, accelerometerReading.size)
+        }
+        else if(event.sensor.type == Sensor.TYPE_MAGNETIC_FIELD){
+            System.arraycopy(event.values, 0, magnetometerReading, 0, magnetometerReading.size)
+        }
+
+        updateOrientationAngles()
     }
 
     // Esto no toca implementarlo, pero tiene que estar si o si
@@ -374,4 +392,59 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         }
         return poly
     }
+
+    //-----------------------------------Brujula---------------------------------------------------//
+
+    override fun onResume() {
+        super.onResume()
+        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { accelerometer ->
+            sensorManager.registerListener(
+                this,
+                accelerometer,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+        }
+        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also { magnetometer ->
+            sensorManager.registerListener(
+                this,
+                magnetometer,
+                SensorManager.SENSOR_DELAY_NORMAL
+            )
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
+
+
+    private fun updateOrientationAngles() {
+
+        SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading)
+        SensorManager.getOrientation(rotationMatrix, orientationAngles)
+
+        // Convertir los ángulos de radianes a grados
+        val azimuthDegrees = Math.toDegrees(orientationAngles[0].toDouble()).toFloat()
+
+        // Asegurarse de que el ángulo esté en el rango de 0 a 360 grados
+        val azimuth = if (azimuthDegrees < 0) azimuthDegrees + 360 else azimuthDegrees
+
+        // Aquí puedes usar el valor de azimuth para determinar la dirección hacia donde estás mirando
+        // Por ejemplo, puedes mostrar el valor en un TextView
+        // textView.text = "Dirección: $azimuth grados"
+
+        Log.i("LOCATION", azimuth.toString()+" "+azimuthDegrees)
+
+
+
+
+        if(Math.abs(azimuth-cambio) > 15){
+            binding.flecha.rotation = azimuth
+            cambio = azimuth
+            Log.i("CAMBIO", cambio.toString())
+        }
+
+    }
+
 }
