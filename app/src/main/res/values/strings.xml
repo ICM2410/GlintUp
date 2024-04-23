@@ -53,8 +53,11 @@
         <item>Omnisexual</item>
 
     </string-array>
+
+    <string name="correo">Correo</string>
+    <string name="contra">Contraseña</string>
     <string name="bg">Continuar con Google</string>
-    <string name="bw">Continuar con Whatsapp</string>
+    <string name="bw">Continuar con Glint-up</string>
     <string name="bf">Continuar con Facebook</string>
     <string name="preguntaCumple">¿Tu cumpleaños?</string>
     <string name="advertenciaNacimiento">Tu perfil muestra tu edad, no tu fecha de nacimiento</string>

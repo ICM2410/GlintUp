@@ -1,5 +1,4 @@
 package com.example.loginactivity
-
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
@@ -11,7 +10,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
@@ -29,31 +27,28 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import java.io.File
 import java.io.IOException
 import java.util.*
 import com.google.android.gms.maps.model.PolylineOptions
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import android.graphics.Color
-import android.location.Address
-import org.json.JSONArray
+
 import org.json.JSONObject
-import java.io.BufferedWriter
-import java.io.FileWriter
+
 import kotlin.concurrent.thread
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
 
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
     private lateinit var map: GoogleMap
     private val locationPermissionName = Manifest.permission.ACCESS_FINE_LOCATION
     private lateinit var location: FusedLocationProviderClient
     private lateinit var binding: ActivityMapsBinding
     private var currentLocationMarker: Marker? = null
     private var lastLocation: Location? = null
+    private var lastWrittenLocation: Location? = null
     private val locations = mutableListOf<LatLng>()
     private var primerZoom = false
-
     private val permissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
         ActivityResultCallback { isGranted ->
@@ -76,20 +71,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         setupLocation()
         setupMap()
         setupPermissionRequest()
         setupSensor()
         setupGeocoder()
         setupSearchView()
+
+
+
     }
+
+
 
     private fun setupLocation() {
         location = LocationServices.getFusedLocationProviderClient(this)
         locationRequest = createLocationRequest()
         locationCallback = createLocationCallback()
     }
-
     private fun setupMap() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -125,35 +125,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
 
-
-    // Escribir informacion en el registro del dispositivo
-    fun writeJSONObject() {
-        lastLocation?.let { location ->
-            val myLocation = MyLocation(
-                Date(System.currentTimeMillis()),
-                location.latitude,
-                location.longitude
-            )
-            val jsonObject = myLocation.toJSON()
-
-            // Convierte la lista de objetos JSON a un JSONArray
-            val jsonArray = JSONArray(locations)
-            jsonArray.put(jsonObject)
-
-            // Escribe el JSONArray en el archivo
-            val filename = "locations.json"
-            val file = File(baseContext.getExternalFilesDir(null), filename)
-            val output = BufferedWriter(FileWriter(file))
-            output.write(jsonArray.toString())
-            output.close()
-
-            Log.i("LOCATION", "File modified at path: $file")
-        } ?: run {
-            Log.e("LOCATION", "Last location is null. Cannot write to JSON.")
-        }
-    }
-
-
     // Sensor luz
     override fun onSensorChanged(event: SensorEvent) {
         if (::map.isInitialized && event.sensor.type == Sensor.TYPE_LIGHT) {
@@ -182,7 +153,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             )
             locations.add(latLng)
             if (locations.size >= 1) {
-                requestRouteFromCurrentLocation(map, locations, Color.BLUE)
+                requestRouteFromCurrentLocation(map, locations, Color.GREEN)
             }
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
 
@@ -209,11 +180,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
                     updateLocationUI(location)
 
+                    if (lastWrittenLocation == null || lastWrittenLocation!!.distanceTo(location) > 30) {
+                        val latLng = LatLng(location.latitude, location.longitude)
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+                        lastWrittenLocation = location
 
-                    if (lastLocation == null || lastLocation!!.distanceTo(location) > 30) {
-                        writeJSONObject()  // escribir en el archivo JSON
                     }
-                    lastLocation = location  // Actualizar con la nueva ubicación
+                    lastLocation = location
                 }
                 if (lastLocation == null && result.locations.isNotEmpty()) {
                     lastLocation = result.locations.last()
@@ -236,6 +209,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         )
         if (!primerZoom) {
+            lastWrittenLocation = location
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
             primerZoom = true
         }
@@ -305,8 +279,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         }
         return currentLocation.distanceTo(markerLocation) / 1000 // Convertir a kilómetros
     }
-
-
 
     // Convierte un objeto Location en un objeto LatLng
     private fun Location.toLatLng(): LatLng {
@@ -400,7 +372,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             )
             poly.add(p)
         }
-
         return poly
     }
 }

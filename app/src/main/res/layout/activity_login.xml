@@ -74,14 +74,13 @@
         app:layout_constraintVertical_bias="0.607" />
 
     <Button
-        android:id="@+id/whatsapp"
+        android:id="@+id/standard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:layout_gravity="center"
         android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/whatsapp"
         android:text="@string/bw"
         android:textColor="@color/black"
         android:background="@drawable/boton_opciones_selector_bg"
