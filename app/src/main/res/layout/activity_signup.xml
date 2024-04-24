@@ -10,56 +10,54 @@
 
     <Button
         android:id="@+id/iniciarSesion"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_gravity="center"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
-        android:backgroundTint="@color/white"
         android:background="@drawable/boton_opciones_redondeado_bg"
+        android:backgroundTint="@color/white"
 
         android:text="@string/iniciarSesion"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.823" />
 
     <Button
         android:id="@+id/crearCuenta"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_gravity="center"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
+        android:background="@drawable/boton_opciones_redondeado_bg"
         android:backgroundTint="@color/white"
         android:text="@string/crearCuenta"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/boton_opciones_redondeado_bg"
         app:layout_constraintVertical_bias="0.714" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="272sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
         android:gravity="center"
         android:text="@string/problemas"
-        android:textColor="@color/black"
+        android:textColor="@color/gris"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintVertical_bias="0.914" />
 
     <ImageView
         android:id="@+id/imageView5"

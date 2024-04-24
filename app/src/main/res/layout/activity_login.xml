@@ -7,7 +7,6 @@
     android:background="@drawable/degradado"
     tools:context=".LogInActivity">
 
-
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="200dp"
@@ -32,47 +31,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-    <TextView
-        android:layout_width="272dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
-        android:text="@string/terminos"
-        android:textSize="11.1sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
     <Button
         android:id="@+id/facebook"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
         android:layout_gravity="center"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
         android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/facebook"
         android:text="@string/bf"
         android:textColor="@color/black"
+        android:background="@drawable/boton_opciones_selector_bg"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.823" />
+        app:layout_constraintVertical_bias="0.828" />
 
     <Button
         android:id="@+id/google"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
-        android:backgroundTint="@color/white"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/boton_opciones_selector_bg"
         android:drawableLeft="@drawable/google"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:text="@string/bg"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -80,17 +70,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.603" />
+        app:layout_constraintVertical_bias="0.715" />
 
     <Button
-        android:id="@+id/whatsapp"
-        android:layout_width="272dp"
-        android:layout_height="55dp"
+        android:id="@+id/standard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/boton_opciones_selector_bg"
         android:backgroundTint="@color/white"
-        android:drawableLeft="@drawable/whatsapp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:text="@string/bw"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,23 +90,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.714" />
+        app:layout_constraintVertical_bias="0.604"
+
+        />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="272sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginEnd="69dp"
         android:gravity="center"
         android:text="@string/problemas"
         android:textColor="@color/gris"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintVertical_bias="0.91" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

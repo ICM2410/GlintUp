@@ -15,17 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/ajustes"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="7.5dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/trasparente"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ajustes"
-            android:contentDescription="@string/ajustes"/>
 
         <ImageButton
             android:id="@+id/back"
@@ -74,6 +63,21 @@
             android:textColor="@color/gris"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView6" />
+
+        <ImageView
+            android:id="@+id/mapa"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintWidth_max="50dp"
+            app:layout_constraintHeight_max="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.792"
+            app:layout_constraintStart_toEndOf="@+id/nombre"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.454"
+            app:srcCompat="@drawable/mapa" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,18 +90,20 @@
 
         <EditText
             android:id="@+id/msg"
-            android:layout_width="390dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/blanco_redondeado_bg"
             android:ems="15"
             android:hint="@string/escribe"
-            android:paddingStart="10dp"
             android:inputType="text"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:paddingStart="10dp"
             android:textColorHint="@color/gris"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
             android:id="@+id/send"

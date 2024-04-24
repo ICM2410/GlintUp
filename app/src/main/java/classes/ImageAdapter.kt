@@ -2,7 +2,7 @@
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.loginactivity.databinding.ItemImageBinding
+import com.example.glintup.databinding.ItemImageBinding
 
 
 class ImagenAdapter(private val images: List<Int>) :

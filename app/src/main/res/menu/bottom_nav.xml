@@ -8,7 +8,8 @@
         android:iconTint="@color/white"
         android:iconTintMode="src_over"
         android:id="@+id/lamp"
-        android:title="lamp"/>
+        android:title="lamp"
+        android:background ="@drawable/menu_selector"/>
 
     <item
         android:layout_width="wrap_content"
@@ -17,26 +18,30 @@
         android:id="@+id/explore"
         android:iconTint="@color/white"
         android:iconTintMode="src_over"
-        android:title="explore" />
+        android:title="explore"
+        android:background ="@drawable/menu_selector"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/likes"
         android:iconTint="@color/white"
         android:id="@+id/likes"
-        android:title="likes" />
+        android:title="likes"
+        android:background ="@drawable/menu_selector"/>
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/chat"
         android:iconTint="@color/white"
         android:id="@+id/chat"
-        android:title="chats" />
+        android:title="chats"
+        />
     <item
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/human"
         android:iconTint="@color/white"
         android:id="@+id/profile"
-        android:title="profile" />
+        android:title="profile"
+        android:background ="@drawable/menu_selector"/>
 </menu>
