@@ -1,10 +1,10 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import ImagenAdapter
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.loginactivity.databinding.ActivityMatchBinding
+import com.example.glintup.databinding.ActivityMatchBinding
 
 class MatchActivity : AppCompatActivity() {
 

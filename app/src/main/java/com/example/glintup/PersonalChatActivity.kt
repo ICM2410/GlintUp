@@ -1,9 +1,9 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.loginactivity.databinding.ActivityPersonalChatBinding
+import com.example.glintup.databinding.ActivityPersonalChatBinding
 
 class PersonalChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPersonalChatBinding

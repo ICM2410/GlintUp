@@ -1,26 +1,25 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.example.loginactivity.databinding.ActivityEditBinding
-
+import com.example.glintup.databinding.ActivityFotosRecientesBinding
 import java.io.File
 
-class EditActivity : AppCompatActivity() {
-    private lateinit var binding :ActivityEditBinding
+class FotosRecientesActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFotosRecientesBinding
     private lateinit var uriCamera: Uri
     private var casillaActiva: ImageButton? = null
 
@@ -44,11 +43,18 @@ class EditActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditBinding.inflate(layoutInflater)
+        binding = ActivityFotosRecientesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        configurarBotonSiguiente()
         configurarClickListenersCasillas()
+    }
+
+    private fun configurarBotonSiguiente() {
+        binding.siguiente.setOnClickListener {
+            val intent = Intent(this, MatchActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun configurarClickListenersCasillas() {
@@ -111,13 +117,13 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun loadImage(uri: Uri, casillaIndex: Int) {
-
+        val imageButton = getCasillaImageButton(casillaIndex)
         val constraintLayout = getCasillaConstraintLayout(casillaIndex)
 
         val inputStream = contentResolver.openInputStream(uri)
         val drawable = Drawable.createFromStream(inputStream, uri.toString())
         constraintLayout.background = drawable
-
+        imageButton.visibility = View.INVISIBLE
     }
 
     private fun getCasillaConstraintLayout(casillaIndex: Int): ConstraintLayout {
@@ -128,6 +134,18 @@ class EditActivity : AppCompatActivity() {
             3 -> binding.casilla4
             4 -> binding.casilla5
             5 -> binding.casilla6
+            else -> throw IllegalArgumentException("Índice de casilla no válido: $casillaIndex")
+        }
+    }
+
+    private fun getCasillaImageButton(casillaIndex: Int): ImageButton {
+        return when (casillaIndex) {
+            0 -> binding.casilla1.findViewById(R.id.imageButton1)
+            1 -> binding.casilla2.findViewById(R.id.imageButton2)
+            2 -> binding.casilla3.findViewById(R.id.imageButton3)
+            3 -> binding.casilla4.findViewById(R.id.imageButton4)
+            4 -> binding.casilla5.findViewById(R.id.imageButton5)
+            5 -> binding.casilla6.findViewById(R.id.imageButton6)
             else -> throw IllegalArgumentException("Índice de casilla no válido: $casillaIndex")
         }
     }

@@ -1,37 +1,33 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.loginactivity.databinding.ActivityExploreBinding
+import android.view.MenuItem
+import com.example.glintup.databinding.ActivityLikesBinding
 
-class ExploreActivity : AppCompatActivity() {
+class LikesActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityExploreBinding
+    private lateinit var binding: ActivityLikesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_explore)
-        binding = ActivityExploreBinding.inflate(layoutInflater)
+        binding = ActivityLikesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.navegacion.menu.getItem(1).isChecked = true
+        binding.navegacion.menu.getItem(2).isChecked = true
 
         binding.navegacion.setOnItemSelectedListener {
-            navigateToItem(it.itemId)
+            navigateToItem(it)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        binding.navegacion.menu.getItem(1).isChecked = true
+        binding.navegacion.menu.getItem(2).isChecked = true
     }
 
-    private fun navigateToItem(itemId: Int): Boolean {
-        when (itemId) {
-            R.id.likes -> {
-                startActivity(Intent(this, LikesActivity::class.java))
-                return true
-            }
+    private fun navigateToItem(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.chat -> {
                 startActivity(Intent(this, ChatActivity::class.java))
                 return true
@@ -44,10 +40,13 @@ class ExploreActivity : AppCompatActivity() {
                 startActivity(Intent(this, MatchActivity::class.java))
                 return true
             }
+            R.id.explore -> {
+                startActivity(Intent(this, ExploreActivity::class.java))
+                return true
+            }
             else -> {
                 return false
             }
         }
     }
-
 }

@@ -1,11 +1,11 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
-import com.example.loginactivity.databinding.ActivityCumpleanosBinding
+import com.example.glintup.databinding.ActivityCumpleanosBinding
 import java.util.Calendar
 
 class CumpleanosActivity : AppCompatActivity() {

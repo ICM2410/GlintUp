@@ -7,7 +7,7 @@ plugins {
 
 android {
 
-    namespace = "com.example.loginactivity"
+    namespace = "com.example.glintup"
     compileSdk = 34
 
     defaultConfig {
@@ -18,9 +18,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildFeatures{
-        viewBinding=true
     }
 
     buildFeatures{
@@ -73,6 +70,6 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation ("com.github.MKergall:osmbonuspack:6.8.0")
     implementation ("androidx.cardview:cardview:1.0.0")
-
+    implementation ("androidx.biometric:biometric-ktx:1.2.0-alpha05")
 
 }
