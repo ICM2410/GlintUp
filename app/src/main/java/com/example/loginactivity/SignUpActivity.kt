@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.content.Intent
 import com.example.loginactivity.databinding.ActivitySignupBinding
 
-class SignUpActivity : AppCompatActivity() {
+class  SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
