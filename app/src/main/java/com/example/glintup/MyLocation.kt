@@ -1,4 +1,4 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import org.json.JSONObject
 import java.util.Date

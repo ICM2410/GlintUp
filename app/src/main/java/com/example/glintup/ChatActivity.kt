@@ -1,4 +1,4 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import com.example.loginactivity.databinding.ActivityChatBinding
+import com.example.glintup.databinding.ActivityChatBinding
 import java.util.concurrent.Executor
 
 class ChatActivity : AppCompatActivity() {

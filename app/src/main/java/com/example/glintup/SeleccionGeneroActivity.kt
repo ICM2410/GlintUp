@@ -1,23 +1,23 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import com.example.loginactivity.databinding.ActivityInteresesBinding
+import com.example.glintup.databinding.ActivitySeleccionGeneroBinding
 
-class InteresesActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityInteresesBinding
+class SeleccionGeneroActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySeleccionGeneroBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInteresesBinding.inflate(layoutInflater)
+        binding = ActivitySeleccionGeneroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         configurarBotonSiguiente()
     }
     private fun configurarBotonSiguiente() {
         binding.siguiente.setOnClickListener {
-            val intent = Intent(this, OrientacionSexualActivity::class.java)
+            val intent = Intent(this, InteresesActivity::class.java)
             startActivity(intent)
         }
     }

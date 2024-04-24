@@ -1,24 +1,9 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
-import android.security.keystore.KeyGenParameterSpec
-import android.security.keystore.KeyProperties
-import android.util.Log
-import android.widget.Toast
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
-import androidx.biometric.BiometricPrompt
-import androidx.core.content.ContextCompat
-import com.example.loginactivity.databinding.ActivityLoginBinding
-import java.security.KeyStore
-import java.util.concurrent.Executor
-import javax.crypto.Cipher
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
+import com.example.glintup.databinding.ActivityLoginBinding
 
 class LogInActivity : AppCompatActivity() {
 

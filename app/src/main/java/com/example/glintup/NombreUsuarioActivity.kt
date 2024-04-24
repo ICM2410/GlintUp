@@ -1,23 +1,24 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import com.example.loginactivity.databinding.ActivityEstiloDeVidaBinding
+import com.example.glintup.databinding.ActivityNombreUsuarioBinding
 
-class EstiloDeVidaActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityEstiloDeVidaBinding
+class NombreUsuarioActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityNombreUsuarioBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEstiloDeVidaBinding.inflate(layoutInflater)
+        binding = ActivityNombreUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         configurarBotonSiguiente()
+
     }
     private fun configurarBotonSiguiente() {
         binding.siguiente.setOnClickListener {
-            val intent = Intent(this, FotosRecientesActivity::class.java)
+            val intent = Intent(this, CumpleanosActivity::class.java)
             startActivity(intent)
         }
     }

@@ -1,11 +1,10 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.widget.SeekBar
-import android.widget.TextView
-import com.example.loginactivity.databinding.ActivityDistanciaBinding
+import com.example.glintup.databinding.ActivityDistanciaBinding
 
 class DistanciaActivity : AppCompatActivity() {
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LogInActivity</string>
+    <string name="app_name">GlintUp</string>
     <string name="escribe">Escribe un mensaje...</string>
     <string name="nombreChat">Jhon Abraham</string>
     <string name="conectado">Conectado</string>

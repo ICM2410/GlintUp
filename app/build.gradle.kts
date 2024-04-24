@@ -7,7 +7,7 @@ plugins {
 
 android {
 
-    namespace = "com.example.loginactivity"
+    namespace = "com.example.glintup"
     compileSdk = 34
 
     defaultConfig {

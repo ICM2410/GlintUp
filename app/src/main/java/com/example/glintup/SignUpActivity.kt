@@ -1,11 +1,11 @@
-package com.example.loginactivity
+package com.example.glintup
 
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import com.example.loginactivity.databinding.ActivitySignupBinding
+import com.example.glintup.databinding.ActivitySignupBinding
 
 class  SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -16,9 +16,8 @@ class  SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         if(obtenerToken()!=null){
             startActivity(Intent(this, MatchActivity::class.java))
-        }else{
-            configurarBotones()
         }
+        configurarBotones()
     }
 
     private fun configurarBotones() {

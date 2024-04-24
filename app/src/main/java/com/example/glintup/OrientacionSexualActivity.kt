@@ -1,11 +1,11 @@
-package com.example.loginactivity
+package com.example.glintup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.TableRow
-import com.example.loginactivity.databinding.ActivityOrientacionSexualBinding
+import com.example.glintup.databinding.ActivityOrientacionSexualBinding
 
 class OrientacionSexualActivity : AppCompatActivity() {
 
