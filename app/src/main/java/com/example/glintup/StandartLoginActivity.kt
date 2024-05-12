@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.example.glintup.databinding.ActivityStandartLoginBinding
 import models.LoginRequest
 import models.LoginResponse
-import network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
