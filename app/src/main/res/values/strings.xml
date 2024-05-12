@@ -11,6 +11,7 @@
     <string name="mujer">Mujer</string>
     <string name="mujeres">Mujeres</string>
     <string name="otro">Otro</string>
+    <string name="disfrutar">¿Qué disfrutas hacer?</string>
     <string name="preguntaGenero">¿Cuál es tu género?</string>
     <string name="siguiente">Siguiente</string>
     <string name="mostrarGenero">Mostrar mi género en mi perfil</string>
@@ -30,14 +31,17 @@
     <string name="no_fumador">No fumador</string>
     <string name="fumador">Fumador</string>
     <string name="intento_dejarlo">Intento dejarlo</string>
-    <string name="pregunta_ejercicio">¿Haces ejercicio?</string>
+    <string name="pregunta_leer">¿Qué tan seguido lees?</string>
     <string name="ejercicio_todos_los_dias">Todos los días</string>
     <string name="ejercicio_a_menudo">A menudo</string>
     <string name="ejercicio_algunas_veces">Algunas veces</string>
     <string name="ejercicio_nunca">Nunca</string>
     <string name="orientacion">¿Tu orientación sexual?</string>
     <string name="orientacionMostrar">Mostrar mi orientación en mi perfil</string>
-    <string name="cantidadSeleccion">Selecciona hasta 3</string>
+    <string name="cantidadSeleccion">Selecciona hasta 2</string>
+
+    <string name="Ingrecorreo">Ingresa tu correo electrónico</string>
+    <string name="contrasena">Ingresa una contraseña</string>
 
     <string-array name="orientacionSexualOpciones">
         <item>Heterosexual</item>
@@ -61,6 +65,8 @@
     <string name="bf">Continuar con Facebook</string>
     <string name="preguntaCumple">¿Tu cumpleaños?</string>
     <string name="advertenciaNacimiento">Tu perfil muestra tu edad, no tu fecha de nacimiento</string>
+    <string name="danosCorreo">¿Cuál es tu correo? Queremos informarte de todo lo que suceda</string>
+    <string name="danosContra">¿Qué contraseña te gustaría tener? te prometemos que no le vamos a decir a nadie.</string>
     <string name="agregarFotosAlerta">Agrega una foto más. No busques la foto perfecta, siempre puedes cambiar tus fotos después.</string>
     <string name="agregarFoto">Agregar foto</string>
     <string name="agregarFotosRecientes">Agrega tus fotos recientes</string>
