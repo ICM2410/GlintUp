@@ -39,7 +39,7 @@ class OrientacionSexualActivity : AppCompatActivity() {
         checkBox.text = texto
         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                if (opcionesSeleccionadas.size >= 3) {
+                if (opcionesSeleccionadas.size >= 2) {
                     checkBox.isChecked = false
                 } else {
                     opcionesSeleccionadas.add(texto)
