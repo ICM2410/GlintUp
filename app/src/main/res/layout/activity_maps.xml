@@ -34,7 +34,7 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/hintDireccion"
         app:layout_constraintBottom_toTopOf="@+id/navegacion"
-        app:layout_constraintEnd_toStartOf="@+id/flecha"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map"
@@ -58,10 +58,24 @@
         android:layout_height="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintHorizontal_bias="0.957"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.072"
+        app:layout_constraintVertical_bias="0.065"
         app:srcCompat="@drawable/flecha_correcta" />
+
+    <ImageView
+        android:id="@+id/posicionar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/redondeado_mapa"
+        android:padding="3dp"
+        android:src="@drawable/ubicacion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flecha"
+        app:layout_constraintVertical_bias="0.871" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
