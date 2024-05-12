@@ -18,7 +18,7 @@ class NombreUsuarioActivity : AppCompatActivity() {
     }
     private fun configurarBotonSiguiente() {
         binding.siguiente.setOnClickListener {
-            val intent = Intent(this, CumpleanosActivity::class.java)
+            val intent = Intent(this, CorreoActivity::class.java)
             startActivity(intent)
         }
     }

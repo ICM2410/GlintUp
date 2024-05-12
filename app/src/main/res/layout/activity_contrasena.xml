@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".DistanciaActivity"
     android:background="@color/main_color">
 
 
@@ -20,62 +21,20 @@
         app:tint="@color/black"
         android:contentDescription="@string/volverAtras" />
 
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/intereses"
+        android:text="@string/contrasena"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.098" />
-
-    <RadioGroup
-        android:id="@+id/generoGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/siguiente"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintVertical_bias="0.385">
-
-        <RadioButton
-            android:id="@+id/generoHombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/boton_opciones_selector_bg"
-            android:button="@null"
-            android:elevation="2dp"
-            android:gravity="center"
-            android:padding="12.5dp"
-            android:text="@string/hombres"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <RadioButton
-            android:id="@+id/generoMujer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/boton_opciones_selector_bg"
-            android:button="@null"
-            android:elevation="2dp"
-            android:gravity="center"
-            android:padding="12.5dp"
-            android:text="@string/mujeres"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-    </RadioGroup>
 
     <Button
         android:id="@+id/siguiente"
@@ -93,4 +52,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.884" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+
+        <!-- contra -->
+        <EditText
+            android:id="@+id/contra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:maxLines="1"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="@string/danosContra"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.65"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.326" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
