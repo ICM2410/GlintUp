@@ -46,7 +46,8 @@ class StandartLoginActivity : AppCompatActivity() {
     private fun iniciar_sesion(email: String, password: String) {
         val loginRequest = LoginRequest(email, password)
 
-        RetrofitClient.instance.loginUser(loginRequest).enqueue(object : Callback<LoginResponse> {
+        RetrofitClient.create(applicationContext).loginUser(loginRequest).enqueue(object :
+            Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     // Si la respuesta es exitosa, manejar el token de JWT aquí

@@ -35,10 +35,15 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 import android.graphics.Color
 import android.util.Log
+import androidx.core.graphics.drawable.DrawableCompat
 
 import org.json.JSONObject
 
 import kotlin.concurrent.thread
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
@@ -76,12 +81,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var orientationAngles = FloatArray(3)
     private var cambio : Float = 0.0f
 
+    private var javelat: Double = 4.6287105623420475
+    private var javelong: Double = -74.06469837667596
+    private lateinit var javepos: LatLng
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         sensorManagerBrujula = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        binding.posicionar.setOnClickListener {
+            currentLocationMarker?.position?.let { pos -> moveMarkerToLocation(pos) }
+        }
+
+        javepos = LatLng(javelat,javelong)
+
+        val drawable = resources.getDrawable(R.drawable.flecha_correcta,null)
+
+        val wrappedDrawable = DrawableCompat.wrap(drawable)
+        DrawableCompat.setTint(wrappedDrawable, resources.getColor(R.color.rojoClaro,null))
+
+        binding.orientacion.setImageDrawable(wrappedDrawable)
 
         setupLocation()
         setupMap()
@@ -93,8 +115,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
 
     }
-
-
 
     private fun setupLocation() {
         location = LocationServices.getFusedLocationProviderClient(this)
@@ -135,6 +155,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         })
     }
 
+    private fun moveMarkerToLocation(latLng: LatLng) {
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
+    }
+
 
     // Sensor luz
     override fun onSensorChanged(event: SensorEvent?) {
@@ -146,8 +170,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                     val lightValue = event.values[0]
                     if (lightValue < umbralBajo) {
                         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_night))
+                        binding.distancia.setTextColor(Color.WHITE)
                     } else {
                         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_day))
+                        binding.distancia.setTextColor(Color.BLACK)
                     }
                 }
             }
@@ -170,8 +196,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     // Agregar marcador LongClick y calcula la distancia entre la ubicación actual y el marcador
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+
+        map.addMarker(
+            MarkerOptions()
+                .position(javepos)
+                .title("Javeriana")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+        )
         map.setOnMapLongClickListener { latLng ->
-            val marker = map.addMarker(
+            map.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .title("Nuevo marcador")
@@ -207,8 +240,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                     updateLocationUI(location)
 
                     if (lastWrittenLocation == null || lastWrittenLocation!!.distanceTo(location) > 30) {
-                        val latLng = LatLng(location.latitude, location.longitude)
-                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
                         lastWrittenLocation = location
 
                     }
@@ -239,6 +270,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
             primerZoom = true
         }
+        orientarUsuario()
+        calcularDistancia()
     }
 
     //Iniciar mapa si se concede permiso
@@ -433,6 +466,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(this)
+    }
+
+    //------------------------------Direccion hacia el otro usuario---------------------------------//
+
+    private fun orientarUsuario(){
+        val deltaX = javepos.latitude - lastLocation!!.latitude
+        val deltaY = javepos.longitude - lastLocation!!.longitude
+
+        val anguloRad = Math.atan2(deltaY, deltaX)
+        var angulo = Math.toDegrees(anguloRad).toFloat()
+
+        // Ajustar el ángulo para que esté en el rango de 0 a 360 grados
+        if (angulo < 0) {
+            angulo += 360f
+        }
+
+        binding.orientacion.rotation = angulo
+    }
+
+    private fun calcularDistancia(){
+        val radioTierra = 6371 // Radio de la Tierra en kilómetros
+        val dLat = Math.toRadians(javepos.latitude - lastLocation!!.latitude)
+        val dLon = Math.toRadians(javepos.longitude - lastLocation!!.longitude)
+
+        val a = sin(dLat / 2) * sin(dLat / 2) + cos(Math.toRadians(lastLocation!!.latitude)) * cos(Math.toRadians(javepos.latitude)) * sin(dLon / 2) * sin(dLon / 2)
+        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        val distancia = radioTierra * c
+
+        val texto = String.format("%.${1}f", distancia)
+
+        binding.distancia.text = texto + "Km"
     }
 
 }

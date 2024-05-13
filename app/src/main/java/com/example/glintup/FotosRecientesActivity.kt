@@ -1,14 +1,18 @@
 package com.example.glintup
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +20,17 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.glintup.databinding.ActivityFotosRecientesBinding
+import models.user.uploadImageResponse
+import network.RetrofitClient
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class FotosRecientesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFotosRecientesBinding
@@ -46,7 +60,11 @@ class FotosRecientesActivity : AppCompatActivity() {
         binding = ActivityFotosRecientesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val informacionLista: ArrayList<String>? = intent.getStringArrayListExtra("informacionList")
+        val nuevaInformacionList = informacionLista ?: ArrayList()
+
         configurarBotonSiguiente()
+        logInformacionRecibida(nuevaInformacionList)
         configurarClickListenersCasillas()
     }
 
@@ -54,6 +72,13 @@ class FotosRecientesActivity : AppCompatActivity() {
         binding.siguiente.setOnClickListener {
             val intent = Intent(this, MatchActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun logInformacionRecibida(informacionList: ArrayList<String>) {
+        Log.d("EstiloDeVidaActivity", "Información actual en la lista:")
+        informacionList.forEachIndexed { index, info ->
+            Log.d("EstiloDeVidaActivity", "Elemento $index: $info")
         }
     }
 
@@ -119,11 +144,14 @@ class FotosRecientesActivity : AppCompatActivity() {
     private fun loadImage(uri: Uri, casillaIndex: Int) {
         val imageButton = getCasillaImageButton(casillaIndex)
         val constraintLayout = getCasillaConstraintLayout(casillaIndex)
-
         val inputStream = contentResolver.openInputStream(uri)
         val drawable = Drawable.createFromStream(inputStream, uri.toString())
         constraintLayout.background = drawable
         imageButton.visibility = View.INVISIBLE
+        Log.i("IMAGEN", "Imagen cargada en casilla: $casillaIndex")
+
+        //cargarImagenBase(uri, this)
+        //Esto envia la foto a la base pero aun nose lo del id lo deje igual que como en el taller
     }
 
     private fun getCasillaConstraintLayout(casillaIndex: Int): ConstraintLayout {
@@ -147,6 +175,55 @@ class FotosRecientesActivity : AppCompatActivity() {
             4 -> binding.casilla5.findViewById(R.id.imageButton5)
             5 -> binding.casilla6.findViewById(R.id.imageButton6)
             else -> throw IllegalArgumentException("Índice de casilla no válido: $casillaIndex")
+        }
+    }
+
+    private fun cargarImagenBase(imagen: Uri,contexto:Context){
+        val file = uriToFile(contexto, imagen)
+
+        if(file != null){
+            val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
+
+            val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
+
+            RetrofitClient.create(applicationContext).uploadImage(body).enqueue(object :
+                Callback<uploadImageResponse> {
+                override fun onResponse(
+                    call: Call<uploadImageResponse>,
+                    response: Response<uploadImageResponse>
+                ) {
+                    if(response.isSuccessful){
+                        Log.i("UPLOAD IMAGE", "Image uploaded sucesfully")
+                    }else{
+                        Log.i("UPLOAD IMAGE", "error uploading the picture")
+                    }
+                }
+
+                override fun onFailure(call: Call<uploadImageResponse>, t: Throwable) {
+                    Toast.makeText(this@FotosRecientesActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else Log.i("IMAGEN", "La imagen no se pudo enviar = NULL")
+
+    }
+
+    private fun uriToFile(context: Context, uri: Uri): File? {
+        val inputStream = context.contentResolver.openInputStream(uri)
+        val outputFile = File(context.cacheDir, "tempFile")
+
+        return try {
+            val outputStream = FileOutputStream(outputFile)
+            inputStream?.use { input ->
+                outputStream.use { output ->
+                    input.copyTo(output)
+                }
+            }
+            outputFile
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
+        } finally {
+            inputStream?.close()
         }
     }
 

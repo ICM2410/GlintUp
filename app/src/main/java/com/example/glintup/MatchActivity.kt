@@ -4,25 +4,36 @@ import ImagenAdapter
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.example.glintup.databinding.ActivityMatchBinding
+import models.User
 
 class MatchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchBinding
+
+    val userList = listOf(
+        User("Luis", "Vera", R.drawable.zac_efron.toString(), "66392d25bc6607b1df0e2550"),
+        User("Pedro", "Perez", R.drawable.pf_pic.toString(), "66392d25bc6607b1df0e2551"),
+        User("Juan", "Gomez", R.drawable.brad_pitt.toString(), "66392d25bc6607b1df0e2552"),
+        User("Maria", "Gonzalez", "perfil4.jpg", "66392d25bc6607b1df0e2553")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val imageAdapter = ImagenAdapter(getImageList())
-        binding.viewPagerImages.adapter = imageAdapter
+        val usuarios = ImagenAdapter(userList)
+        binding.viewPagerImages.adapter = usuarios
+        binding.viewPagerImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
 
-
-        binding.navegacion.setOnItemSelectedListener {
-            navigateToItem(it.itemId)
-
-        }
+                val user = userList[position]
+                binding.nombre.text = "${user.name} ${user.lastname}"
+            }
+        })
     }
 
     override fun onResume() {

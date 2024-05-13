@@ -3,6 +3,7 @@ package com.example.glintup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.widget.Toast
 import com.example.glintup.databinding.ActivityIngresarNumeroBinding
 
 class IngresarNumeroActivity : AppCompatActivity() {
@@ -18,8 +19,15 @@ class IngresarNumeroActivity : AppCompatActivity() {
 
     private fun configurarBotonSiguiente() {
         binding.siguiente.setOnClickListener {
-            val intent = Intent(this, NombreUsuarioActivity::class.java)
-            startActivity(intent)
+            val numeroTexto = binding.numero.text.toString()
+            if (numeroTexto.isNotEmpty()) {
+                val intent = Intent(this, NombreUsuarioActivity::class.java)
+                val informacionLista = mutableListOf<String>(numeroTexto)
+                intent.putExtra("informacionLista", ArrayList(informacionLista))
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Por favor, ingrese un número válido.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

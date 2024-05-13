@@ -2,10 +2,9 @@ package com.example.glintup
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.glintup.databinding.ActivityCorreoBinding
 
 class CorreoActivity : AppCompatActivity() {
@@ -16,13 +15,24 @@ class CorreoActivity : AppCompatActivity() {
         binding = ActivityCorreoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        configurarBotonSiguiente()
+        // Obtener la lista de información de la actividad anterior
+        val informacionLista: ArrayList<String>? = intent.getStringArrayListExtra("informacionList")
+        val nuevaInformacionList = informacionLista ?: ArrayList()
 
+        configurarBotonSiguiente(nuevaInformacionList)
     }
-    private fun configurarBotonSiguiente() {
+
+    private fun configurarBotonSiguiente(informacionList: ArrayList<String>) {
         binding.siguiente.setOnClickListener {
-            val intent = Intent(this, ContrasenaActivity::class.java)
-            startActivity(intent)
+            val correo = binding.correo.text.toString()
+            if (correo.isNotEmpty()) {
+                informacionList.add(correo)
+                val intent = Intent(this, ContrasenaActivity::class.java)
+                intent.putStringArrayListExtra("informacionList", informacionList)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Por favor, ingrese un correo electrónico.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
