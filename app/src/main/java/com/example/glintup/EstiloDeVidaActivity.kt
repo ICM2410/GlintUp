@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -57,11 +58,14 @@ class EstiloDeVidaActivity : AppCompatActivity() {
                 respuestas.add("Ejercicio: $ejercicioRespuesta")
                 respuestas.add("Fumar: $fumarRespuesta")
                 respuestas.add("Leer: $leerRespuesta")
-                informacionList.add(respuestas.joinToString(", "))
 
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("hobbies", respuestas.toString())
+                    apply()
+                }
                 processInformation(informacionList)
                 val intent = Intent(this, FotosRecientesActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, responda todas las preguntas antes de continuar.", Toast.LENGTH_LONG).show()
@@ -71,31 +75,28 @@ class EstiloDeVidaActivity : AppCompatActivity() {
 
     private fun processInformation(informacionList: ArrayList<String>) {
         // Suponiendo que cada entrada en la lista corresponde a un campo específico
-        val numero = informacionList[0]
-        val nombre = informacionList[1]
-        val correo = informacionList[2]
-        val contrasena = informacionList[3]
-        val fecha = informacionList[4]
-        val genero = informacionList[5]
-        val orientacionSexual = informacionList[6].split(", ")
-        val generoPref = informacionList[7].split(", ")
-        val kmCercania = informacionList[8]
-        val habitos = informacionList[9]
 
-        // Imprimir todos los detalles en el log para verificación
-        Log.d("FinalData", "Número: $numero")
-        Log.d("FinalData", "Nombre: $nombre")
-        Log.d("FinalData", "Correo: $correo")
-        Log.d("FinalData", "Contraseña: $contrasena")
-        Log.d("FinalData", "Fecha: $fecha")
-        Log.d("FinalData", "Género: $genero")
-        Log.d("FinalData", "Orientación sexual: ${orientacionSexual.joinToString(", ")}")
-        Log.d("FinalData", "Género de preferencia: ${generoPref.joinToString(", ")}")
-        Log.d("FinalData", "Kilómetros de cercanía: $kmCercania")
-        Log.d("FinalData", "Hábitos: $habitos")
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+
+        val numero = sharedPreferences.getString("numero", null)
+        val nombre = sharedPreferences.getString("nombre", null)
+        val correo = sharedPreferences.getString("correo", null)
+        val contrasena = sharedPreferences.getString("password", null)
+        val fecha = sharedPreferences.getString("birthdate", null)
+        val genero = sharedPreferences.getString("genero", null)
+        val generoPref = sharedPreferences.getString("preferencias", null)
+        val kmCercania = sharedPreferences.getString("distancia", null)
+        val habitos = sharedPreferences.getString("hobbies", null)
+
+        Log.i("FINAL", numero.toString())
+        Log.i("FINAL", nombre.toString())
+        Log.i("FINAL", correo.toString())
+        Log.i("FINAL", contrasena.toString())
+        Log.i("FINAL", genero.toString())
+        Log.i("FINAL", generoPref.toString())
+        Log.i("FINAL", kmCercania.toString())
+        Log.i("FINAL", habitos.toString())
     }
-
-
 
 
     private fun logInformacionRecibida(informacionList: ArrayList<String>) {

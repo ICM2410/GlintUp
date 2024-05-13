@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -36,9 +37,12 @@ class InteresesActivity : AppCompatActivity() {
                 }
             }
 
-            informacionList.add(interes)
             val intent = Intent(this, OrientacionSexualActivity::class.java)
-            intent.putStringArrayListExtra("informacionList", informacionList)
+            val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+            with(sharedPreferences.edit()) {
+                putString("preferencias", interes)
+                apply()
+            }
             startActivity(intent)
         }
     }

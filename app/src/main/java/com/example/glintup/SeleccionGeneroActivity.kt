@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -37,9 +38,12 @@ class SeleccionGeneroActivity : AppCompatActivity() {
             }
 
             if (genero != "No especificado") {
-                informacionList.add(genero)
                 val intent = Intent(this, InteresesActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("genero", genero)
+                    apply()
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, seleccione una opción de género.", Toast.LENGTH_SHORT).show()
