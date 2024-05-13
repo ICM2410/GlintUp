@@ -52,13 +52,14 @@ class EstiloDeVidaActivity : AppCompatActivity() {
                 else -> ""
             }
 
-            // Añadir las respuestas a la lista temporal solo si ambas preguntas han sido contestadas
+
             if (ejercicioRespuesta.isNotEmpty() && fumarRespuesta.isNotEmpty() && leerRespuesta.isNotEmpty()) {
                 respuestas.add("Ejercicio: $ejercicioRespuesta")
                 respuestas.add("Fumar: $fumarRespuesta")
                 respuestas.add("Leer: $leerRespuesta")
                 informacionList.add(respuestas.joinToString(", "))
 
+                processInformation(informacionList)
                 val intent = Intent(this, FotosRecientesActivity::class.java)
                 intent.putStringArrayListExtra("informacionList", informacionList)
                 startActivity(intent)
@@ -67,6 +68,35 @@ class EstiloDeVidaActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun processInformation(informacionList: ArrayList<String>) {
+        // Suponiendo que cada entrada en la lista corresponde a un campo específico
+        val numero = informacionList[0]
+        val nombre = informacionList[1]
+        val correo = informacionList[2]
+        val contrasena = informacionList[3]
+        val fecha = informacionList[4]
+        val genero = informacionList[5]
+        val orientacionSexual = informacionList[6].split(", ")
+        val generoPref = informacionList[7].split(", ")
+        val kmCercania = informacionList[8]
+        val habitos = informacionList[9]
+
+        // Imprimir todos los detalles en el log para verificación
+        Log.d("FinalData", "Número: $numero")
+        Log.d("FinalData", "Nombre: $nombre")
+        Log.d("FinalData", "Correo: $correo")
+        Log.d("FinalData", "Contraseña: $contrasena")
+        Log.d("FinalData", "Fecha: $fecha")
+        Log.d("FinalData", "Género: $genero")
+        Log.d("FinalData", "Orientación sexual: ${orientacionSexual.joinToString(", ")}")
+        Log.d("FinalData", "Género de preferencia: ${generoPref.joinToString(", ")}")
+        Log.d("FinalData", "Kilómetros de cercanía: $kmCercania")
+        Log.d("FinalData", "Hábitos: $habitos")
+    }
+
+
+
 
     private fun logInformacionRecibida(informacionList: ArrayList<String>) {
         Log.d("EstiloDeVidaActivity", "Información actual en la lista:")
