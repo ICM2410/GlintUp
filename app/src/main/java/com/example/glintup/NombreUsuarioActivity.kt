@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -27,6 +28,13 @@ class NombreUsuarioActivity : AppCompatActivity() {
                 informacionList.add(nombre)
                 val intent = Intent(this, CorreoActivity::class.java)
                 intent.putStringArrayListExtra("informacionList", informacionList)
+                //val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                //with(sharedPreferences.edit())
+                //{
+                //    putString("user_name",nombre)
+                //    apply()
+                //}
+
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, ingrese un nombre.", Toast.LENGTH_LONG).show()
