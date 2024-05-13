@@ -34,6 +34,10 @@ class MatchActivity : AppCompatActivity() {
                 binding.nombre.text = "${user.name} ${user.lastname}"
             }
         })
+
+        binding.navegacion.setOnItemSelectedListener {
+            navigateToItem(it.itemId)
+        }
     }
 
     override fun onResume() {
@@ -63,16 +67,6 @@ class MatchActivity : AppCompatActivity() {
                 return false
             }
         }
-    }
-
-
-    private fun getImageList(): List<Int> {
-
-        return listOf(
-            R.drawable.zac_efron,
-            R.drawable.pf_pic,
-            R.drawable.brad_pitt
-        )
     }
 }
 
