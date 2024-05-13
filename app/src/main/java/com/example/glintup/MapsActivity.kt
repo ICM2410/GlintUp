@@ -83,6 +83,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         sensorManagerBrujula = getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
+        binding.posicionar.setOnClickListener {
+            currentLocationMarker?.position?.let { pos -> moveMarkerToLocation(pos) }
+        }
+
         setupLocation()
         setupMap()
         setupPermissionRequest()
@@ -93,8 +97,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
 
     }
-
-
 
     private fun setupLocation() {
         location = LocationServices.getFusedLocationProviderClient(this)
@@ -133,6 +135,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 return false
             }
         })
+    }
+
+    private fun moveMarkerToLocation(latLng: LatLng) {
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
     }
 
 
@@ -207,8 +213,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                     updateLocationUI(location)
 
                     if (lastWrittenLocation == null || lastWrittenLocation!!.distanceTo(location) > 30) {
-                        val latLng = LatLng(location.latitude, location.longitude)
-                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
                         lastWrittenLocation = location
 
                     }

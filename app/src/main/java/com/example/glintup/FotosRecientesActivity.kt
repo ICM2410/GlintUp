@@ -60,7 +60,11 @@ class FotosRecientesActivity : AppCompatActivity() {
         binding = ActivityFotosRecientesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val informacionLista: ArrayList<String>? = intent.getStringArrayListExtra("informacionList")
+        val nuevaInformacionList = informacionLista ?: ArrayList()
+
         configurarBotonSiguiente()
+        logInformacionRecibida(nuevaInformacionList)
         configurarClickListenersCasillas()
     }
 
@@ -68,6 +72,13 @@ class FotosRecientesActivity : AppCompatActivity() {
         binding.siguiente.setOnClickListener {
             val intent = Intent(this, MatchActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun logInformacionRecibida(informacionList: ArrayList<String>) {
+        Log.d("EstiloDeVidaActivity", "Información actual en la lista:")
+        informacionList.forEachIndexed { index, info ->
+            Log.d("EstiloDeVidaActivity", "Elemento $index: $info")
         }
     }
 

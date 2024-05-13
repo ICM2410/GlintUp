@@ -3,23 +3,29 @@ package com.example.glintup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.util.Log
 import android.widget.SeekBar
 import com.example.glintup.databinding.ActivityDistanciaBinding
 
 class DistanciaActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityDistanciaBinding
+    private var distanciaSeleccionada = 50  // Valor inicial del SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDistanciaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        configurarSeekBar()
-        configurarBotonSiguiente()
+        val informacionLista: ArrayList<String>? = intent.getStringArrayListExtra("informacionList")
+        val nuevaInformacionList = informacionLista ?: ArrayList()
+
+        configurarSeekBar(nuevaInformacionList)
+        configurarBotonSiguiente(nuevaInformacionList)
+
     }
 
-    private fun configurarSeekBar() {
+
+    private fun configurarSeekBar(informacionList: ArrayList<String>) {
         binding.kilometros.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 actualizarValorSeekBar(progress)
@@ -30,18 +36,21 @@ class DistanciaActivity : AppCompatActivity() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // No es necesario implementarla, sin embargo es obligatoria
+                distanciaSeleccionada = binding.kilometros.progress
+                informacionList.add("$distanciaSeleccionada")
             }
         })
+        actualizarValorSeekBar(distanciaSeleccionada)
     }
 
     private fun actualizarValorSeekBar(progress: Int) {
         binding.kilometrosValor.text = "$progress km"
     }
 
-    private fun configurarBotonSiguiente() {
+    private fun configurarBotonSiguiente(informacionList: ArrayList<String>) {
         binding.siguiente.setOnClickListener {
             val intent = Intent(this, EstiloDeVidaActivity::class.java)
+            intent.putStringArrayListExtra("informacionList", informacionList)
             startActivity(intent)
         }
     }

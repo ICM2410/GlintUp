@@ -39,7 +39,7 @@ class  SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, IngresarNumeroActivity::class.java)
         startActivity(intent)
     }
-
+ //IngresarNumeroActivity
     private fun obtenerToken(): String? {
         val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
         return sharedPreferences.getString("token_jwt", null)

@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.CheckBox
 import android.widget.TableRow
+import android.widget.Toast
 import com.example.glintup.databinding.ActivityOrientacionSexualBinding
 
 class OrientacionSexualActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityOrientacionSexualBinding
     private val opcionesSeleccionadas = mutableListOf<String>()
 
@@ -17,10 +17,13 @@ class OrientacionSexualActivity : AppCompatActivity() {
         binding = ActivityOrientacionSexualBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Recuperar la lista de información pasada de la actividad anterior
+        val informacionLista: ArrayList<String>? = intent.getStringArrayListExtra("informacionList")
+        val nuevaInformacionList = informacionLista ?: ArrayList()
+
         configurarOpciones()
         configurarBotonMostrarGenero()
-        configurarBotonSiguiente()
-
+        configurarBotonSiguiente(nuevaInformacionList)
     }
 
     private fun configurarOpciones() {
@@ -37,10 +40,11 @@ class OrientacionSexualActivity : AppCompatActivity() {
     private fun crearCheckBox(texto: String): CheckBox {
         val checkBox = CheckBox(this)
         checkBox.text = texto
-        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 if (opcionesSeleccionadas.size >= 2) {
                     checkBox.isChecked = false
+                    Toast.makeText(this, "No puede seleccionar más de dos opciones", Toast.LENGTH_SHORT).show()
                 } else {
                     opcionesSeleccionadas.add(texto)
                 }
@@ -65,12 +69,16 @@ class OrientacionSexualActivity : AppCompatActivity() {
 
     private fun configurarBotonMostrarGenero() {
         binding.mostrarGenero.setOnClickListener {
-
+            // Implementar acción deseada
         }
     }
-    private fun configurarBotonSiguiente() {
+
+    private fun configurarBotonSiguiente(informacionList: ArrayList<String>) {
         binding.siguiente.setOnClickListener {
+            // Añadir la lista de opciones seleccionadas a la lista principal
+            informacionList.add(opcionesSeleccionadas.joinToString(", "))
             val intent = Intent(this, DistanciaActivity::class.java)
+            intent.putStringArrayListExtra("informacionList", informacionList)
             startActivity(intent)
         }
     }

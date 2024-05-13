@@ -74,7 +74,7 @@
 
                 <RadioGroup
                     android:layout_marginStart="15dp"
-                    android:id="@+id/radioGroup1"
+                    android:id="@+id/grupoEjercicio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp">
@@ -217,7 +217,7 @@
                     android:textSize="16sp"/>
                 <RadioGroup
                     android:layout_marginStart="15dp"
-                    android:id="@+id/grupoEjercicio"
+                    android:id="@+id/grupoLeer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
