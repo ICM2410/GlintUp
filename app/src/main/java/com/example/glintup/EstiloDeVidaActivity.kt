@@ -77,10 +77,10 @@ class EstiloDeVidaActivity : AppCompatActivity() {
         val contrasena = informacionList[3]
         val fecha = informacionList[4]
         val genero = informacionList[5]
-        val orientacionSexual = informacionList[6].split(", ") // asumiendo que es una lista separada por comas
-        val generoPref = informacionList[7].split(", ") // asumiendo que es una lista separada por comas
+        val orientacionSexual = informacionList[6].split(", ")
+        val generoPref = informacionList[7].split(", ")
         val kmCercania = informacionList[8]
-        val habitos = informacionList[9] // asumiendo que esto es una cadena simple sin necesidad de separación
+        val habitos = informacionList[9]
 
         // Imprimir todos los detalles en el log para verificación
         Log.d("FinalData", "Número: $numero")
