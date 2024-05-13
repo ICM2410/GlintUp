@@ -150,7 +150,7 @@ class FotosRecientesActivity : AppCompatActivity() {
         imageButton.visibility = View.INVISIBLE
         Log.i("IMAGEN", "Imagen cargada en casilla: $casillaIndex")
 
-        //cargarImagenBase(uri, this)
+        cargarImagenBase(uri, this)
         //Esto envia la foto a la base pero aun nose lo del id lo deje igual que como en el taller
     }
 
