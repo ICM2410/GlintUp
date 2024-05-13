@@ -36,7 +36,7 @@ class  SignUpActivity : AppCompatActivity() {
     }
 
     private fun irAIngresarNumero() {
-        val intent = Intent(this, MatchActivity::class.java)
+        val intent = Intent(this, IngresarNumeroActivity::class.java)
         startActivity(intent)
     }
  //IngresarNumeroActivity
