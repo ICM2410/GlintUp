@@ -4,6 +4,7 @@ import ImagenAdapter
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.example.glintup.databinding.ActivityMatchBinding
 import models.User
 
@@ -25,15 +26,14 @@ class MatchActivity : AppCompatActivity() {
 
         val usuarios = ImagenAdapter(userList)
         binding.viewPagerImages.adapter = usuarios
+        binding.viewPagerImages.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
 
-
-
-
-
-        binding.navegacion.setOnItemSelectedListener {
-            navigateToItem(it.itemId)
-
-        }
+                val user = userList[position]
+                binding.nombre.text = "${user.name} ${user.lastname}"
+            }
+        })
     }
 
     override fun onResume() {
