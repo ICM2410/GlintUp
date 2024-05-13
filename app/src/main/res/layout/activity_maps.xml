@@ -78,4 +78,31 @@
         app:layout_constraintTop_toBottomOf="@+id/flecha"
         app:layout_constraintVertical_bias="0.871" />
 
+    <ImageView
+        android:id="@+id/orientacion"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/redondeado_mapa"
+        android:padding="8dp"
+        android:src="@drawable/flecha_correcta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flecha"
+        app:layout_constraintVertical_bias="0.752" />
+
+    <TextView
+        android:id="@+id/distancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distacia"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.71" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
