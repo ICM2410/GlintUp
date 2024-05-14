@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MapsActivity"
-        tools:layout_editor_absoluteX="207dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteX="-26dp"
+        tools:layout_editor_absoluteY="-162dp" />
 
     <SearchView
         android:id="@+id/buscador"
@@ -33,35 +33,21 @@
         android:maxLines="1"
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/hintDireccion"
-        app:layout_constraintBottom_toTopOf="@+id/navegacion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/map"
-        app:layout_constraintVertical_bias="0.04" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navegacion"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@color/main_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/bottom_nav"
-        app:itemIconTint="@color/nav_item_color_state"
-        app:itemTextColor="@color/nav_item_color_state"/>
+        app:layout_constraintTop_toTopOf="@+id/map" />
 
     <ImageView
         android:id="@+id/flecha"
         android:layout_width="38dp"
         android:layout_height="38dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065"
+        app:layout_constraintVertical_bias="0.033"
         app:srcCompat="@drawable/flecha_correcta" />
 
     <ImageView
@@ -73,9 +59,53 @@
         android:src="@drawable/ubicacion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flecha"
-        app:layout_constraintVertical_bias="0.871" />
+        app:layout_constraintVertical_bias="0.87" />
+
+    <ImageView
+        android:id="@+id/orientacion"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@drawable/redondeado_mapa"
+        android:padding="8dp"
+        android:src="@drawable/flecha_correcta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flecha"
+        app:layout_constraintVertical_bias="0.766" />
+
+    <TextView
+        android:id="@+id/distancia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Distacia"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721" />
+
+    <TextView
+        android:id="@+id/sugerir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aca va lo de seleccionar la ubicacion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textColor="@color/gris"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@color/blancoClaro"
+        app:layout_constraintEnd_toEndOf="@+id/map"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
