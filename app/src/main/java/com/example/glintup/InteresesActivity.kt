@@ -29,8 +29,8 @@ class InteresesActivity : AppCompatActivity() {
         binding.siguiente.setOnClickListener {
 
             val interes = when (binding.generoGroup.checkedRadioButtonId) {
-                R.id.generoHombre -> "Hombres"
-                R.id.generoMujer -> "Mujeres"
+                R.id.generoHombre -> "H"
+                R.id.generoMujer -> "M"
                 else -> {
                     Toast.makeText(this, "Por favor, seleccione una opción de interés.", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener

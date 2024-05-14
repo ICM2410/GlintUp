@@ -31,9 +31,9 @@ class SeleccionGeneroActivity : AppCompatActivity() {
         binding.siguiente.setOnClickListener {
             // Captura el género seleccionado usando el RadioGroup
             val genero = when (binding.generoGroup.checkedRadioButtonId) {
-                R.id.generoHombre -> "Hombre"
-                R.id.generoMujer -> "Mujer"
-                R.id.generoOtro -> "Otro"
+                R.id.generoHombre -> "H"
+                R.id.generoMujer -> "M"
+                R.id.generoOtro -> "O"
                 else -> "No especificado"  // Asumiendo un caso por defecto
             }
 
