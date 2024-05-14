@@ -9,13 +9,13 @@ class ImagenAdapter(private val userList: List<User>) :
 
     inner class ImageViewHolder(val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
-            val resourceImg = user.profile_picture.toIntOrNull()
+            //val resourceImg = user.profile_picture.toIntOrNull()
 
-            if (resourceImg != null) {
-                binding.imageView.setImageResource(resourceImg)
-            } else {
+            //if (resourceImg != null) {
+              //  binding.imageView.setImageResource(resourceImg)
+            //} else {
 
-            }
+            //}
 
 
         }

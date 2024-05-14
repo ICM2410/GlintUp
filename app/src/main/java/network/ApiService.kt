@@ -3,6 +3,7 @@ package network
 import models.LoginRequest
 import models.LoginResponse
 import models.RegisterRequest
+import models.User_list
 import models.availabilityResponse
 import models.availabilityState
 import models.availabilityStateRequest
@@ -51,5 +52,9 @@ interface ApiService {
     @Authorized
     @POST("blob/transfer")
     fun fetchImage(@Body request: getImageRequest): Call<ResponseBody>
+
+    @Authorized
+    @GET("user/proximity")
+    fun getUsersOnProximity():Call<User_list>
 
 }
