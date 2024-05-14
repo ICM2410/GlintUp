@@ -1,6 +1,7 @@
 package com.example.glintup
 
 import android.app.DatePickerDialog
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -29,9 +30,12 @@ class CumpleanosActivity : AppCompatActivity() {
     private fun configurarBotonSiguiente(informacionList: ArrayList<String>) {
         binding.siguiente.setOnClickListener {
             if (selectedDate != null) {
-                informacionList.add(selectedDate!!)
                 val intent = Intent(this, SeleccionGeneroActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("birthdate", selectedDate)
+                    apply()
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, seleccione una fecha de nacimiento.", Toast.LENGTH_SHORT).show()

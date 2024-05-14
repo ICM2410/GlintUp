@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -30,16 +31,19 @@ class SeleccionGeneroActivity : AppCompatActivity() {
         binding.siguiente.setOnClickListener {
             // Captura el género seleccionado usando el RadioGroup
             val genero = when (binding.generoGroup.checkedRadioButtonId) {
-                R.id.generoHombre -> "Hombre"
-                R.id.generoMujer -> "Mujer"
-                R.id.generoOtro -> "Otro"
+                R.id.generoHombre -> "H"
+                R.id.generoMujer -> "M"
+                R.id.generoOtro -> "O"
                 else -> "No especificado"  // Asumiendo un caso por defecto
             }
 
             if (genero != "No especificado") {
-                informacionList.add(genero)
                 val intent = Intent(this, InteresesActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("genero", genero)
+                    apply()
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, seleccione una opción de género.", Toast.LENGTH_SHORT).show()

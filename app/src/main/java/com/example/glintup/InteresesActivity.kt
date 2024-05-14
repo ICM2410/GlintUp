@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -28,17 +29,20 @@ class InteresesActivity : AppCompatActivity() {
         binding.siguiente.setOnClickListener {
 
             val interes = when (binding.generoGroup.checkedRadioButtonId) {
-                R.id.generoHombre -> "Hombres"
-                R.id.generoMujer -> "Mujeres"
+                R.id.generoHombre -> "H"
+                R.id.generoMujer -> "M"
                 else -> {
                     Toast.makeText(this, "Por favor, seleccione una opción de interés.", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
             }
 
-            informacionList.add(interes)
             val intent = Intent(this, OrientacionSexualActivity::class.java)
-            intent.putStringArrayListExtra("informacionList", informacionList)
+            val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+            with(sharedPreferences.edit()) {
+                putString("preferencias", interes)
+                apply()
+            }
             startActivity(intent)
         }
     }
