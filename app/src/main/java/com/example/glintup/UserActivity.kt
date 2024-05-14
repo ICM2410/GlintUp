@@ -1,6 +1,7 @@
 package com.example.glintup
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -100,6 +101,17 @@ class UserActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.close -> {
+                    val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.clear()
+                    editor.apply()
+
+                    startActivity(Intent(this,SignUpActivity::class.java))
+
+                    true
+                }
+
                 else -> false
             }
         }
