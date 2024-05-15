@@ -6,6 +6,8 @@ import models.RegisterRequest
 import models.availabilityResponse
 import models.availabilityState
 import models.availabilityStateRequest
+import models.likeRequest
+import models.matchResponse
 import models.proximityResponse
 import models.user.defaultResponse
 import models.user.getImageRequest
@@ -56,5 +58,10 @@ interface ApiService {
     @Authorized
     @GET("user/proximity")
     fun getUsersOnProximity():Call<proximityResponse>
+
+
+    @Authorized
+    @POST("like/")
+    fun createLikeAndCheckIfMatch(@Body request: likeRequest):Call<matchResponse>
 
 }
