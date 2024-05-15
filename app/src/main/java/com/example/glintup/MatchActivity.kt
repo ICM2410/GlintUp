@@ -41,6 +41,7 @@ class MatchActivity : AppCompatActivity() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var lastLocation: Location? = null
+    private var respuesta: List<User>? = null
 
     private val permissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -51,6 +52,8 @@ class MatchActivity : AppCompatActivity() {
         })
 
     private val immutableList = listOf("Apple", "Banana", "Orange")
+
+
     val userList = listOf(
         User("Veronica", "test", "M", immutableList),
         User("Luis", "test", "F", immutableList),
@@ -63,17 +66,7 @@ class MatchActivity : AppCompatActivity() {
         binding = ActivityMatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val usuarios = ImagenAdapter(userList)
-        binding.viewPagerImages.adapter = usuarios
-        binding.viewPagerImages.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
 
-                val user = userList[position]
-                binding.nombre.text = "${user.name}"
-            }
-        })
 
         setupLocation()
         setupPermissionRequest()
@@ -166,6 +159,9 @@ class MatchActivity : AppCompatActivity() {
         }
     }
 
+    //------------------------------------------------Usuarios---------------------------------------------------//
+
+
     private fun updateLocation(lat: Double, long: Double) {
         val locationUpdate = locationRequest(
             models.user.locationRequest.Location(
@@ -197,8 +193,29 @@ class MatchActivity : AppCompatActivity() {
             Callback<proximityResponse> {
             override fun onResponse(call: Call<proximityResponse>, response: Response<proximityResponse>) {
                 if(response.isSuccessful){
-                    val respuesta = response.body()?.users
+                    respuesta = response.body()?.users
                     Log.i("Test and sucess FUCKER", respuesta.toString())
+
+                    val usuarios = respuesta?.let { ImagenAdapter(it, this@MatchActivity) }
+                    binding.viewPagerImages.adapter = usuarios
+
+                    binding.viewPagerImages.registerOnPageChangeCallback(object :
+                        ViewPager2.OnPageChangeCallback() {
+                        override fun onPageSelected(position: Int) {
+                            super.onPageSelected(position)
+
+                            val user = respuesta?.get(position)
+                            if (user != null) {
+                                binding.nombre.text = user.name
+                                if(user.gender == "H"){
+                                    binding.info.text = "Genero: Masculino"
+                                }
+                                else {
+                                    binding.info.text = "Genero: Femenino"
+                                }
+                            }
+                        }
+                    })
                 }else{
                     Log.i("Tehf CUKER IS NOT DONE", "FUCKKKKKK")
                     Toast.makeText(this@MatchActivity, "Server Internal Error", Toast.LENGTH_SHORT).show()
