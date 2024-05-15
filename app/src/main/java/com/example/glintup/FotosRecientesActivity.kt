@@ -66,6 +66,10 @@ class FotosRecientesActivity : AppCompatActivity() {
         configurarBotonSiguiente()
         logInformacionRecibida(nuevaInformacionList)
         configurarClickListenersCasillas()
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun configurarBotonSiguiente() {

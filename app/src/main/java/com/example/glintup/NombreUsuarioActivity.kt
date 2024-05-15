@@ -37,5 +37,9 @@ class NombreUsuarioActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, ingrese un nombre.", Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

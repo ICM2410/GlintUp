@@ -58,5 +58,8 @@ class DistanciaActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

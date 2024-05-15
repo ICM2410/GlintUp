@@ -27,6 +27,10 @@ class EstiloDeVidaActivity : AppCompatActivity() {
 
         configurarBotonSiguiente(nuevaInformacionList)
         logInformacionRecibida(nuevaInformacionList)
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun configurarBotonSiguiente(informacionList: ArrayList<String>) {

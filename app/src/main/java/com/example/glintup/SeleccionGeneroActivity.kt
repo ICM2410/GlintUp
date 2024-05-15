@@ -49,5 +49,8 @@ class SeleccionGeneroActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, seleccione una opción de género.", Toast.LENGTH_SHORT).show()
             }
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

@@ -81,5 +81,8 @@ class OrientacionSexualActivity : AppCompatActivity() {
             intent.putStringArrayListExtra("informacionList", informacionList)
             startActivity(intent)
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }
