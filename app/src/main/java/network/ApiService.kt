@@ -3,10 +3,10 @@ package network
 import models.LoginRequest
 import models.LoginResponse
 import models.RegisterRequest
-import models.User_list
 import models.availabilityResponse
 import models.availabilityState
 import models.availabilityStateRequest
+import models.proximityResponse
 import models.user.defaultResponse
 import models.user.getImageRequest
 import models.user.locationRequest
@@ -55,6 +55,6 @@ interface ApiService {
 
     @Authorized
     @GET("user/proximity")
-    fun getUsersOnProximity():Call<User_list>
+    fun getUsersOnProximity():Call<proximityResponse>
 
 }
