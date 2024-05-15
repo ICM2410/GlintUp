@@ -36,5 +36,8 @@ class ContrasenaActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, ingrese una contraseña.", Toast.LENGTH_LONG).show()
             }
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

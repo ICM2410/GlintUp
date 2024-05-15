@@ -33,5 +33,11 @@ class IngresarNumeroActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, ingrese un número válido.", Toast.LENGTH_LONG).show()
             }
         }
+
+        binding.back.setOnClickListener{
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
+
+
 }

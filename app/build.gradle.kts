@@ -73,4 +73,8 @@ dependencies {
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("androidx.biometric:biometric-ktx:1.2.0-alpha05")
 
+    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+
 }

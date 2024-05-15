@@ -39,5 +39,8 @@ class CorreoActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, ingrese un correo electrónico.", Toast.LENGTH_LONG).show()
             }
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

@@ -53,6 +53,7 @@
                 android:textSize="18sp"
                 android:text="@string/piropo"
                 android:textColor="@color/white"
+                android:id="@+id/info"
                 />
 
         </LinearLayout>

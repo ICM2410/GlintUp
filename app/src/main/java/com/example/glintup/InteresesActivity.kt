@@ -45,5 +45,8 @@ class InteresesActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

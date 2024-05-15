@@ -41,6 +41,9 @@ class CumpleanosActivity : AppCompatActivity() {
                 Toast.makeText(this, "Por favor, seleccione una fecha de nacimiento.", Toast.LENGTH_SHORT).show()
             }
         }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun configurarSeleccionDeFecha() {
