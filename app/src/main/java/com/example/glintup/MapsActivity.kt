@@ -105,6 +105,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         binding.orientacion.setImageDrawable(wrappedDrawable)
 
+
+
         setupLocation()
         setupMap()
         setupPermissionRequest()
