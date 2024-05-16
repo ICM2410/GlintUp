@@ -30,6 +30,29 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val userList = listOf(
+            User(
+                name = "Luis Vera",
+                birthdate = "1990-05-14",
+                gender = "Male",
+                profile_picture = listOf(
+                    "https://example.com/profiles/luis_1.jpg",
+                    "https://example.com/profiles/luis_2.jpg"
+                ),
+                _id = "66392d25bc6607b1df0e2550"
+            ),
+            User(
+                name = "Maria Gonzalez",
+                birthdate = "1992-07-22",
+                gender = "Female",
+                profile_picture = listOf(
+                    "https://example.com/profiles/maria_1.jpg",
+                    "https://example.com/profiles/maria_2.jpg"
+                ),
+                _id = "66392d25bc6607b1df0e2551"
+            )
+        )
+
         binding.navegacion.menu.getItem(3).isChecked = true
 
         binding.navegacion.setOnItemSelectedListener {
@@ -42,11 +65,14 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
 
         val layoutManager = LinearLayoutManager(this)
 
-        binding.lista.layoutManager =layoutManager
+        binding.lista.layoutManager = layoutManager
 
         binding.lista.addItemDecoration(DividerItemDecoration(this,layoutManager.orientation))
 
         adapter = ActivosAdapter(this,this)
+        binding.lista.adapter = adapter
+
+        adapter.setUsers(userList)
 
         //----------------------------------------------------------------------------------------------------------//
 
