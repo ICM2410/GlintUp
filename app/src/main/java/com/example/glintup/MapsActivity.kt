@@ -74,6 +74,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var lightSensor: Sensor? = null
     private val umbralBajo = 50f
     private lateinit var webSocketClient: WebSocketClient
+    private var id: String? = null
 
 
     private lateinit var mGeocoder: Geocoder
@@ -84,11 +85,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var rotationMatrix = FloatArray(9)
     private var orientationAngles = FloatArray(3)
     private var cambio : Float = 0.0f
-
-    private var javelat: Double = 4.6287105623420475
-    private var javelong: Double = -74.06469837667596
-    private lateinit var javepos: LatLng
-
+    private var lat: String? = null
+    private var long: String? = null
+    private var parterLocationMarker: Marker? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
@@ -100,7 +99,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             currentLocationMarker?.position?.let { pos -> moveMarkerToLocation(pos) }
         }
 
-        javepos = LatLng(javelat,javelong)
 
         val drawable = resources.getDrawable(R.drawable.flecha_correcta,null)
 
@@ -109,9 +107,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         binding.orientacion.setImageDrawable(wrappedDrawable)
 
-        val id = intent.getStringExtra("id")
-        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/user/ws/${id.toString()}", EchoWebSocketListener(applicationContext))
-
+        id = intent.getStringExtra("id")
+        Log.i("ID desde mapa", id!!)
+        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/user/ws/${id!!}", EchoWebSocketListener(applicationContext))
+        Log.i("ID WEB SOCKET", webSocketClient.toString())
 
         setupLocation()
         setupMap()
@@ -119,8 +118,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         setupSensor()
         setupGeocoder()
         setupSearchView()
-
-
 
     }
 
@@ -205,12 +202,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
-        map.addMarker(
-            MarkerOptions()
-                .position(javepos)
-                .title("Javeriana")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-        )
         map.setOnMapLongClickListener { latLng ->
             map.addMarker(
                 MarkerOptions()
@@ -278,8 +269,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
             primerZoom = true
         }
-        orientarUsuario()
-        calcularDistancia()
+
+        val sharedPref = applicationContext.getSharedPreferences("miPref", Context.MODE_PRIVATE)
+        lat = sharedPref.getString("latitude", null)
+        long = sharedPref.getString("longitude", null)
+        if (lat != null && long != null) {
+            Log.i("POSICION MAPS", "$lat + $long")
+
+            val posicion = LatLng(lat!!.toDouble(), long!!.toDouble())
+
+            parterLocationMarker?.remove()
+            parterLocationMarker = map.addMarker(
+                MarkerOptions()
+                    .position(posicion)
+                    .title("Partner Location")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+            )
+            calcularDistancia()
+            orientarUsuario()
+        } else {
+            Log.e("POSICION MAPS", "No se encontraron datos de latitud y longitud en SharedPreferences")
+        }
+
+
     }
 
     //Iniciar mapa si se concede permiso
@@ -479,8 +491,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     //------------------------------Direccion hacia el otro usuario---------------------------------//
 
     private fun orientarUsuario(){
-        val deltaX = javepos.latitude - lastLocation!!.latitude
-        val deltaY = javepos.longitude - lastLocation!!.longitude
+
+        val deltaX = lat!!.toDouble() - lastLocation!!.latitude
+        val deltaY = long!!.toDouble() - lastLocation!!.longitude
 
         val anguloRad = Math.atan2(deltaY, deltaX)
         var angulo = Math.toDegrees(anguloRad).toFloat()
@@ -495,10 +508,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     private fun calcularDistancia(){
         val radioTierra = 6371 // Radio de la Tierra en kilómetros
-        val dLat = Math.toRadians(javepos.latitude - lastLocation!!.latitude)
-        val dLon = Math.toRadians(javepos.longitude - lastLocation!!.longitude)
+        val dLat = Math.toRadians(lat!!.toDouble() - lastLocation!!.latitude)
+        val dLon = Math.toRadians(long!!.toDouble() - lastLocation!!.longitude)
 
-        val a = sin(dLat / 2) * sin(dLat / 2) + cos(Math.toRadians(lastLocation!!.latitude)) * cos(Math.toRadians(javepos.latitude)) * sin(dLon / 2) * sin(dLon / 2)
+        val a = sin(dLat / 2) * sin(dLat / 2) + cos(Math.toRadians(lastLocation!!.latitude)) * cos(Math.toRadians(lat!!.toDouble())) * sin(dLon / 2) * sin(dLon / 2)
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         val distancia = radioTierra * c
 
