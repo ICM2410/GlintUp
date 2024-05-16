@@ -20,14 +20,15 @@ class EchoWebSocketListener(context: Context) : WebSocketListener() {
         Log.i("WEB SOCKET RECEIVING", text)
         val jsonObject = JSONObject(text)
 
-        val lat = jsonObject.getString("latitude")
-        val long = jsonObject.getString("longitude")
-        Log.i("POSICION WEBSOCKET" ,"$lat + $long")
+        val coordinatesArray = jsonObject.getJSONArray("coordinates")
+        val long = coordinatesArray.getDouble(0)
+        val lat = coordinatesArray.getDouble(1)
+        Log.i("POSICION WEBSOCKET", "$lat + $long")
 
         val sharedPref = contexto.getSharedPreferences("miPref", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        editor.putString("latitude", lat)
-        editor.putString("longitude", long)
+        editor.putString("latitude", lat.toString())
+        editor.putString("longitude", long.toString())
         editor.apply()
     }
 
