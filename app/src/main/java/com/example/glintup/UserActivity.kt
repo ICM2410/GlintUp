@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
@@ -48,6 +49,16 @@ class UserActivity : AppCompatActivity() {
         configurarBotonSiguiente()
         Configuration()
 
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+
+        val nombre = sharedPreferences.getString("nombre", null)
+        val cumple = sharedPreferences.getString("birthdate", null)
+        val foto = sharedPreferences.getString("foto", null)
+        val id = sharedPreferences.getString("id", null)
+
+        Log.i("INFO USUARIO", "$nombre $cumple $foto $id")
+
+        binding.nombreEdad.text = "$nombre, $cumple"
 
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)

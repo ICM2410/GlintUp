@@ -58,6 +58,8 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
             )
         )
 
+        getChats()
+
         binding.navegacion.menu.getItem(3).isChecked = true
 
         binding.navegacion.setOnItemSelectedListener {
@@ -77,7 +79,6 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
         adapter = ActivosAdapter(this,this)
         binding.lista.adapter = adapter
 
-        adapter.setUsers(userList)
 
         //----------------------------------------------------------------------------------------------------------//
 
@@ -165,8 +166,9 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
                     call: Call<proximityResponse>,
                     response: Response<proximityResponse>
                 ) {
-                    val respuesta = response.body()
+                    val respuesta = response.body()?.users
                     Log.i("MOTHER FUCKER", respuesta.toString())
+                    adapter.setUsers(respuesta)
                 }
 
                 override fun onFailure(call: Call<proximityResponse>, t: Throwable) {
@@ -201,6 +203,9 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
 
     override fun onButtonClick(user: User) {
         intent!!.putExtra("id", user._id)
+        intent!!.putExtra("nombre", user.name)
+        intent!!.putExtra("foto", user.profile_picture[0])
+        Log.i("ID desde Chat", user._id)
         biometricPrompt.authenticate(promptInfo)
     }
 }
