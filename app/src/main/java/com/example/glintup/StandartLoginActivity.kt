@@ -51,7 +51,7 @@ class StandartLoginActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     // Si la respuesta es exitosa, manejar el token de JWT aquí
                     val token = response.body()?.token
-
+                    Log.i("THIS IS MF TOKEN", response.body().toString())
                     Log.i("AUTH TOKEN", token.toString())
                     if (token != null) {
                         guardarToken(token)
