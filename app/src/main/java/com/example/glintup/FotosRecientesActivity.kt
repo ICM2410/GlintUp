@@ -102,7 +102,7 @@ class FotosRecientesActivity : AppCompatActivity() {
         if (vacias) {
             val context = this
             val drawableUri = Uri.parse("android.resource://${context.packageName}/${R.drawable.grogu}")
-            enviarImagenPorDefecto(drawableUri, this)
+            cargarImagenBase(drawableUri, this)
         }
 
     }
@@ -233,35 +233,7 @@ class FotosRecientesActivity : AppCompatActivity() {
         }
     }
 
-    private fun enviarImagenPorDefecto(imagen: Uri, contexto: Context) {
-        val file = uriToFile(contexto, imagen)
 
-        if (file != null) {
-            val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
-            val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
-
-            RetrofitClient.create(applicationContext).uploadImage(body).enqueue(object :
-                Callback<uploadImageResponse> {
-                override fun onResponse(
-                    call: Call<uploadImageResponse>,
-                    response: Response<uploadImageResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        Log.i("UPLOAD IMAGE", "Image uploaded successfully")
-                    } else {
-                        Log.i("UPLOAD IMAGE", "Error uploading the picture, uploading default image")
-
-                    }
-                }
-
-                override fun onFailure(call: Call<uploadImageResponse>, t: Throwable) {
-                    Toast.makeText(this@FotosRecientesActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
-                }
-            })
-        } else {
-            Log.i("IMAGEN", "La imagen no se pudo enviar = NULL")
-        }
-    }
 
 
     private fun uriToFile(context: Context, uri: Uri): File? {
