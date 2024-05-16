@@ -36,6 +36,8 @@ import javax.net.ssl.HttpsURLConnection
 import android.graphics.Color
 import android.util.Log
 import androidx.core.graphics.drawable.DrawableCompat
+import network.EchoWebSocketListener
+import network.WebSocketClient
 
 import org.json.JSONObject
 
@@ -71,6 +73,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var sensorManager: SensorManager
     private var lightSensor: Sensor? = null
     private val umbralBajo = 50f
+    private lateinit var webSocketClient: WebSocketClient
+
 
     private lateinit var mGeocoder: Geocoder
 
@@ -105,6 +109,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         binding.orientacion.setImageDrawable(wrappedDrawable)
 
+        val id = intent.getStringExtra("id")
+        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/user/ws/${id.toString()}", EchoWebSocketListener(applicationContext))
 
 
         setupLocation()
