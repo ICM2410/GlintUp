@@ -24,6 +24,8 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import models.User
+import models.likeRequest
+import models.matchResponse
 import models.proximityResponse
 import models.user.defaultResponse
 import models.user.locationRequest
@@ -51,16 +53,6 @@ class MatchActivity : AppCompatActivity() {
             }
         })
 
-    private val immutableList = listOf("Apple", "Banana", "Orange")
-
-
-    val userList = listOf(
-        User("Veronica", "test", "M", immutableList),
-        User("Luis", "test", "F", immutableList),
-        User("Pedro", "Test", "M", immutableList),
-        //User("Fucker", "12/12/2002", "M", "F", immutableList, immutableList, "123")
-    )
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMatchBinding.inflate(layoutInflater)
@@ -76,6 +68,8 @@ class MatchActivity : AppCompatActivity() {
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
         }
+
+
     }
 
     override fun onResume() {
@@ -187,8 +181,22 @@ class MatchActivity : AppCompatActivity() {
         })
     }
 
-    private fun getUsers() {
+    private fun handleLike(id: String, like: Boolean){
+        val likerequest = likeRequest(id, like)
+        RetrofitClient.create(applicationContext).createLikeAndCheckIfMatch(likerequest).enqueue(object :
+        Callback<matchResponse> {
+            override fun onResponse(call: Call<matchResponse>, response: Response<matchResponse>) {
+                if(response.isSuccessful){
+                    Log.i("LIKE", response.body().toString())
+                }
+            }
+            override fun onFailure(call: Call<matchResponse>, t: Throwable) {
+                Toast.makeText(this@MatchActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
+    private fun getUsers() {
         RetrofitClient.create(applicationContext).getUsersOnProximity().enqueue(object :
             Callback<proximityResponse> {
             override fun onResponse(call: Call<proximityResponse>, response: Response<proximityResponse>) {
@@ -212,6 +220,9 @@ class MatchActivity : AppCompatActivity() {
                                 }
                                 else {
                                     binding.info.text = "Genero: Femenino"
+                                }
+                                binding.btnlike.setOnClickListener {
+                                    handleLike(user._id, true)
                                 }
                             }
                         }
