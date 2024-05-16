@@ -60,6 +60,8 @@ class  SignUpActivity : AppCompatActivity() {
                             putString("nombre", user.name)
                             putString("birthdate", user.birthdate)
                             putString("genero", user.gender)
+                            //putString("foto", user.profile_picture[0])
+                            putString("id", user._id)
                             apply()
                         }
                         startActivity(Intent(baseContext, MatchActivity::class.java))
