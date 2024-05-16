@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MapsActivity"
-        tools:layout_editor_absoluteX="-26dp"
-        tools:layout_editor_absoluteY="-162dp" />
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <SearchView
         android:id="@+id/buscador"
@@ -66,17 +66,17 @@
 
     <ImageView
         android:id="@+id/orientacion"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:background="@drawable/redondeado_mapa"
         android:padding="8dp"
         android:src="@drawable/flecha_correcta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flecha"
-        app:layout_constraintVertical_bias="0.766" />
+        app:layout_constraintVertical_bias="0.767" />
 
     <TextView
         android:id="@+id/distancia"
@@ -86,7 +86,7 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.721" />
