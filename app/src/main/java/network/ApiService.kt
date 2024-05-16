@@ -70,4 +70,8 @@ interface ApiService {
     @GET("user/auth")
     fun authorizeToken():Call<User>
 
+
+    @Authorized
+    @GET("chat/")
+    fun getChats():Call<proximityResponse>
 }
