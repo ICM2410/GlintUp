@@ -6,6 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import com.example.glintup.databinding.ActivitySignupBinding
+import models.User
+import network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class  SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -15,7 +20,7 @@ class  SignUpActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if(obtenerToken()!=null){
-            startActivity(Intent(this, MatchActivity::class.java))
+            verifyToken()
         }
         configurarBotones()
     }
@@ -29,7 +34,6 @@ class  SignUpActivity : AppCompatActivity() {
             irAIngresarNumero()
         }
     }
-    // LogInActivity estoooo
     private fun iniciarSesion() {
         val intent = Intent(this, LogInActivity::class.java)
         startActivity(intent)
@@ -39,9 +43,33 @@ class  SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, IngresarNumeroActivity::class.java)
         startActivity(intent)
     }
- //IngresarNumeroActivity
     private fun obtenerToken(): String? {
         val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
         return sharedPreferences.getString("token_jwt", null)
+    }
+
+
+    private fun verifyToken() {
+        RetrofitClient.create(applicationContext).authorizeToken().enqueue(object
+            :Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    val user = response.body()
+                    if(user!= null){
+                        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().apply {
+                            putString("nombre", user.name)
+                            putString("birthdate", user.birthdate)
+                            putString("genero", user.gender)
+                            apply()
+                        }
+                        startActivity(Intent(baseContext, MatchActivity::class.java))
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().remove("token_jwt").apply()
+                }
+            })
     }
 }

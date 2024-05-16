@@ -17,7 +17,6 @@ import retrofit2.Response
 class StandartLoginActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityStandartLoginBinding
-    val loginRequest = LoginRequest(email = "alejandrovemo@gmail.com", password = "C4l3nd4r10*")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStandartLoginBinding.inflate(layoutInflater)
