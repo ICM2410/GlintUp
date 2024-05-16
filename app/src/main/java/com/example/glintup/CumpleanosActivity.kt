@@ -59,8 +59,8 @@ class CumpleanosActivity : AppCompatActivity() {
             binding.etDay.setText(formattedDay)
             binding.etMonth.setText(formattedMonth)
             binding.etYear.setText(selectedYear.toString())
-            // Guardar la fecha seleccionada como una cadena
-            selectedDate = "$formattedDay/$formattedMonth/$selectedYear"
+            // Guardar la fecha seleccionada como una cadena en formato año/mes/día
+            selectedDate = "$selectedYear/$formattedMonth/$formattedDay"
         }
 
         val datePickerOnClickListener = View.OnClickListener {
