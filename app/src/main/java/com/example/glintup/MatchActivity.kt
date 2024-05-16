@@ -12,6 +12,7 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -209,10 +210,11 @@ class MatchActivity : AppCompatActivity() {
                     binding.viewPagerImages.adapter = usuarios
 
                     if(respuesta?.isEmpty() == true) {
-                        binding.nombre.text = "No hay usuario disponibles en este momento"
+                        binding.nombre.text = "No hay usuarios disponibles en este momento"
                         binding.info.text = "Sad"
                         binding.nombre.setTextColor(Color.BLACK)
                         binding.info.setTextColor(Color.BLACK)
+                        binding.botones.visibility = View.INVISIBLE
                     }
 
                     binding.viewPagerImages.registerOnPageChangeCallback(object :
@@ -223,14 +225,19 @@ class MatchActivity : AppCompatActivity() {
                             val user = respuesta?.get(position)
                             if (user != null) {
                                 binding.nombre.text = user.name
-                                if(user.gender == "H"){
-                                    binding.info.text = "Genero: Masculino"
+                                binding.info.text = if (user.gender == "H") {
+                                    "Género: Masculino"
+                                } else {
+                                    "Género: Femenino"
                                 }
-                                else {
-                                    binding.info.text = "Genero: Femenino"
-                                }
+
                                 binding.btnlike.setOnClickListener {
                                     handleLike(user._id, true)
+                                    // Avanzar al siguiente usuario
+                                    val nextItem = position + 1
+                                    if (nextItem < respuesta?.size!!) {
+                                        binding.viewPagerImages.setCurrentItem(nextItem, true)
+                                    }
                                 }
                             }
                         }

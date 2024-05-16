@@ -38,6 +38,7 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -97,6 +98,11 @@ class UserActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun setValues() {
+
+    }
+
 
     private fun Configuration() {
         binding.ajustes.setOnClickListener {
