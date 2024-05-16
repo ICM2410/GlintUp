@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.util.Log
 import com.example.glintup.databinding.ActivitySignupBinding
 import models.User
 import network.RetrofitClient
@@ -54,7 +55,7 @@ class  SignUpActivity : AppCompatActivity() {
             :Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     val user = response.body()
-                    if(user!= null){
+                    if(user != null){
                         val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
                         sharedPreferences.edit().apply {
                             putString("nombre", user.name)
@@ -63,6 +64,8 @@ class  SignUpActivity : AppCompatActivity() {
                             //putString("foto", user.profile_picture[0])
                             putString("id", user._id)
                             apply()
+                            Log.i("INFO USUARIO SINGUP", user.name +" "+ user.birthdate +" "+ user.birthdate +" "+user._id)
+                            Log.i("USUARIO", user.toString())
                         }
                         startActivity(Intent(baseContext, MatchActivity::class.java))
                     }

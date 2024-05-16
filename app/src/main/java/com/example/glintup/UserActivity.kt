@@ -58,10 +58,7 @@ class UserActivity : AppCompatActivity() {
 
         Log.i("INFO USUARIO", "$nombre $cumple $foto $id")
 
-
-
-
-
+        binding.nombreEdad.text = "$nombre, $cumple"
 
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
