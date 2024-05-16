@@ -3,6 +3,7 @@ package network
 import models.LoginRequest
 import models.LoginResponse
 import models.RegisterRequest
+import models.User
 import models.availabilityResponse
 import models.availabilityState
 import models.availabilityStateRequest
@@ -63,5 +64,10 @@ interface ApiService {
     @Authorized
     @POST("like/")
     fun createLikeAndCheckIfMatch(@Body request: likeRequest):Call<matchResponse>
+
+
+    @Authorized
+    @GET("user/auth")
+    fun authorizeToken():Call<User>
 
 }
