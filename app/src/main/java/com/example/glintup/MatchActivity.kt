@@ -4,6 +4,7 @@ import ImagenAdapter
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -224,6 +225,12 @@ class MatchActivity : AppCompatActivity() {
                                 binding.btnlike.setOnClickListener {
                                     handleLike(user._id, true)
                                 }
+                            }
+                            else{
+                                binding.nombre.text = "No hay usuario disponibles en este momento"
+                                binding.info.text = "Sad"
+                                binding.nombre.setTextColor(Color.BLACK)
+                                binding.info.setTextColor(Color.BLACK)
                             }
                         }
                     })
