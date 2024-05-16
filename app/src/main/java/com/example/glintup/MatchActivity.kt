@@ -208,6 +208,13 @@ class MatchActivity : AppCompatActivity() {
                     val usuarios = respuesta?.let { ImagenAdapter(it, this@MatchActivity) }
                     binding.viewPagerImages.adapter = usuarios
 
+                    if(respuesta?.isEmpty() == true) {
+                        binding.nombre.text = "No hay usuario disponibles en este momento"
+                        binding.info.text = "Sad"
+                        binding.nombre.setTextColor(Color.BLACK)
+                        binding.info.setTextColor(Color.BLACK)
+                    }
+
                     binding.viewPagerImages.registerOnPageChangeCallback(object :
                         ViewPager2.OnPageChangeCallback() {
                         override fun onPageSelected(position: Int) {
@@ -225,12 +232,6 @@ class MatchActivity : AppCompatActivity() {
                                 binding.btnlike.setOnClickListener {
                                     handleLike(user._id, true)
                                 }
-                            }
-                            if(respuesta?.isEmpty() == true) {
-                                binding.nombre.text = "No hay usuario disponibles en este momento"
-                                binding.info.text = "Sad"
-                                binding.nombre.setTextColor(Color.BLACK)
-                                binding.info.setTextColor(Color.BLACK)
                             }
                         }
                     })
