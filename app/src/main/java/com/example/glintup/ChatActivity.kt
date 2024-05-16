@@ -22,7 +22,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
+    private var intent: Intent? = null
     private lateinit var binding : ActivityChatBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,7 +59,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
             navigateToItem(it.itemId)
         }
 
-        val intent = Intent(this, PersonalChatActivity::class.java)
+        intent = Intent(this, PersonalChatActivity::class.java)
 
         //-----------------Reclycler view Config------------------------------------------------------------------//
 
@@ -179,6 +179,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
     }
 
     override fun onButtonClick(user: User) {
+        intent!!.putExtra("id", user._id)
         biometricPrompt.authenticate(promptInfo)
     }
 }
