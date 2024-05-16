@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import classes.ActivosAdapter
 import com.example.glintup.databinding.ActivityChatBinding
 import models.User
+import models.proximityResponse
+import network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.concurrent.Executor
 
 class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
@@ -151,7 +156,23 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
     override fun onResume() {
         super.onResume()
         binding.navegacion.menu.getItem(3).isChecked = true
+    }
 
+    private fun getChats(){
+        RetrofitClient.create(applicationContext).getChats().enqueue(object
+            :Callback<proximityResponse> {
+                override fun onResponse(
+                    call: Call<proximityResponse>,
+                    response: Response<proximityResponse>
+                ) {
+                    val respuesta = response.body()
+                    Log.i("MOTHER FUCKER", respuesta.toString())
+                }
+
+                override fun onFailure(call: Call<proximityResponse>, t: Throwable) {
+                    Toast.makeText(this@ChatActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     private fun navigateToItem(itemId: Int): Boolean {
