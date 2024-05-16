@@ -226,7 +226,7 @@ class MatchActivity : AppCompatActivity() {
                                     handleLike(user._id, true)
                                 }
                             }
-                            else{
+                            if(respuesta?.isEmpty() == true) {
                                 binding.nombre.text = "No hay usuario disponibles en este momento"
                                 binding.info.text = "Sad"
                                 binding.nombre.setTextColor(Color.BLACK)
