@@ -16,6 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.glintup.databinding.ActivityUserBinding
 import java.io.File
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 
 class UserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserBinding
@@ -57,8 +60,12 @@ class UserActivity : AppCompatActivity() {
         val id = sharedPreferences.getString("id", null)
 
         Log.i("INFO USUARIO", "$nombre $cumple $foto $id")
-
-        binding.nombreEdad.text = "$nombre, $cumple"
+        if (cumple != null) {
+            val age = calculateAge(cumple)
+            binding.nombreEdad.text = "$nombre, $age"
+        } else {
+            binding.nombreEdad.text = "$nombre"
+        }
 
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
@@ -96,8 +103,11 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
-    private fun setValues() {
-
+    fun calculateAge(birthdate: String): Int {
+        val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        val birthDate = LocalDate.parse(birthdate, formatter)
+        val currentDate = LocalDate.now()
+        return Period.between(birthDate, currentDate).years
     }
 
 
