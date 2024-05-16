@@ -16,7 +16,6 @@ class EchoWebSocketListener(context: Context) : WebSocketListener() {
     }
 
 
-
     override fun onMessage(webSocket: WebSocket, text: String) {
         Log.i("WEB SOCKET RECEIVING", text)
         val jsonObject = JSONObject(text)
@@ -30,7 +29,6 @@ class EchoWebSocketListener(context: Context) : WebSocketListener() {
         editor.putString("latitude", lat)
         editor.putString("longitude", long)
         editor.apply()
-
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
