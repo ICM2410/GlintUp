@@ -1,18 +1,22 @@
 package classes
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.glintup.R
 import models.message
 
 class ChatAdapter(private val messages: List<message>, private val currentUser: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     /*companion object {
         const val VIEW_TYPE_USER = 1
         const val VIEW_TYPE_OTHER = 2
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (messages[position].sender) VIEW_TYPE_USER else VIEW_TYPE_OTHER
+        return if (messages[position].sender == currentUser) VIEW_TYPE_USER else VIEW_TYPE_OTHER
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -38,17 +42,21 @@ class ChatAdapter(private val messages: List<message>, private val currentUser: 
 
     class UserMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
+        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
 
-        fun bind(message: Message) {
+        fun bind(message: message) {
             messageTextView.text = message.content
+            timestampTextView.text = message.createdAt
         }
     }
 
     class OtherMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
+        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
 
         fun bind(message: Message) {
             messageTextView.text = message.content
+            timestampTextView.text = message.createdAt
         }
     }*/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
