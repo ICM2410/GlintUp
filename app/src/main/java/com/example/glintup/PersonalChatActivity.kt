@@ -36,9 +36,10 @@ class PersonalChatActivity : AppCompatActivity() {
         val foto = intent.getStringExtra("foto")
         val chat = intent.getStringExtra("chat")
 
-        if (id != null) {
-            Log.i("ID desde personal", id)
-        }
+            if (chat != null) {
+                Log.i("ID desde personal", chat)
+            }
+
 
         binding.nombre.text = nombre
 
@@ -46,7 +47,7 @@ class PersonalChatActivity : AppCompatActivity() {
         configurarBotonSiguiente(id)
         pedirFoto(foto)
 
-        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/chat/ws/${id!!}", EchoWebSocketListener(applicationContext))
+        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/chat/ws/${chat!!}", EchoWebSocketListener(applicationContext))
 
 
         binding.send.setOnClickListener {
