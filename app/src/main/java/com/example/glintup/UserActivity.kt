@@ -109,7 +109,7 @@ class UserActivity : AppCompatActivity() {
     }
 
     fun calculateAge(birthdate: String): Int {
-        val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
         val birthDate = LocalDate.parse(birthdate, formatter)
         val currentDate = LocalDate.now()
         return Period.between(birthDate, currentDate).years
