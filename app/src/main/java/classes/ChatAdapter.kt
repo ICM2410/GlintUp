@@ -16,7 +16,7 @@ class ChatAdapter(private val messages: List<message>, private val currentUser: 
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (messages[position].sender == currentUser) VIEW_TYPE_USER else VIEW_TYPE_OTHER
+        return if (messages[position].sender != currentUser) VIEW_TYPE_USER else VIEW_TYPE_OTHER
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -59,5 +59,5 @@ class ChatAdapter(private val messages: List<message>, private val currentUser: 
             timestampTextView.text = message.createdAt
         }
     }
-    
+
 }

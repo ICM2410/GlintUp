@@ -8,7 +8,6 @@ class WebSocketClient(url: String, private val listener: WebSocketListener) {
     private var ws: WebSocket? = null
 
     init {
-        // Configure the client
         val request = Request.Builder()
             .url(url)
             .build()
@@ -17,7 +16,6 @@ class WebSocketClient(url: String, private val listener: WebSocketListener) {
             .readTimeout(0, TimeUnit.MILLISECONDS)
             .build()
 
-        // Create WebSocket using the client and request
         ws = client!!.newWebSocket(request, listener)
     }
 

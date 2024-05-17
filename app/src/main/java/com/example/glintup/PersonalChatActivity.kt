@@ -1,20 +1,28 @@
 package com.example.glintup
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import classes.ChatAdapter
 import com.bumptech.glide.Glide
 import com.example.glintup.databinding.ActivityPersonalChatBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import models.message
 import models.messageRequest
 import models.user.defaultResponse
 import models.user.getImageRequest
-import network.EchoWebSocketListener
+import network.EchoWebSocketListener2
 import network.RetrofitClient
 import network.WebSocketClient
 import okhttp3.ResponseBody
@@ -26,19 +34,65 @@ import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.lang.reflect.Type
+import java.time.LocalDate
 
 class PersonalChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPersonalChatBinding
     private lateinit var webSocketClient: WebSocketClient
     private val messages = mutableListOf<message>()
 
+    private var adapter: ChatAdapter? = null
+
+    object GsonUtils {
+        val gson: Gson = Gson()
+
+        inline fun <reified T : Any> fromJson(json: String): T {
+            val type: Type = object : TypeToken<T>() {}.type
+            return gson.fromJson(json, type)
+        }
+    }
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val runnable = object : Runnable {
+        override fun run() {
+            // Tu código que deseas ejecutar cada 10 segundos
+            ejecutarFuncionPeriodica()
+
+            // Vuelve a ejecutar el Runnable después de 10 segundos
+            handler.postDelayed(this, 2000)
+        }
+    }
+
+    private fun ejecutarFuncionPeriodica() {
+
+        val prefs = applicationContext.getSharedPreferences("lista", Context.MODE_PRIVATE)
+
+        val mensajes = prefs.getString("mensajes",null)
+
+        if(!mensajes.isNullOrEmpty()){
+            messages.add(message("x", "Hola", LocalDate.now().toString()))
+            adapter!!.notifyItemInserted(messages.size - 1)
+            val message: List<message> = GsonUtils.fromJson(mensajes)
+            messages.clear()
+            messages.addAll(message)
+            adapter!!.notifyDataSetChanged()
+            binding.mensajes.scrollToPosition(messages.size - 1)
+
+        }
+
+        //Log.i("MENSAJES", mensajes.toString())
 
 
+        Log.d("PeriodicTask", "Funcion ejecutada")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPersonalChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        handler.post(runnable)
 
         val id = intent.getStringExtra("id")
         val nombre = intent.getStringExtra("nombre")
@@ -50,7 +104,7 @@ class PersonalChatActivity : AppCompatActivity() {
         }
 
 
-        val adapter = ChatAdapter(messages,id!!)
+        adapter = ChatAdapter(messages,id!!)
 
         binding.mensajes.layoutManager = LinearLayoutManager(this)
         binding.mensajes.adapter = adapter
@@ -62,23 +116,29 @@ class PersonalChatActivity : AppCompatActivity() {
         configurarBotonSiguiente(id)
         pedirFoto(foto)
 
-        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/chat/ws/${chat!!}", EchoWebSocketListener(applicationContext))
+        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/chat/ws/${chat!!}", EchoWebSocketListener2(applicationContext, id))
+
 
 
         binding.send.setOnClickListener {
             val messageContent = binding.msg.text.toString()
             if (messageContent.isNotBlank()) {
+                enviarMensaje(chat)
                 val timestamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(
                     Date()
                 )
                 messages.add(message(id, messageContent, timestamp))
-                adapter.notifyItemInserted(messages.size - 1)
+                adapter!!.notifyItemInserted(messages.size - 1)
                 binding.mensajes.scrollToPosition(messages.size - 1)
                 binding.msg.text.clear()
             }
-            enviarMensaje(chat)
         }
+
     }
+
+
+
+
 
     private fun configurarBotonSiguiente(id: String?) {
         binding.mapa.setOnClickListener {
