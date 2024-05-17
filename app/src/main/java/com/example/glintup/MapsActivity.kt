@@ -57,7 +57,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var currentLocationMarker: Marker? = null
     private var lastLocation: Location? = null
 
-    private var partnerLastLocation : Location? = null
+    private var partnerLastLocation: LatLng? = null
+    private var destinyMarker : Marker? = null
 
     private var lastWrittenLocation: Location? = null
     private val locations = mutableListOf<LatLng>()
@@ -80,9 +81,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var webSocketClient: WebSocketClient
     private var id: String? = null
 
-    private lateinit var destino : String
+    private lateinit var destino: String
     private var destinoConsedido = false
     private var currentPolyline: Polyline? = null
+    private var currentPartnerPolyline: Polyline? = null
+
 
     private lateinit var mGeocoder: Geocoder
 
@@ -91,10 +94,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var magnetometerReading = FloatArray(3)
     private var rotationMatrix = FloatArray(9)
     private var orientationAngles = FloatArray(3)
-    private var cambio : Float = 0.0f
+    private var cambio: Float = 0.0f
     private var lat: String? = null
     private var long: String? = null
-    private var parterLocationMarker: Marker? = null
+    private var partnerLocationMarker: Marker? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapsBinding.inflate(layoutInflater)
@@ -107,16 +110,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         }
 
 
-        val drawable = resources.getDrawable(R.drawable.flecha_correcta,null)
+        val drawable = resources.getDrawable(R.drawable.flecha_correcta, null)
 
         val wrappedDrawable = DrawableCompat.wrap(drawable)
-        DrawableCompat.setTint(wrappedDrawable, resources.getColor(R.color.rojoClaro,null))
+        DrawableCompat.setTint(wrappedDrawable, resources.getColor(R.color.rojoClaro, null))
 
         binding.orientacion.setImageDrawable(wrappedDrawable)
 
         id = intent.getStringExtra("id")
         Log.i("ID desde mapa", id!!)
-        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/user/ws/${id!!}", EchoWebSocketListener(applicationContext))
+        webSocketClient = WebSocketClient(
+            "ws://ws0nr9l7-8080.use2.devtunnels.ms/api/user/ws/${id!!}",
+            EchoWebSocketListener(applicationContext)
+        )
         Log.i("ID WEB SOCKET", webSocketClient.toString())
 
         setupLocation()
@@ -133,6 +139,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         locationRequest = createLocationRequest()
         locationCallback = createLocationCallback()
     }
+
     private fun setupMap() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -181,7 +188,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 if (::map.isInitialized) {
                     val lightValue = event.values[0]
                     if (lightValue < umbralBajo) {
-                        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_night))
+                        map.setMapStyle(
+                            MapStyleOptions.loadRawResourceStyle(
+                                this,
+                                R.raw.style_night
+                            )
+                        )
                         binding.distancia.setTextColor(Color.WHITE)
                     } else {
                         map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_day))
@@ -189,9 +201,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                     }
                 }
             }
+
             Sensor.TYPE_ACCELEROMETER -> {
-                System.arraycopy(event.values, 0, accelerometerReading, 0, accelerometerReading.size)
+                System.arraycopy(
+                    event.values,
+                    0,
+                    accelerometerReading,
+                    0,
+                    accelerometerReading.size
+                )
             }
+
             Sensor.TYPE_MAGNETIC_FIELD -> {
                 System.arraycopy(event.values, 0, magnetometerReading, 0, magnetometerReading.size)
             }
@@ -210,7 +230,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         map = googleMap
 
         map.setOnMapLongClickListener { latLng ->
-            map.addMarker(
+            destinyMarker?.remove()
+            destinyMarker = map.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .title("Nuevo marcador")
@@ -218,14 +239,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             )
             locations.add(latLng)
             if (locations.size >= 1) {
-                requestRouteFromCurrentLocation(map, locations, Color.GREEN)
+                requestRouteFromCurrentLocation(map, locations, Color.GREEN, false)
             }
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
 
             lastLocation?.let { lastKnownLocation ->
-                val distance = calculateDistance(lastKnownLocation, latLng) // Calcular distancia usando la función calculateDistance
+                val distance = calculateDistance(
+                    lastKnownLocation,
+                    latLng
+                ) // Calcular distancia usando la función calculateDistance
                 val distanceString = String.format(Locale.getDefault(), "%.2f km", distance)
-                Toast.makeText(this, "Distancia al marcador: $distanceString", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Distancia al marcador: $distanceString", Toast.LENGTH_SHORT)
+                    .show()
             } ?: run {
                 Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
             }
@@ -286,9 +311,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             Log.i("POSICION MAPS", "$lat + $long")
 
             val posicion = LatLng(lat!!.toDouble(), long!!.toDouble())
+            partnerLastLocation = posicion
 
-            parterLocationMarker?.remove()
-            parterLocationMarker = map.addMarker(
+            partnerLocationMarker?.remove()
+            partnerLocationMarker = map.addMarker(
                 MarkerOptions()
                     .position(posicion)
                     .title("Partner Location")
@@ -306,31 +332,39 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                         lastLocation?.let { currentLocation ->
                             // Solicitar y trazar la ruta desde la ubicación actual hasta el marcador
                             val waypoints = listOf(currentLocation.toLatLng(), position)
-                            requestRouteFromCurrentLocation(map, waypoints, Color.BLUE)
-                        } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
+                            requestRouteFromCurrentLocation(map, waypoints, Color.BLUE, false)
+                        } ?: Toast.makeText(
+                            this,
+                            "Ubicación actual no disponible",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
-                        partnerLastLocation?.let { currentPartnerLocation ->
-                            // Solicitar y trazar la ruta desde la ubicación actual hasta el marcador
-                            val waypoints = listOf(currentPartnerLocation.toLatLng(), position)
-                            requestRouteFromCurrentLocation(map, waypoints, Color.BLUE)
-                        } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
+
+                        // Solicitar y trazar la ruta desde la ubicación actual hasta el marcador
+                        val partnerWaypoints = listOf(partnerLastLocation!!, position)
+                        requestRouteFromCurrentLocation(map, partnerWaypoints, Color.RED, true)
+
                     } else {
                         Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show()
                     }
 
 
-
-
-                } catch (e : IOException) {
+                } catch (e: IOException) {
                     e.printStackTrace()
-                    Toast.makeText(this, "Error procesando la dirección: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Error procesando la dirección: ${e.localizedMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
 
-
         } else {
-            Log.e("POSICION MAPS", "No se encontraron datos de latitud y longitud en SharedPreferences")
+            Log.e(
+                "POSICION MAPS",
+                "No se encontraron datos de latitud y longitud en SharedPreferences"
+            )
         }
 
 
@@ -338,8 +372,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     //Iniciar mapa si se concede permiso
     private fun startLocationUpdates() {
-        if (ContextCompat.checkSelfPermission(this, locationPermissionName) == PackageManager.PERMISSION_GRANTED) {
-            location.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
+        if (ContextCompat.checkSelfPermission(
+                this,
+                locationPermissionName
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            location.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
         }
     }
 
@@ -364,32 +406,43 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 if (!addresses.isNullOrEmpty()) {
                     val addressResult = addresses[0]
                     val position = LatLng(addressResult.latitude, addressResult.longitude)
-                    map.addMarker(
+                    destinyMarker?.remove()
+                    destinyMarker = map.addMarker(
                         MarkerOptions().position(position)
                             .title(addressResult.featureName)
                             .snippet(addressResult.getAddressLine(0))
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     )
                     map.animateCamera(CameraUpdateFactory.newLatLngZoom(position, 15f))
 
                     lastLocation?.let { currentLocation ->
                         val distance = calculateDistance(currentLocation, position)
                         val distanceString = String.format(Locale.getDefault(), "%.2f km", distance)
-                        Toast.makeText(this, "Distancia al marcador: $distanceString km", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Distancia al marcador: $distanceString km",
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                         // Solicitar y trazar la ruta desde la ubicación actual hasta el marcador
                         val waypoints = listOf(currentLocation.toLatLng(), position)
-                        requestRouteFromCurrentLocation(map, waypoints, Color.BLUE)
-                    } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
+                        requestRouteFromCurrentLocation(map, waypoints, Color.BLUE, false)
+                    } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT)
+                        .show()
 
-
+                    val partnerWaypoints = listOf(partnerLastLocation!!, position)
+                    requestRouteFromCurrentLocation(map, partnerWaypoints, Color.RED, true)
 
                 } else {
                     Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
-                Toast.makeText(this, "Error procesando la dirección: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Error procesando la dirección: ${e.localizedMessage}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
             Toast.makeText(this, "La dirección está vacía", Toast.LENGTH_SHORT).show()
@@ -411,7 +464,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         return LatLng(this.latitude, this.longitude)
     }
 
-    private fun requestRouteFromCurrentLocation(map: GoogleMap, waypoints: List<LatLng>, color: Int) {
+    private fun requestRouteFromCurrentLocation(
+        map: GoogleMap,
+        waypoints: List<LatLng>,
+        color: Int,
+        partner : Boolean
+    ) {
         thread {
             val url = URL(buildRouteUrl(waypoints))
             val connection = url.openConnection() as HttpsURLConnection
@@ -422,7 +480,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
             val routes = jsonData.optJSONArray("routes")
             if (routes != null && routes.length() > 0) {
-                val points = routes.getJSONObject(0).getJSONObject("overview_polyline").getString("points")
+                val points =
+                    routes.getJSONObject(0).getJSONObject("overview_polyline").getString("points")
 
                 val polylineOptions = PolylineOptions()
                 decodePoly(points).forEach {
@@ -430,18 +489,35 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 }
                 polylineOptions.width(10f).color(color)
 
-                runOnUiThread {
-                    // Si currentPolyline es null, significa que es la primera vez que se dibuja la ruta
-                    if (currentPolyline == null) {
-                        currentPolyline = map.addPolyline(polylineOptions)
-                    } else {
-                        // Si currentPolyline no es null, actualiza sus puntos con la nueva ruta
-                        currentPolyline?.points = polylineOptions.points
+                if (partner) {
+                    runOnUiThread {
+                        // Si currentPolyline es null, significa que es la primera vez que se dibuja la ruta
+                        if (currentPolyline == null) {
+                            currentPolyline = map.addPolyline(polylineOptions)
+                        } else {
+                            // Si currentPolyline no es null, actualiza sus puntos con la nueva ruta
+                            currentPolyline?.points = polylineOptions.points
+                        }
+                    }
+                } else {
+                    runOnUiThread {
+                        // Si currentPolyline es null, significa que es la primera vez que se dibuja la ruta
+                        if (currentPartnerPolyline == null) {
+                            currentPartnerPolyline = map.addPolyline(polylineOptions)
+                        } else {
+                            // Si currentPolyline no es null, actualiza sus puntos con la nueva ruta
+                            currentPartnerPolyline?.points = polylineOptions.points
+                        }
                     }
                 }
+
             } else {
                 runOnUiThread {
-                    Toast.makeText(this@MapsActivity, "No se pudo trazar la ruta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MapsActivity,
+                        "No se pudo trazar la ruta",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -454,7 +530,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     // Crea una URL para solicitar direcciones usando la API de Google Maps
     private fun buildRouteUrl(waypoints: List<LatLng>): String {
-        val origin = LatLng(lastLocation!!.latitude, lastLocation!!.longitude)
+        //val origin = LatLng(lastLocation!!.latitude, lastLocation!!.longitude)
+        val origin = waypoints.first()
         val destination = waypoints.last()
         val waypointsString = waypoints.dropLast(1)
             .joinToString("|") { "via:${it.latitude},${it.longitude}" }
@@ -509,9 +586,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     //-----------------------------------Brujula---------------------------------------------------//
 
 
-
     private fun updateOrientationAngles() {
-        SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerReading, magnetometerReading)
+        SensorManager.getRotationMatrix(
+            rotationMatrix,
+            null,
+            accelerometerReading,
+            magnetometerReading
+        )
         SensorManager.getOrientation(rotationMatrix, orientationAngles)
 
         // Convertir los ángulos de radianes a grados y corregir la inclinación
@@ -542,7 +623,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     //------------------------------Direccion hacia el otro usuario---------------------------------//
 
-    private fun orientarUsuario(){
+    private fun orientarUsuario() {
 
         val deltaX = lat!!.toDouble() - lastLocation!!.latitude
         val deltaY = long!!.toDouble() - lastLocation!!.longitude
@@ -558,12 +639,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         binding.orientacion.rotation = angulo
     }
 
-    private fun calcularDistancia(){
+    private fun calcularDistancia() {
         val radioTierra = 6371 // Radio de la Tierra en kilómetros
         val dLat = Math.toRadians(lat!!.toDouble() - lastLocation!!.latitude)
         val dLon = Math.toRadians(long!!.toDouble() - lastLocation!!.longitude)
 
-        val a = sin(dLat / 2) * sin(dLat / 2) + cos(Math.toRadians(lastLocation!!.latitude)) * cos(Math.toRadians(lat!!.toDouble())) * sin(dLon / 2) * sin(dLon / 2)
+        val a = sin(dLat / 2) * sin(dLat / 2) + cos(Math.toRadians(lastLocation!!.latitude)) * cos(
+            Math.toRadians(lat!!.toDouble())
+        ) * sin(dLon / 2) * sin(dLon / 2)
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         val distancia = radioTierra * c
 
