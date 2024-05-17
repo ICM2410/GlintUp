@@ -16,7 +16,7 @@
         android:padding="5dp">
 
         <TextView
-            android:id="@+id/nombre"
+            android:id="@+id/mensajeizquierda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="5"
@@ -25,7 +25,7 @@
             android:text="Display Name" />
 
         <TextView
-            android:id="@+id/hora"
+            android:id="@+id/horaizq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
