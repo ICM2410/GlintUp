@@ -124,9 +124,7 @@ class PersonalChatActivity : AppCompatActivity() {
             val messageContent = binding.msg.text.toString()
             if (messageContent.isNotBlank()) {
                 enviarMensaje(chat)
-                val timestamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(
-                    Date()
-                )
+                val timestamp = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
                 messages.add(message(id, messageContent, timestamp))
                 adapter!!.notifyItemInserted(messages.size - 1)
                 binding.mensajes.scrollToPosition(messages.size - 1)
@@ -136,14 +134,13 @@ class PersonalChatActivity : AppCompatActivity() {
 
     }
 
-
-
-
-
     private fun configurarBotonSiguiente(id: String?) {
         binding.mapa.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java).putExtra("id", id)
             startActivity(intent)
+        }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
