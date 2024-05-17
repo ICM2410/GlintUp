@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.glintup.databinding.ActivityPersonalChatBinding
+import models.messageRequest
 import models.user.getImageRequest
 import network.RetrofitClient
 import okhttp3.ResponseBody
@@ -51,9 +52,8 @@ class PersonalChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun enviarMensaje()
-    {
-        //lucho gei
+    private fun enviarMensaje() {
+
     }
 
     private fun pedirFoto(id:String?){

@@ -9,6 +9,7 @@ import models.availabilityState
 import models.availabilityStateRequest
 import models.likeRequest
 import models.matchResponse
+import models.messageRequest
 import models.proximityResponse
 import models.user.defaultResponse
 import models.user.getImageRequest
@@ -74,4 +75,10 @@ interface ApiService {
     @Authorized
     @GET("chat/")
     fun getChats():Call<proximityResponse>
+
+
+    @Authorized
+    @POST("chat/")
+    fun createMessage(@Body request: messageRequest):Call<defaultResponse>
+
 }
