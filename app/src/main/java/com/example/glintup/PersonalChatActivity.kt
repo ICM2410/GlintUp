@@ -10,7 +10,9 @@ import com.example.glintup.databinding.ActivityPersonalChatBinding
 import models.messageRequest
 import models.user.defaultResponse
 import models.user.getImageRequest
+import network.EchoWebSocketListener
 import network.RetrofitClient
+import network.WebSocketClient
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +22,7 @@ import java.io.FileOutputStream
 
 class PersonalChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPersonalChatBinding
+    private lateinit var webSocketClient: WebSocketClient
 
 
 
@@ -42,6 +45,9 @@ class PersonalChatActivity : AppCompatActivity() {
 
         configurarBotonSiguiente(id)
         pedirFoto(foto)
+
+        webSocketClient = WebSocketClient("ws://ws0nr9l7-8080.use2.devtunnels.ms/api/chat/ws/${id!!}", EchoWebSocketListener(applicationContext))
+
 
         binding.send.setOnClickListener {
             if(chat != null){
