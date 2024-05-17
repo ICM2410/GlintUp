@@ -2,6 +2,10 @@ package com.example.glintup
 
 import ImagenAdapter
 import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -9,6 +13,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -16,7 +21,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.glintup.databinding.ActivityMatchBinding
@@ -44,11 +52,18 @@ class MatchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchBinding
     private val locationPermissionName = Manifest.permission.ACCESS_FINE_LOCATION
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private val NotificationPermissionName = Manifest.permission.POST_NOTIFICATIONS
+
     private lateinit var location: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
     private var lastLocation: Location? = null
     private var respuesta: List<User>? = null
+
+    private val CHANNEL_ID = "channel_id"
+    private val notificacionesid = 101
 
     private val permissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -58,13 +73,14 @@ class MatchActivity : AppCompatActivity() {
             }
         })
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMatchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-
+        createNotificationChannel()
         setupLocation()
         setupPermissionRequest()
         startLocationUpdates()
@@ -77,6 +93,7 @@ class MatchActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onResume() {
         super.onResume()
 
@@ -115,6 +132,51 @@ class MatchActivity : AppCompatActivity() {
         }
     }
 
+
+
+    //----------------------------Notificaciones--------------------------------------------------------//
+
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Titulo"
+            val descripcion = "Notificacion"
+            val importancia = NotificationManager.IMPORTANCE_DEFAULT
+            val channel =  NotificationChannel(CHANNEL_ID,name,importancia).apply {
+                description = descripcion
+            }
+            val notificationManager : NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun sendNotification(){
+
+        val intent = Intent(this,ChatActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this,0,intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE )
+
+        val builder = NotificationCompat.Builder(this , CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo)
+            .setContentTitle("HAZ HECHO MATCH")
+            .setContentText("Felecitaciones")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+        with(NotificationManagerCompat.from(this)){
+            notify(notificacionesid, builder.build())
+        }
+
+        Log.i("NOTIFICACION", "Notificacion desplegada")
+
+    }
+
+
+    ///------------------------------Calculo de edad-----------------------------------------------------///
+
+
     fun calculateAge(birthdate: String): Int {
         val formatter = DateTimeFormatter.ISO_DATE_TIME
         val birthDate = LocalDate.parse(birthdate, formatter)
@@ -126,8 +188,10 @@ class MatchActivity : AppCompatActivity() {
     //---------------Permisos-------------------------------------//
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun setupPermissionRequest() {
         permissionRequest.launch(locationPermissionName)
+        permissionRequest.launch(NotificationPermissionName)
     }
 
 
@@ -199,7 +263,13 @@ class MatchActivity : AppCompatActivity() {
         Callback<matchResponse> {
             override fun onResponse(call: Call<matchResponse>, response: Response<matchResponse>) {
                 if(response.isSuccessful){
+                    val verify = response.body()
                     Log.i("LIKE", response.body().toString())
+                    if (verify != null) {
+                        if(verify.message == "Match created!"){
+                            sendNotification()
+                        }
+                    }
                 }
             }
             override fun onFailure(call: Call<matchResponse>, t: Throwable) {
