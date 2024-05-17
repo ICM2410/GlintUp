@@ -145,8 +145,6 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
                     response: Response<chatResponse>
                 ) {
                     val respuesta = response.body()?.users
-                    val chats = response.body()?.chats
-                    Log.i("MOTHER FUCKER", chats.toString())
                     Log.i("MOTHER FUCKER", respuesta.toString())
                     adapter.setUsers(respuesta)
                 }
