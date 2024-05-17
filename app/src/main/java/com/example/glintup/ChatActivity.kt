@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import classes.ActivosAdapter
 import com.example.glintup.databinding.ActivityChatBinding
-import models.User
 import models.chatResponse
-import models.proximityResponse
+import models.testingUser
 import network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -145,6 +144,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
                     response: Response<chatResponse>
                 ) {
                     val respuesta = response.body()?.users
+
                     Log.i("MOTHER FUCKER", respuesta.toString())
                     adapter.setUsers(respuesta)
                 }
@@ -179,7 +179,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
         }
     }
 
-    override fun onButtonClick(user: User) {
+    override fun onButtonClick(user: testingUser) {
         intent!!.putExtra("id", user._id)
         intent!!.putExtra("nombre", user.name)
         intent!!.putExtra("foto", user.profile_picture[0])

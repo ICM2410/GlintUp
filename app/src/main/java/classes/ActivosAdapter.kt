@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.glintup.databinding.DisponiblestrowBinding
-import models.User
+import models.testingUser
 import models.user.getImageRequest
 import network.RetrofitClient
 import okhttp3.ResponseBody
@@ -19,14 +19,14 @@ import java.io.FileOutputStream
 
 class ActivosAdapter(private val context: Context, private val buttonClickListener: OnButtonClickListener) : RecyclerView.Adapter<ActivosAdapter.UserViewHolder>() {
 
-    private var userList: List<User>? = null
+    private var userList: List<testingUser>? = null
 
     interface OnButtonClickListener {
-        fun onButtonClick(user: User)
+        fun onButtonClick(user: testingUser)
     }
 
     inner class UserViewHolder(private val binding: DisponiblestrowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: User) {
+        fun bind(user: testingUser) {
             binding.apply {
                 nombre.text = "${user.name}"
 
@@ -93,7 +93,7 @@ class ActivosAdapter(private val context: Context, private val buttonClickListen
         return userList?.size ?: 0
     }
 
-    fun setUsers(users: List<User>?) {
+    fun setUsers(users: List<testingUser>?) {
         userList = users
         notifyDataSetChanged() // Notificar al RecyclerView que los datos han cambiado
     }
