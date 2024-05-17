@@ -146,6 +146,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
                     val respuesta = response.body()?.users
 
                     Log.i("MOTHER FUCKER", respuesta.toString())
+                    Log.i("BODY IN CHAT", response.body().toString())
                     adapter.setUsers(respuesta)
                 }
 
@@ -183,6 +184,7 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
         intent!!.putExtra("id", user.user._id)
         intent!!.putExtra("nombre", user.user.name)
         intent!!.putExtra("foto", user.user.profile_picture[0])
+        intent!!.putExtra("chat", user.chatId)
         Log.i("ID desde Chat", user.user._id)
         biometricPrompt.authenticate(promptInfo)
     }

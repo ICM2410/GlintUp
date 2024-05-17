@@ -29,6 +29,7 @@ class PersonalChatActivity : AppCompatActivity() {
         val id = intent.getStringExtra("id")
         val nombre = intent.getStringExtra("nombre")
         val foto = intent.getStringExtra("foto")
+        val chat = intent.getStringExtra("chat")
 
         if (id != null) {
             Log.i("ID desde personal", id)
@@ -41,7 +42,11 @@ class PersonalChatActivity : AppCompatActivity() {
         pedirFoto(foto)
 
         binding.send.setOnClickListener {
-            enviarMensaje()
+            if(chat != null){
+                enviarMensaje(chat)
+            } else{
+                Log.i("ERROR EN CHAT", "No llego el chat id")
+            }
         }
     }
 
@@ -52,7 +57,7 @@ class PersonalChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun enviarMensaje() {
+    private fun enviarMensaje(id:String) {
 
     }
 
