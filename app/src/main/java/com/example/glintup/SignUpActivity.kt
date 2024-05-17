@@ -64,7 +64,7 @@ class  SignUpActivity : AppCompatActivity() {
                             //putString("foto", user.profile_picture[0])
                             putString("id", user._id)
                             apply()
-                            Log.i("INFO USUARIO SINGUP", user.name +" "+ user.birthdate +" "+ user.birthdate +" "+user._id)
+                            Log.i("INFO USUARIO SINGUP", user.name +" "+ user.birthdate +" "+ user.profile_picture[0] +" "+user._id)
                             Log.i("USUARIO", user.toString())
                         }
                         startActivity(Intent(baseContext, MatchActivity::class.java))

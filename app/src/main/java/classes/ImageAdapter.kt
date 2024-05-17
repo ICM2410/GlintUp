@@ -22,7 +22,6 @@ class ImagenAdapter(private val userList: List<User>, context: Context) :
 
     inner class ImageViewHolder(val binding: ItemImageBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
-            val resourceImg = user.profile_picture[0]
 
             user.profile_picture?.let { imageUrl ->
 
