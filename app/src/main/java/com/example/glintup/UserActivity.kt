@@ -14,8 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
 import com.example.glintup.databinding.ActivityUserBinding
+import models.user.getImageRequest
+import network.RetrofitClient
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
+import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.Period
 import java.time.format.DateTimeFormatter
@@ -68,8 +76,7 @@ class UserActivity : AppCompatActivity() {
             binding.nombreEdad.text = "$nombre"
         }
         if (foto != null) {
-            val uri = Uri.parse(foto)
-            loadImage(uri)
+            pedirFoto(foto)
         }
 
         binding.navegacion.setOnItemSelectedListener {
@@ -232,6 +239,47 @@ class UserActivity : AppCompatActivity() {
         const val PERMISSION_REQUEST_CAMERA = 1001
     }
 
+    private fun pedirFoto(id:String?){
+
+        val contexto = applicationContext
+
+        val idImg = getImageRequest(id!!)
+        RetrofitClient.create(this).fetchImage(idImg).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { responseBody ->
+                        // Create a temporary file in your application's cache directory
+
+                        val imageFile = File(contexto.cacheDir, "temp_$id.jpg")
+                        var outputStream: FileOutputStream? = null
+                        try {
+                            outputStream = FileOutputStream(imageFile)
+                            outputStream.write(responseBody.bytes())
+                        } catch (e: Exception) {
+                            Log.e("IMAGE", "Error writing to file", e)
+                        } finally {
+                            outputStream?.close()
+                        }
+                        Glide.with(contexto)
+                            .load(imageFile)
+                            .into(binding.imagenPerfil)
+
+                        // Optionally, delete the file after Glide has done loading it
+                        imageFile.deleteOnExit()
+                        Log.i("RESPONSE FROM IMAGE", "SUCCESSS FUCKERRR SHIT")
+                    }
+                } else {
+                    Log.i("RESPONSE FROM IMAGE", "FAILURE")
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.i("RESPONSE FROM IMAGE", "SERVER IMAGE ISSUE")
+            }
+        })
+    }
 
 }
 

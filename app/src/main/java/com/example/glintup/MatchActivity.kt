@@ -35,6 +35,9 @@ import network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 import kotlin.math.log
 
 class MatchActivity : AppCompatActivity() {
@@ -110,6 +113,13 @@ class MatchActivity : AppCompatActivity() {
                 return false
             }
         }
+    }
+
+    fun calculateAge(birthdate: String): Int {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val birthDate = LocalDate.parse(birthdate, formatter)
+        val currentDate = LocalDate.now()
+        return Period.between(birthDate, currentDate).years
     }
 
 
@@ -224,9 +234,9 @@ class MatchActivity : AppCompatActivity() {
 
                             val user = respuesta?.get(position)
                             if (user != null) {
-                                binding.nombre.text = user.name
+                                binding.nombre.text = user.name + " Edad: ${calculateAge(user.birthdate)} años"
                                 binding.info.text = if (user.gender == "H") {
-                                    "Género: Masculino"
+                                    "Género: Masculino  "
                                 } else {
                                     "Género: Femenino"
                                 }
