@@ -234,7 +234,7 @@ class MatchActivity : AppCompatActivity() {
 
                             val user = respuesta?.get(position)
                             if (user != null) {
-                                binding.nombre.text = user.name + " Edad: ${calculateAge(user.birthdate)} años"
+                                binding.nombre.text = user.name + ", Edad: ${calculateAge(user.birthdate)} años"
                                 binding.info.text = if (user.gender == "H") {
                                     "Género: Masculino  "
                                 } else {

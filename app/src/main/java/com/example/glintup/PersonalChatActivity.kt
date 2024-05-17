@@ -38,6 +38,10 @@ class PersonalChatActivity : AppCompatActivity() {
 
         configurarBotonSiguiente(id)
         pedirFoto(foto)
+
+        binding.send.setOnClickListener {
+            enviarMensaje()
+        }
     }
 
     private fun configurarBotonSiguiente(id: String?) {
@@ -45,6 +49,11 @@ class PersonalChatActivity : AppCompatActivity() {
             val intent = Intent(this, MapsActivity::class.java).putExtra("id", id)
             startActivity(intent)
         }
+    }
+
+    private fun enviarMensaje()
+    {
+        //lucho gei
     }
 
     private fun pedirFoto(id:String?){
