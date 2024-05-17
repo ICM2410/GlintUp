@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">ws0nr9l7-8080.use2.devtunnels.ms</domain>
+    </domain-config>
+</network-security-config>

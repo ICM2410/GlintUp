@@ -1,11 +1,18 @@
 package com.example.glintup
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.example.glintup.databinding.ActivityEstiloDeVidaBinding
+import models.LoginResponse
+import models.RegisterRequest
+import network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class EstiloDeVidaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEstiloDeVidaBinding
@@ -20,6 +27,10 @@ class EstiloDeVidaActivity : AppCompatActivity() {
 
         configurarBotonSiguiente(nuevaInformacionList)
         logInformacionRecibida(nuevaInformacionList)
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun configurarBotonSiguiente(informacionList: ArrayList<String>) {
@@ -57,12 +68,13 @@ class EstiloDeVidaActivity : AppCompatActivity() {
                 respuestas.add("Ejercicio: $ejercicioRespuesta")
                 respuestas.add("Fumar: $fumarRespuesta")
                 respuestas.add("Leer: $leerRespuesta")
-                informacionList.add(respuestas.joinToString(", "))
 
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("hobbies", respuestas.toString())
+                    apply()
+                }
                 processInformation(informacionList)
-                val intent = Intent(this, FotosRecientesActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
-                startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, responda todas las preguntas antes de continuar.", Toast.LENGTH_LONG).show()
             }
@@ -71,31 +83,87 @@ class EstiloDeVidaActivity : AppCompatActivity() {
 
     private fun processInformation(informacionList: ArrayList<String>) {
         // Suponiendo que cada entrada en la lista corresponde a un campo específico
-        val numero = informacionList[0]
-        val nombre = informacionList[1]
-        val correo = informacionList[2]
-        val contrasena = informacionList[3]
-        val fecha = informacionList[4]
-        val genero = informacionList[5]
-        val orientacionSexual = informacionList[6].split(", ")
-        val generoPref = informacionList[7].split(", ")
-        val kmCercania = informacionList[8]
-        val habitos = informacionList[9]
 
-        // Imprimir todos los detalles en el log para verificación
-        Log.d("FinalData", "Número: $numero")
-        Log.d("FinalData", "Nombre: $nombre")
-        Log.d("FinalData", "Correo: $correo")
-        Log.d("FinalData", "Contraseña: $contrasena")
-        Log.d("FinalData", "Fecha: $fecha")
-        Log.d("FinalData", "Género: $genero")
-        Log.d("FinalData", "Orientación sexual: ${orientacionSexual.joinToString(", ")}")
-        Log.d("FinalData", "Género de preferencia: ${generoPref.joinToString(", ")}")
-        Log.d("FinalData", "Kilómetros de cercanía: $kmCercania")
-        Log.d("FinalData", "Hábitos: $habitos")
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+
+        val numero = sharedPreferences.getString("numero", null)
+        val phone = sharedPreferences.getString("numero", null)
+        val nombre = sharedPreferences.getString("nombre", null)
+        val correo = sharedPreferences.getString("correo", null)
+        val contrasena = sharedPreferences.getString("password", null)
+        val fecha = sharedPreferences.getString("birthdate", null)
+        val genero = sharedPreferences.getString("genero", null)
+        val generoPref = sharedPreferences.getString("preferencias", null)
+        val kmCercania = sharedPreferences.getString("distancia", null)
+        val habitos = sharedPreferences.getString("hobbies", null)
+        val parsedhobbies = parseHobbies(habitos.toString())
+
+
+        Log.i("FINAL", numero.toString())
+        Log.i("FINAL", nombre.toString())
+        Log.i("FINAL", correo.toString())
+        Log.i("FINAL", contrasena.toString())
+        Log.i("FINAL", genero.toString())
+        Log.i("FINAL", generoPref.toString())
+        Log.i("FINAL", kmCercania.toString())
+        Log.i("FINAL", habitos.toString())
+
+        if (kmCercania != null) {
+            register(nombre.toString(), correo.toString(), contrasena.toString(), phone.toString(), fecha.toString(), genero.toString(), generoPref.toString(), kmCercania.toInt(), parsedhobbies)
+        }
     }
 
+    fun parseHobbies(input: String): List<Map<String, Any>> {
+        val hobbiesList = mutableListOf<Map<String, Any>>()
 
+        // Dividir el input por comas para separar cada hobby
+        val hobbies = input.split(",").map { it.trim() }
+
+        hobbies.forEach { hobby ->
+            // Dividir cada hobby en clave y valor
+            val parts = hobby.split(":").map { it.trim() }
+            if (parts.size == 2) {
+                // Agregar al resultado como un mapa de clave "name" y "description"
+                hobbiesList.add(mapOf("name" to parts[0], "description" to parts[1]))
+            }
+        }
+
+        return hobbiesList
+    }
+
+    private fun register(name: String, email:String, password: String, phone: String, birthdate: String, gender: String, preferences: String, prefered_distance: Int, hobbies: List<Map<String, Any>>) {
+        val registerRequest = RegisterRequest(name, email, password, phone, birthdate, gender, preferences, prefered_distance, hobbies)
+
+        RetrofitClient.create(applicationContext).registerUser(registerRequest).enqueue(object :
+            Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>){
+                if(response.isSuccessful){
+                    val token = response.body()?.token
+                    Log.i("AUTH TOKEN", token.toString())
+                    if(token != null){
+                        guardarToken(token)
+
+                        val intent = Intent(baseContext, FotosRecientesActivity::class.java)
+                        startActivity(intent)
+                    }
+                }else{
+                    Toast.makeText(this@EstiloDeVidaActivity, "Server Internal Error", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                Toast.makeText(this@EstiloDeVidaActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun guardarToken(token: String) {
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putString("token_jwt", token)
+            apply()
+        }
+    }
 
 
     private fun logInformacionRecibida(informacionList: ArrayList<String>) {

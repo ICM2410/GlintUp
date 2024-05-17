@@ -9,15 +9,25 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import classes.ActivosAdapter
 import com.example.glintup.databinding.ActivityChatBinding
+import models.chatResponse
+import models.testingUser
+import network.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.concurrent.Executor
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
 
+    private lateinit var adapter: ActivosAdapter
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
+    private var intent: Intent? = null
     private lateinit var binding : ActivityChatBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,15 +35,31 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getChats()
+
         binding.navegacion.menu.getItem(3).isChecked = true
 
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
         }
 
-        val intent = Intent(this, PersonalChatActivity::class.java)
+        intent = Intent(this, PersonalChatActivity::class.java)
 
-        configurarBotonSiguiente()
+        //-----------------Reclycler view Config------------------------------------------------------------------//
+
+        val layoutManager = LinearLayoutManager(this)
+
+        binding.lista.layoutManager = layoutManager
+
+        binding.lista.addItemDecoration(DividerItemDecoration(this,layoutManager.orientation))
+
+        adapter = ActivosAdapter(this,this)
+        binding.lista.adapter = adapter
+
+
+        //----------------------------------------------------------------------------------------------------------//
+
+
 
         //Verificar permisos
         // Lets the user authenticate using either a Class 3 biometric or
@@ -108,7 +134,26 @@ class ChatActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.navegacion.menu.getItem(3).isChecked = true
+    }
 
+    private fun getChats(){
+        RetrofitClient.create(applicationContext).getChats().enqueue(object
+            :Callback<chatResponse> {
+                override fun onResponse(
+                    call: Call<chatResponse>,
+                    response: Response<chatResponse>
+                ) {
+                    val respuesta = response.body()?.users
+
+                    Log.i("MOTHER FUCKER", respuesta.toString())
+                    Log.i("BODY IN CHAT", response.body().toString())
+                    adapter.setUsers(respuesta)
+                }
+
+                override fun onFailure(call: Call<chatResponse>, t: Throwable) {
+                    Toast.makeText(this@ChatActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
     private fun navigateToItem(itemId: Int): Boolean {
@@ -135,10 +180,12 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun configurarBotonSiguiente() {
-        binding.bradpi.setOnClickListener {
-            biometricPrompt.authenticate(promptInfo)
-
-        }
+    override fun onButtonClick(user: testingUser) {
+        intent!!.putExtra("id", user.user._id)
+        intent!!.putExtra("nombre", user.user.name)
+        intent!!.putExtra("foto", user.user.profile_picture[0])
+        intent!!.putExtra("chat", user.chatId)
+        Log.i("ID desde Chat", user.user._id)
+        biometricPrompt.authenticate(promptInfo)
     }
 }

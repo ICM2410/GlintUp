@@ -1,10 +1,12 @@
 package com.example.glintup
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,8 +14,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
 import com.example.glintup.databinding.ActivityUserBinding
+import models.user.getImageRequest
+import network.RetrofitClient
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
+import java.io.FileOutputStream
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 
 class UserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserBinding
@@ -36,6 +49,7 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -46,6 +60,24 @@ class UserActivity : AppCompatActivity() {
         configurarBotonSiguiente()
         Configuration()
 
+        val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+
+        val nombre = sharedPreferences.getString("nombre", null)
+        val cumple = sharedPreferences.getString("birthdate", null)
+        val foto = sharedPreferences.getString("foto", null)
+        val id = sharedPreferences.getString("id", null)
+
+        Log.i("INFO USUARIO", "$nombre $cumple $foto $id")
+        if (cumple != null) {
+            val age = calculateAge(cumple)
+
+            binding.nombreEdad.text = "$nombre, $age"+ " años"
+        } else {
+            binding.nombreEdad.text = "$nombre"
+        }
+        if (foto != null) {
+            pedirFoto(foto)
+        }
 
         binding.navegacion.setOnItemSelectedListener {
             navigateToItem(it.itemId)
@@ -83,6 +115,14 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
+    fun calculateAge(birthdate: String): Int {
+        val formatter = DateTimeFormatter.ISO_DATE_TIME
+        val birthDate = LocalDate.parse(birthdate, formatter)
+        val currentDate = LocalDate.now()
+        return Period.between(birthDate, currentDate).years
+    }
+
+
     private fun Configuration() {
         binding.ajustes.setOnClickListener {
             showPopupMenuConfi(it)
@@ -100,6 +140,17 @@ class UserActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
+                R.id.close -> {
+                    val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.clear()
+                    editor.apply()
+
+                    startActivity(Intent(this,SignUpActivity::class.java))
+
+                    true
+                }
+
                 else -> false
             }
         }
@@ -188,6 +239,47 @@ class UserActivity : AppCompatActivity() {
         const val PERMISSION_REQUEST_CAMERA = 1001
     }
 
+    private fun pedirFoto(id:String?){
+
+        val contexto = applicationContext
+
+        val idImg = getImageRequest(id!!)
+        RetrofitClient.create(this).fetchImage(idImg).enqueue(object :
+            Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { responseBody ->
+                        // Create a temporary file in your application's cache directory
+
+                        val imageFile = File(contexto.cacheDir, "temp_$id.jpg")
+                        var outputStream: FileOutputStream? = null
+                        try {
+                            outputStream = FileOutputStream(imageFile)
+                            outputStream.write(responseBody.bytes())
+                        } catch (e: Exception) {
+                            Log.e("IMAGE", "Error writing to file", e)
+                        } finally {
+                            outputStream?.close()
+                        }
+                        Glide.with(contexto)
+                            .load(imageFile)
+                            .into(binding.imagenPerfil)
+
+                        // Optionally, delete the file after Glide has done loading it
+                        imageFile.deleteOnExit()
+                        Log.i("RESPONSE FROM IMAGE", "SUCCESSS FUCKERRR SHIT")
+                    }
+                } else {
+                    Log.i("RESPONSE FROM IMAGE", "FAILURE")
+
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.i("RESPONSE FROM IMAGE", "SERVER IMAGE ISSUE")
+            }
+        })
+    }
 
 }
 

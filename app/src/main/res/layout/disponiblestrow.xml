@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:id="@+id/row"
+    android:background="@color/white">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/perfilImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/brad_pitt"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+
+
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="5"
+        android:gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:textAlignment="center"
+        android:text="Display Name" />
+
+    <Button
+        android:id="@+id/boton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/blanco_redondeado_bg"
+        android:text="Chat"
+        android:layout_marginEnd="10dp"/>
+</LinearLayout>

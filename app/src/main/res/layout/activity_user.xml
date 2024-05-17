@@ -50,7 +50,7 @@
                 android:layout_marginBottom="80dp"
                 android:gravity="center"
                 android:text="@string/beneficio"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -238,7 +238,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/nombreEdad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nombreEdad"

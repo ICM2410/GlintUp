@@ -53,12 +53,13 @@
                 android:textSize="18sp"
                 android:text="@string/piropo"
                 android:textColor="@color/white"
+                android:id="@+id/info"
                 />
 
         </LinearLayout>
 
         <LinearLayout
-
+            android:id="@+id/botones"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -69,20 +70,6 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <!-- Botón de 'dislike' -->
-            <ImageButton
-                android:id="@+id/btnDislike"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/dislike_vector"
-                android:background="@drawable/redondeado_sombra_match_bg"
-                android:contentDescription="@string/descripcion_dislike"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginRight="40dp"
-                
-                android:paddingTop="15dp"/>
 
             <!-- Botón de 'like' -->
             <ImageButton

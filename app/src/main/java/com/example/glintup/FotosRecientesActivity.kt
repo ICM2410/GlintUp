@@ -36,6 +36,7 @@ class FotosRecientesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFotosRecientesBinding
     private lateinit var uriCamera: Uri
     private var casillaActiva: ImageButton? = null
+    private var vacias: Boolean = false
 
     private val PERMISSION_REQUEST_CAMERA = 101
 
@@ -66,20 +67,44 @@ class FotosRecientesActivity : AppCompatActivity() {
         configurarBotonSiguiente()
         logInformacionRecibida(nuevaInformacionList)
         configurarClickListenersCasillas()
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun configurarBotonSiguiente() {
         binding.siguiente.setOnClickListener {
             val intent = Intent(this, MatchActivity::class.java)
+            casillasVacias()
             startActivity(intent)
         }
     }
-
+    //MatchActivity
     private fun logInformacionRecibida(informacionList: ArrayList<String>) {
         Log.d("EstiloDeVidaActivity", "Información actual en la lista:")
         informacionList.forEachIndexed { index, info ->
             Log.d("EstiloDeVidaActivity", "Elemento $index: $info")
         }
+    }
+
+    private fun casillasVacias() {
+        val casillas = listOf(
+            binding.casilla1.background,
+            binding.casilla2.background,
+            binding.casilla3.background,
+            binding.casilla4.background,
+            binding.casilla5.background,
+            binding.casilla6.background
+        )
+        vacias = casillas.all { it == null }
+        val vacias = casillas.all { it == null }
+        if (vacias) {
+            val context = this
+            val drawableUri = Uri.parse("android.resource://${context.packageName}/${R.drawable.grogu}")
+            cargarImagenBase(drawableUri, this)
+        }
+
     }
 
     private fun configurarClickListenersCasillas() {
@@ -150,7 +175,7 @@ class FotosRecientesActivity : AppCompatActivity() {
         imageButton.visibility = View.INVISIBLE
         Log.i("IMAGEN", "Imagen cargada en casilla: $casillaIndex")
 
-        //cargarImagenBase(uri, this)
+        cargarImagenBase(uri, this)
         //Esto envia la foto a la base pero aun nose lo del id lo deje igual que como en el taller
     }
 
@@ -178,12 +203,11 @@ class FotosRecientesActivity : AppCompatActivity() {
         }
     }
 
-    private fun cargarImagenBase(imagen: Uri,contexto:Context){
+    private fun cargarImagenBase(imagen: Uri, contexto: Context) {
         val file = uriToFile(contexto, imagen)
 
-        if(file != null){
+        if (file != null) {
             val requestFile = file.asRequestBody("image/png".toMediaTypeOrNull())
-
             val body = MultipartBody.Part.createFormData("file", file.name, requestFile)
 
             RetrofitClient.create(applicationContext).uploadImage(body).enqueue(object :
@@ -192,10 +216,11 @@ class FotosRecientesActivity : AppCompatActivity() {
                     call: Call<uploadImageResponse>,
                     response: Response<uploadImageResponse>
                 ) {
-                    if(response.isSuccessful){
-                        Log.i("UPLOAD IMAGE", "Image uploaded sucesfully")
-                    }else{
-                        Log.i("UPLOAD IMAGE", "error uploading the picture")
+                    if (response.isSuccessful) {
+                        Log.i("UPLOAD IMAGE", "Image uploaded successfully")
+                    } else {
+                        Log.i("UPLOAD IMAGE", "Error uploading the picture, uploading default image")
+
                     }
                 }
 
@@ -203,9 +228,13 @@ class FotosRecientesActivity : AppCompatActivity() {
                     Toast.makeText(this@FotosRecientesActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
                 }
             })
-        } else Log.i("IMAGEN", "La imagen no se pudo enviar = NULL")
-
+        } else {
+            Log.i("IMAGEN", "La imagen no se pudo enviar = NULL")
+        }
     }
+
+
+
 
     private fun uriToFile(context: Context, uri: Uri): File? {
         val inputStream = context.contentResolver.openInputStream(uri)

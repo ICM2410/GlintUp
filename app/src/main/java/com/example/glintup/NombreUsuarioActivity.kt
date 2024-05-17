@@ -27,18 +27,19 @@ class NombreUsuarioActivity : AppCompatActivity() {
             if (nombre.isNotEmpty()) {
                 informacionList.add(nombre)
                 val intent = Intent(this, CorreoActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
-                //val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
-                //with(sharedPreferences.edit())
-                //{
-                //    putString("user_name",nombre)
-                //    apply()
-                //}
-
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("nombre", nombre)
+                    apply()
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, ingrese un nombre.", Toast.LENGTH_LONG).show()
             }
+        }
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 }

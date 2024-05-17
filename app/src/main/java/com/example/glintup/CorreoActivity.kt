@@ -1,5 +1,6 @@
 package com.example.glintup
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -28,11 +29,18 @@ class CorreoActivity : AppCompatActivity() {
             if (correo.isNotEmpty()) {
                 informacionList.add(correo)
                 val intent = Intent(this, ContrasenaActivity::class.java)
-                intent.putStringArrayListExtra("informacionList", informacionList)
+                val sharedPreferences = getSharedPreferences("prefs_usuario", Context.MODE_PRIVATE)
+                with(sharedPreferences.edit()) {
+                    putString("correo", correo)
+                    apply()
+                }
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Por favor, ingrese un correo electrónico.", Toast.LENGTH_LONG).show()
             }
+        }
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 }
