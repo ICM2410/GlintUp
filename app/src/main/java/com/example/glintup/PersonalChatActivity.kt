@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import classes.ChatAdapter
 import com.bumptech.glide.Glide
 import com.example.glintup.databinding.ActivityPersonalChatBinding
+import models.message
 import models.messageRequest
 import models.user.defaultResponse
 import models.user.getImageRequest
@@ -19,10 +22,15 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class PersonalChatActivity : AppCompatActivity() {
     private lateinit var binding : ActivityPersonalChatBinding
     private lateinit var webSocketClient: WebSocketClient
+    private val messages = mutableListOf<message>()
+
 
 
 
@@ -36,9 +44,15 @@ class PersonalChatActivity : AppCompatActivity() {
         val foto = intent.getStringExtra("foto")
         val chat = intent.getStringExtra("chat")
 
-            if (chat != null) {
-                Log.i("ID desde personal", chat)
-            }
+        if (chat != null) {
+            Log.i("ID desde personal", chat)
+        }
+
+
+        val adapter = ChatAdapter(messages,id!!)
+
+        binding.mensajes.layoutManager = LinearLayoutManager(this)
+        binding.mensajes.adapter = adapter
 
 
         binding.nombre.text = nombre
@@ -51,11 +65,17 @@ class PersonalChatActivity : AppCompatActivity() {
 
 
         binding.send.setOnClickListener {
-            if(chat != null){
-                enviarMensaje(chat)
-            } else{
-                Log.i("ERROR EN CHAT", "No llego el chat id")
+            val messageContent = binding.msg.text.toString()
+            if (messageContent.isNotBlank()) {
+                val timestamp = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(
+                    Date()
+                )
+                messages.add(message(id, messageContent, timestamp))
+                adapter.notifyItemInserted(messages.size - 1)
+                binding.mensajes.scrollToPosition(messages.size - 1)
+                binding.msg.text.clear()
             }
+            enviarMensaje(chat)
         }
     }
 

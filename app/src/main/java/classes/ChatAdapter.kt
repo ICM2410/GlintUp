@@ -10,7 +10,7 @@ import models.message
 
 class ChatAdapter(private val messages: List<message>, private val currentUser: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    /*companion object {
+    companion object {
         const val VIEW_TYPE_USER = 1
         const val VIEW_TYPE_OTHER = 2
     }
@@ -21,10 +21,10 @@ class ChatAdapter(private val messages: List<message>, private val currentUser: 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == VIEW_TYPE_USER) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message_user, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.mensajes_trow_derecha, parent, false)
             UserMessageViewHolder(view)
         } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message_other, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.mensajes_trow_izquierda, parent, false)
             OtherMessageViewHolder(view)
         }
     }
@@ -41,8 +41,8 @@ class ChatAdapter(private val messages: List<message>, private val currentUser: 
     override fun getItemCount(): Int = messages.size
 
     class UserMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
+        private val messageTextView: TextView = itemView.findViewById(R.id.mensajederecha)
+        private val timestampTextView: TextView = itemView.findViewById(R.id.horader)
 
         fun bind(message: message) {
             messageTextView.text = message.content
@@ -51,25 +51,13 @@ class ChatAdapter(private val messages: List<message>, private val currentUser: 
     }
 
     class OtherMessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageTextView: TextView = itemView.findViewById(R.id.messageTextView)
-        private val timestampTextView: TextView = itemView.findViewById(R.id.timestampTextView)
+        private val messageTextView: TextView = itemView.findViewById(R.id.mensajeizquierda)
+        private val timestampTextView: TextView = itemView.findViewById(R.id.horaizq)
 
-        fun bind(message: Message) {
+        fun bind(message: message) {
             messageTextView.text = message.content
             timestampTextView.text = message.createdAt
         }
-    }*/
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        TODO("Not yet implemented")
     }
-
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }
-
-
+    
 }
