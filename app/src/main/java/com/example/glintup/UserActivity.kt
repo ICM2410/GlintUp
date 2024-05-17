@@ -62,9 +62,14 @@ class UserActivity : AppCompatActivity() {
         Log.i("INFO USUARIO", "$nombre $cumple $foto $id")
         if (cumple != null) {
             val age = calculateAge(cumple)
-            binding.nombreEdad.text = "$nombre, $age"
+
+            binding.nombreEdad.text = "$nombre, $age"+ " años"
         } else {
             binding.nombreEdad.text = "$nombre"
+        }
+        if (foto != null) {
+            val uri = Uri.parse(foto)
+            loadImage(uri)
         }
 
         binding.navegacion.setOnItemSelectedListener {

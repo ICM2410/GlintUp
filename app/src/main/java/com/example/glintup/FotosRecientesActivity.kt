@@ -80,7 +80,7 @@ class FotosRecientesActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    //MatchActivity
     private fun logInformacionRecibida(informacionList: ArrayList<String>) {
         Log.d("EstiloDeVidaActivity", "Información actual en la lista:")
         informacionList.forEachIndexed { index, info ->
