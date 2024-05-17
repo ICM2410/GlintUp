@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.glintup.databinding.ActivityPersonalChatBinding
 import models.messageRequest
+import models.user.defaultResponse
 import models.user.getImageRequest
 import network.RetrofitClient
 import okhttp3.ResponseBody
@@ -58,7 +60,21 @@ class PersonalChatActivity : AppCompatActivity() {
     }
 
     private fun enviarMensaje(id:String) {
+        val text = binding.msg.text
+        val requestmessage = messageRequest(id, text.toString())
+        RetrofitClient.create(applicationContext).createMessage(requestmessage).enqueue(object :
+        Callback<defaultResponse> {
+            override fun onResponse(
+                call: Call<defaultResponse>,
+                response: Response<defaultResponse>
+            ) {
+                Log.i("MESSAGE CREATION", response.body().toString())
+            }
 
+            override fun onFailure(call: Call<defaultResponse>, t: Throwable) {
+                Toast.makeText(this@PersonalChatActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun pedirFoto(id:String?){
