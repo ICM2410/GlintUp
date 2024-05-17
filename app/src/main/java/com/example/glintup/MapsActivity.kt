@@ -36,6 +36,7 @@ import javax.net.ssl.HttpsURLConnection
 import android.graphics.Color
 import android.util.Log
 import androidx.core.graphics.drawable.DrawableCompat
+import com.google.android.gms.maps.model.Polyline
 import network.EchoWebSocketListener
 import network.WebSocketClient
 
@@ -55,6 +56,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var binding: ActivityMapsBinding
     private var currentLocationMarker: Marker? = null
     private var lastLocation: Location? = null
+
+    private var partnerLastLocation : Location? = null
+
     private var lastWrittenLocation: Location? = null
     private val locations = mutableListOf<LatLng>()
     private var primerZoom = false
@@ -76,6 +80,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var webSocketClient: WebSocketClient
     private var id: String? = null
 
+    private lateinit var destino : String
+    private var destinoConsedido = false
+    private var currentPolyline: Polyline? = null
 
     private lateinit var mGeocoder: Geocoder
 
@@ -242,7 +249,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                         lastWrittenLocation = location
 
                     }
+
                     lastLocation = location
+
                 }
                 if (lastLocation == null && result.locations.isNotEmpty()) {
                     lastLocation = result.locations.last()
@@ -287,6 +296,39 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             )
             calcularDistancia()
             orientarUsuario()
+            if (destinoConsedido) {
+                //updateRoute(posicion)
+                try {
+                    val addresses = mGeocoder.getFromLocationName(destino, 2)
+                    if (!addresses.isNullOrEmpty()) {
+                        val addressResult = addresses[0]
+                        val position = LatLng(addressResult.latitude, addressResult.longitude)
+                        lastLocation?.let { currentLocation ->
+                            // Solicitar y trazar la ruta desde la ubicación actual hasta el marcador
+                            val waypoints = listOf(currentLocation.toLatLng(), position)
+                            requestRouteFromCurrentLocation(map, waypoints, Color.BLUE)
+                        } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
+
+                        partnerLastLocation?.let { currentPartnerLocation ->
+                            // Solicitar y trazar la ruta desde la ubicación actual hasta el marcador
+                            val waypoints = listOf(currentPartnerLocation.toLatLng(), position)
+                            requestRouteFromCurrentLocation(map, waypoints, Color.BLUE)
+                        } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show()
+                    }
+
+
+
+
+                } catch (e : IOException) {
+                    e.printStackTrace()
+                    Toast.makeText(this, "Error procesando la dirección: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
+
         } else {
             Log.e("POSICION MAPS", "No se encontraron datos de latitud y longitud en SharedPreferences")
         }
@@ -314,6 +356,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     // Buscador
     private fun findAddress(addressString: String) {
+        destino = addressString
+        destinoConsedido = true
         if (addressString.isNotEmpty()) {
             try {
                 val addresses = mGeocoder.getFromLocationName(addressString, 2)
@@ -337,6 +381,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                         val waypoints = listOf(currentLocation.toLatLng(), position)
                         requestRouteFromCurrentLocation(map, waypoints, Color.BLUE)
                     } ?: Toast.makeText(this, "Ubicación actual no disponible", Toast.LENGTH_SHORT).show()
+
+
+
                 } else {
                     Toast.makeText(this, "Dirección no encontrada", Toast.LENGTH_SHORT).show()
                 }
@@ -364,7 +411,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         return LatLng(this.latitude, this.longitude)
     }
 
-    // Método para solicitar la ruta y dibujarla
     private fun requestRouteFromCurrentLocation(map: GoogleMap, waypoints: List<LatLng>, color: Int) {
         thread {
             val url = URL(buildRouteUrl(waypoints))
@@ -382,10 +428,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 decodePoly(points).forEach {
                     polylineOptions.add(it)
                 }
-                polylineOptions.width(10f)
+                polylineOptions.width(10f).color(color)
 
                 runOnUiThread {
-                    drawRouteOnMap(map, polylineOptions, color)
+                    // Si currentPolyline es null, significa que es la primera vez que se dibuja la ruta
+                    if (currentPolyline == null) {
+                        currentPolyline = map.addPolyline(polylineOptions)
+                    } else {
+                        // Si currentPolyline no es null, actualiza sus puntos con la nueva ruta
+                        currentPolyline?.points = polylineOptions.points
+                    }
                 }
             } else {
                 runOnUiThread {
