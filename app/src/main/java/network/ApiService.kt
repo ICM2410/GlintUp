@@ -7,6 +7,7 @@ import models.User
 import models.availabilityResponse
 import models.availabilityState
 import models.availabilityStateRequest
+import models.chatResponse
 import models.likeRequest
 import models.matchResponse
 import models.messageRequest
@@ -74,7 +75,7 @@ interface ApiService {
 
     @Authorized
     @GET("chat/")
-    fun getChats():Call<proximityResponse>
+    fun getChats():Call<chatResponse>
 
 
     @Authorized

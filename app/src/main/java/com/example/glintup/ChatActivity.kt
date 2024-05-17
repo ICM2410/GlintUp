@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import classes.ActivosAdapter
 import com.example.glintup.databinding.ActivityChatBinding
 import models.User
+import models.chatResponse
 import models.proximityResponse
 import network.RetrofitClient
 import retrofit2.Call
@@ -138,17 +139,19 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
 
     private fun getChats(){
         RetrofitClient.create(applicationContext).getChats().enqueue(object
-            :Callback<proximityResponse> {
+            :Callback<chatResponse> {
                 override fun onResponse(
-                    call: Call<proximityResponse>,
-                    response: Response<proximityResponse>
+                    call: Call<chatResponse>,
+                    response: Response<chatResponse>
                 ) {
                     val respuesta = response.body()?.users
+                    val chats = response.body()?.chats
+                    Log.i("MOTHER FUCKER", chats.toString())
                     Log.i("MOTHER FUCKER", respuesta.toString())
                     adapter.setUsers(respuesta)
                 }
 
-                override fun onFailure(call: Call<proximityResponse>, t: Throwable) {
+                override fun onFailure(call: Call<chatResponse>, t: Throwable) {
                     Toast.makeText(this@ChatActivity, "Error en la conexión", Toast.LENGTH_SHORT).show()
                 }
             })
