@@ -28,10 +28,10 @@ class ActivosAdapter(private val context: Context, private val buttonClickListen
     inner class UserViewHolder(private val binding: DisponiblestrowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: testingUser) {
             binding.apply {
-                nombre.text = "${user.name}"
+                nombre.text = "${user.user.name}"
 
                 // Verifica si la URL de la imagen de perfil no es nula antes de intentar establecerla en el ImageView
-                user.profile_picture?.let { imageUrl ->
+                user.user.profile_picture?.let { imageUrl ->
 
                     val id = getImageRequest(imageUrl[0])
                     RetrofitClient.create(context).fetchImage(id).enqueue(object :

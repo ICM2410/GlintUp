@@ -180,10 +180,10 @@ class ChatActivity : AppCompatActivity(), ActivosAdapter.OnButtonClickListener {
     }
 
     override fun onButtonClick(user: testingUser) {
-        intent!!.putExtra("id", user._id)
-        intent!!.putExtra("nombre", user.name)
-        intent!!.putExtra("foto", user.profile_picture[0])
-        Log.i("ID desde Chat", user._id)
+        intent!!.putExtra("id", user.user._id)
+        intent!!.putExtra("nombre", user.user.name)
+        intent!!.putExtra("foto", user.user.profile_picture[0])
+        Log.i("ID desde Chat", user.user._id)
         biometricPrompt.authenticate(promptInfo)
     }
 }
