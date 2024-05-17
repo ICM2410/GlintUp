@@ -8,6 +8,7 @@
     tools:context=".PersonalChatActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/main_color"
@@ -23,11 +24,11 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="7.5dp"
             android:background="@color/trasparente"
+            android:contentDescription="@string/volverAtras"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?attr/homeAsUpIndicator"
-            app:tint="@color/black"
-            android:contentDescription="@string/volverAtras" />
+            app:tint="@color/black" />
 
         <ImageView
             android:id="@+id/imageView6"
@@ -68,19 +69,20 @@
             android:id="@+id/mapa"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:layout_constraintWidth_max="50dp"
-            app:layout_constraintHeight_max="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="50dp"
             app:layout_constraintHorizontal_bias="0.792"
             app:layout_constraintStart_toEndOf="@+id/nombre"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.454"
+            app:layout_constraintWidth_max="50dp"
             app:srcCompat="@drawable/mapa" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
         android:layout_height="86dp"
         android:background="@color/main_color"
@@ -94,12 +96,12 @@
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:paddingEnd="30dp"
             android:background="@drawable/blanco_redondeado_bg"
             android:ems="15"
             android:hint="@string/escribe"
             android:inputType="text"
             android:paddingStart="10dp"
+            android:paddingEnd="30dp"
             android:textColorHint="@color/gris"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,12 +116,21 @@
             android:layout_height="50dp"
             android:layout_marginEnd="16dp"
             android:background="@color/trasparente"
+            android:contentDescription="@string/enviar_mensaje"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_send"
 
-        android:contentDescription="@string/enviar_mensaje" />
+            app:srcCompat="@android:drawable/ic_menu_send" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.496" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
