@@ -79,7 +79,7 @@ interface ApiService {
 
 
     @Authorized
-    @POST("chat/")
+    @POST("message/")
     fun createMessage(@Body request: messageRequest):Call<defaultResponse>
 
 }
